@@ -8,6 +8,7 @@
 [![Python Version](https://img.shields.io/pypi/pyversions/nova-forge)](https://pypi.org/project/nova-forge/)
 [![License](https://img.shields.io/badge/license-MIT-green)](https://github.com/eagleye-china/Nova-Forge/blob/main/LICENSE)
 [![GitHub Stars](https://img.shields.io/github/stars/eagleye-china/Nova-Forge?style=social)](https://github.com/eagleye-china/Nova-Forge)
+📖 **[Read the Full User Guide (USAGE.md)](https://github.com/eagleye-china/Nova-Forge/blob/main/docs/USAGE.md)**
 
 **Nova-Forge** 是一款专为现代 Python 桌面应用打造的极速 CLI 脚手架工具。
 
