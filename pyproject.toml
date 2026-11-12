@@ -1,0 +1,46 @@
+[build-system]
+requires = ["setuptools>=77", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pyside-nova"
+version = "0.1.0a"
+description = "Nova: enterprise Qt Quick(QML) component library for PySide6 - same design spec as pyside-quasar, built for HMI and touch screens."
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "eagleye-china" }]
+keywords = ["pyside6", "qml", "qtquick", "qt", "gui", "components", "material", "hmi", "quasar"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Framework :: PySide6",
+    "Topic :: Software Development :: User Interfaces",
+    "Operating System :: OS Independent",
+]
+dependencies = ["PySide6>=6.5"]
+
+[project.urls]
+Homepage = "https://github.com/eagleye-china/pyside-nova"
+Documentation = "https://eagleye-china.github.io/pyside-nova/"
+Changelog = "https://github.com/eagleye-china/pyside-nova/blob/main/CHANGELOG.md"
+"Bug Tracker" = "https://github.com/eagleye-china/pyside-nova/issues"
+
+[project.optional-dependencies]
+dev = ["pytest>=7", "pytest-qt>=4", "ruff>=0.5", "build>=1", "twine>=5"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+pyside_nova = [
+    "py.typed",
+    "qml/Nova/qmldir",
+    "qml/Nova/*.qml",
+    "assets/icons/*.svg",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+markers = ["gui: 需要 QGuiApplication / 无头显示环境的 GUI 测试"]

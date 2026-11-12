@@ -1,0 +1,9 @@
+module Nova
+
+singleton Theme 1.0 Theme.qml
+singleton Units 1.0 Units.qml
+
+NovaButton 1.0 NovaButton.qml
+
+# 新增组件时在此登记，格式：<QML类型名> <版本> <文件名>
+# 例如：NovaCard 1.0 NovaCard.qml

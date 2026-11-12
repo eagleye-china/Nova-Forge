@@ -1,0 +1,66 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  lint-test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.10", "3.11", "3.12"]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+
+      - name: 安装系统依赖（Qt 运行库 + 无头显示）
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends libegl1 libgl1 libxkbcommon-x11-0 xvfb
+
+      - name: 安装包与开发依赖
+        run: pip install -e ".[dev]"
+
+      - name: 主题生成物与 token 一致性校验
+        run: python tools/gen_theme.py --check
+
+      - name: ruff format 校验
+        run: ruff format --check src tests examples tools
+
+      - name: ruff lint
+        run: ruff check src tests examples tools
+
+      - name: QML 静态检查（qmllint）
+        continue-on-error: true   # 首版先观察，规则稳定后移除该行，转为硬闸门
+        run: pyside6-qmllint -I src/pyside_nova/qml src/pyside_nova/qml/Nova/*.qml
+
+      - name: 单元测试（无头）
+        run: xvfb-run -a pytest -v
+
+      - name: 构建发行包
+        run: python -m build
+
+      - name: 校验包元信息
+        run: twine check dist/*
+
+      - name: 校验 wheel 内 QML 资源完整性
+        run: |
+          python - <<'PY'
+          import glob, zipfile, sys
+          wheel = glob.glob("dist/*.whl")[0]
+          names = zipfile.ZipFile(wheel).namelist()
+          need = ["qml/Nova/qmldir", "qml/Nova/Theme.qml", "qml/Nova/Units.qml", "qml/Nova/NovaButton.qml"]
+          missing = [n for n in need if not any(x.endswith(n) for x in names)]
+          if missing:
+              print("wheel 缺少 QML 资源:", missing)
+              sys.exit(1)
+          print("QML 资源完整:", len(names), "个条目")
+          PY

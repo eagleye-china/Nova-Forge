@@ -1,0 +1,6 @@
+recursive-include src/pyside_nova/qml *
+recursive-include src/pyside_nova/assets *
+include src/pyside_nova/py.typed
+include README.md
+include CHANGELOG.md
+include LICENSE
