@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools>=68.2", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "nova-forge"
+version = "0.1.0"
+description = "The ultimate project forging tool for PySide6 ecosystems. Scaffold enterprise-grade architectures in seconds."
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+authors = [{ name = "eagleye-china", email = "zdt168@sina.cn" }]
+classifiers = [
+    "Programming Language :: Python :: 3.10",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Environment :: Console",
+    "Topic :: Software Development :: Code Generators",
+]
+# ✅ 补全依赖，因为生成的脚本需要 build 和 twine 来发版
+dependencies = [
+    "build>=1.0.0",
+    "twine>=5.0.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/eagleye-china/Nova-Forge"
+Repository = "https://github.com/eagleye-china/Nova-Forge"
+Issues = "https://github.com/eagleye-china/Nova-Forge/issues"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["nova_forge*"]
+
+# ✅ 核心：注册全局命令
+[project.scripts]
+nova-forge = "nova_forge.cli:main"

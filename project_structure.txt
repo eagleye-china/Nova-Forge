@@ -1,0 +1,19 @@
+Nova-Forge/
+├── src/
+│   └── nova_forge/
+│       ├── __init__.py          # 暴露包版本
+│       ├── cli.py               # 🚀 CLI 总入口（命令行调度中心）
+│       ├── core/
+│       │   ├── __init__.py
+│       │   ├── scaffolder.py    # 🛠️ 生成 pyproject, README, License, git 脚本等
+│       │   ├── tree_builder.py  # 🌲 解析 project_structure.txt 并建目录
+│       │   └── templates.py     # 📄 集中存放所有的字符串模版（防截断）
+│       └── assets/
+│           └── example_structure.txt # 给用户的示例结构树文件
+├── examples/
+│   └── basic_usage.py
+├── .gitignore
+├── LICENSE
+├── README.md
+├── README_zh.md
+└── pyproject.toml               # 打包与 CLI 脚本绑定配置
