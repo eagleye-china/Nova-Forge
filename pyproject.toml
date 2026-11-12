@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "nova-forge"
-version = "0.1.1"
+version = "0.1.2"
 description = "The ultimate project forging tool for PySide6 ecosystems. Scaffold enterprise-grade architectures in seconds."
 readme = "README.md"
 requires-python = ">=3.10"
@@ -20,6 +20,7 @@ classifiers = [
 dependencies = [
     "build>=1.0.0",
     "twine>=5.0.0",
+    "tomli>=2.0.0; python_version < '3.11'", # ✅ 加这行，完美适配 3.10
 ]
 
 [project.urls]
