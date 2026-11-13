@@ -1,18 +1,23 @@
+# .github/workflows/publish.yml
+
 name: Publish to PyPI
 
 on:
   push:
     tags:
-      - 'v*'  # 当推送 v0.1.0 这样的 Tag 时触发
+      - 'v*'
+  workflow_dispatch:  # ✅ 与 push 同级，支持在 GitHub Actions 页面手动触发
 
 jobs:
   build-and-publish:
     runs-on: ubuntu-latest
-    environment: pypi  # ✅ 对应你在 PyPI 页面填写的环境名
+    environment: pypi
     permissions:
-      id-token: write  # ✅ 核心权限，用于获取 OIDC 令牌
+      id-token: write  # ✅ 必须，用于 OIDC 免密发布
+
     steps:
-    - uses: actions/checkout@v4
+    - name: Checkout repository
+      uses: actions/checkout@v4
 
     - name: Set up Python
       uses: actions/setup-python@v5
