@@ -1,5 +1,4 @@
 # src/nova_forge/__init__.py
-# -*- coding: utf-8 -*-
 import sys
 from pathlib import Path
 
@@ -14,12 +13,12 @@ try:
     with open(_pyproject_path, "rb") as f:
         _data = tomllib.load(f)
         __version__ = _data["project"]["version"]
-except Exception:
-    from importlib.metadata import version, PackageNotFoundError
+except Exception:  # noqa
+    from importlib.metadata import PackageNotFoundError, version
 
     try:
         __version__ = version("nova-forge")
     except PackageNotFoundError:
-        __version__ = "0.1.0"
+        __version__ = "unknown"
 
 __all__ = ["__version__"]

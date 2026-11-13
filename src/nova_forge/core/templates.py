@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 Nova-Forge 模版库
 集中管理所有的文件生成模版，保持 scaffolder.py 的整洁。
@@ -234,115 +233,25 @@ dist/
 venv/
 """
 
-# ==================== init_git.py ====================
-INIT_GIT_TMPL = """import os
-import re
-import subprocess
-import sys
-from pathlib import Path
+# ==================== HOW_TO_PUBLISH.md (OIDC 绑定指南) ====================
+HOW_TO_PUBLISH_TMPL = """# 🚀 How to Publish to PyPI (Trusted Publishing)
 
-GITHUB_USER = "$GITHUB_USER"
+本项目已自动配置了 **OIDC Trusted Publishing**（免密安全发版）。
+你不需要在 GitHub 里存任何密码（API Token），只需在 PyPI 网页端完成一次绑定：
 
-def run(cmd, ignore_error=False):
-    print(f"👉 正在执行: {' '.join(cmd)}")
-    result = subprocess.run(cmd, capture_output=True, text=True)
-    if result.returncode != 0 and not ignore_error:
-        print(f"❌ 错误: {result.stderr}")
-        raise RuntimeError(result.stderr)
-    if result.stdout.strip():
-        print(result.stdout.strip())
-    return result
+1. 登录 PyPI，访问 [Publishing 设置页](https://pypi.org/manage/account/publishing/)。
+2. 找到 **"Add a new pending publisher"** 并填写以下信息（请严格区分大小写）：
+   - **PyPI Project Name**: `$PROJECT_NAME`
+   - **Owner**: `$GITHUB_USER`
+   - **Repository name**: `$REPO_NAME`
+   - **Workflow name**: `publish.yml`
+   - **Environment name**: `pypi`
+3. 点击保存。
 
-def get_project_info():
-    current_dir = Path.cwd()
-    # ✅ 修复：直接使用生成时写死的 REPO_NAME，防止路径错乱
-    repo_name = "$REPO_NAME"
-    project_name = "$PROJECT_NAME"
-    version = "0.1.0"
-    toml_path = current_dir / "pyproject.toml"
-    if toml_path.exists():
-        with open(toml_path, "r", encoding="utf-8") as f:
-            content = f.read()
-            # ✅ 修复正则转义问题
-            name_match = re.search(r'name\s*=\s*["\']([^"\']+)["\']', content)
-            if name_match: project_name = name_match.group(1)
+完成上述配置后，在本地打上 Git Tag 并推送，即可触发 GitHub Actions 全自动发版：
 
-            version_match = re.search(r'version\s*=\s*["\']([^"\']+)["\']', content)
-            if version_match: version = version_match.group(1)
-    return repo_name, project_name, version
-
-def main():
-    repo_name, project_name, version = get_project_info()
-    remote_url = f"git@github.com:{GITHUB_USER}/{repo_name}.git"
-    tag_name = f"v{version}"
-
-    print(f"🚀 开始自动初始化并发布【{project_name}】 (v{version})...")
-
-    if not os.path.exists(".git"):
-        run(["git", "init"])
-        run(["git", "branch", "-M", "main"])
-        run(["git", "config", "core.autocrlf", "false"])
-        run(["git", "add", "."])
-        run(["git", "commit", "-m", f"feat: initial release of {project_name} v{version}"])
-        print("✅ 本地 Git 初始化完成！")
-    else:
-        print("✅ 已检测到 Git 仓库，跳过初始化。")
-
-    try:
-        remotes = subprocess.run(["git", "remote"], capture_output=True, text=True).stdout
-        if "origin" not in remotes:
-            run(["git", "remote", "add", "origin", remote_url])
-            print(f"✅ 已关联远程仓库: {remote_url}")
-        else:
-            current_url = subprocess.run(["git", "remote", "get-url", "origin"], capture_output=True, text=True).stdout.strip()
-            if current_url != remote_url:
-                run(["git", "remote", "set-url", "origin", remote_url])
-                print(f"✅ 已更新远程仓库地址: {remote_url}")
-            else:
-                print(f"✅ 远程仓库已配置正确，无需修改。")
-    except Exception as e:
-        print(f"❌ 配置远程仓库失败: {e}")
-
-    print("\\n📤 正在推送代码到 GitHub...")
-    try:
-        run(["git", "push", "-f", "-u", "origin", "main"])
-        print("✅ 代码推送成功！")
-    except RuntimeError:
-        print("❌ 推送失败，请检查 SSH Key 或网络连接！")
-        sys.exit(1)
-
-    print(f"\\n🏷️ 准备发布版本 {tag_name}...")
-    try:
-        tags = subprocess.run(["git", "tag"], capture_output=True, text=True).stdout
-        if tag_name not in tags.split():
-            run(["git", "tag", tag_name])
-            print(f"✅ 标签 {tag_name} 创建成功。")
-        else:
-            print(f"✅ 标签 {tag_name} 已存在。")
-        run(["git", "push", "origin", tag_name])
-        print(f"🚀 标签 {tag_name} 推送成功！GitHub Actions 发版流水线已触发！")
-    except Exception as e:
-        print(f"❌ 标签推送失败: {e}")
-
-    print("\\n🎉 全自动发布流程结束！请前往 GitHub 的 Actions 页面查看发版进度。")
-
-if __name__ == "__main__":
-    main()
-"""
-
-# ==================== build_prod.bat ====================
-BUILD_PROD_TMPL = """@echo off
-chcp 65001 >nul
-echo =========================================
-echo       $PROJECT_NAME 打包与发布
-echo =========================================
-
-if exist dist rmdir /s /q dist
-if exist build rmdir /s /q build
-if exist src\\*.egg-info rmdir /s /q src\\*.egg-info
-
-python -m build
-python -m twine check dist/*
-python -m twine upload dist/*
-pause
+${CB}bash
+git tag v0.1.0
+git push origin v0.1.0
+${CB}
 """

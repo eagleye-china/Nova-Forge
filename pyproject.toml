@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "nova-forge"
-version = "0.1.3"
+version = "0.2.0a"
 description = "The ultimate project forging tool for PySide6 ecosystems. Scaffold enterprise-grade architectures in seconds."
 readme = "README.md"
 requires-python = ">=3.10"

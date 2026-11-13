@@ -1,13 +1,15 @@
-# -*- coding: utf-8 -*-
+# src/nova_forge/core/tree_builder.py
 """
-Nova Tree 🌲
-============
-项目目录结构生成器 (完美防套娃、智能识别版)
-根据同目录下的 `project_structure.txt`，一键生成完整的工程目录。
+Nova Tree 🌲 (双向同步终极版)
+============================
+1. 根据 `project_structure.txt` 创建缺失的目录。
+2. 自动扫描当前真实目录，如果发现磁盘上的文件比 txt 新/多，则反向修正 txt 文件。
 """
+import fnmatch
 import re
 from dataclasses import dataclass, field
 from pathlib import Path
+from typing import ClassVar
 
 
 # ==========================================
@@ -41,11 +43,11 @@ class BuildResult:
 
 
 # ==========================================
-# 🔍 结构解析器
+# 🔍 结构解析器 (TXT -> Node)
 # ==========================================
 class StructureParser:
     _TREE_MARKERS = ("├── ", "└── ", "├─ ", "└─ ", "|--- ", "|-- ", "└─ ")
-    _INDENT_CHARS = set("│ ├└─|")
+    _INDENT_CHARS: ClassVar[set[str]] = set("│ ├└─|")
 
     def parse(self, text: str) -> list[Node]:
         roots: list[Node] = []
@@ -121,7 +123,78 @@ class StructureParser:
 
 
 # ==========================================
-# 🛠️ 项目构建器
+# 🌲 目录提取器 (Disk -> TXT)
+# (从 UI 中完美剥离出来的纯 Python 核心)
+# ==========================================
+class TreeGenerator:
+    def __init__(self, ignore_dirs=None, ignore_files=None):
+        if ignore_dirs is None:
+            ignore_dirs = {
+                ".git", "__pycache__", "venv", ".venv",
+                "build", "dist", ".pytest_cache", ".mypy_cache",
+                ".idea", ".vscode"
+            }
+        if ignore_files is None:
+            ignore_files = {".DS_Store", "Thumbs.db", "*.pyc", "*.pyo", "*.bak"}
+        self.ignore_dirs = set(ignore_dirs)
+        self.ignore_files = set(ignore_files)
+        self.image_extensions = {"*.png", "*.jpg", "*.jpeg", "*.gif", "*.svg", "*.ico", "*.webp"}
+
+    def _is_ignored_file(self, name: str) -> bool:
+        return any(fnmatch.fnmatch(name, pattern) for pattern in self.ignore_files)
+
+    def generate_tree_text(self, root_path: Path, show_files: bool = True, show_hidden: bool = False,
+                           ignore_images: bool = True) -> str:
+        if not root_path.exists() or not root_path.is_dir():
+            return "❌ 无效的项目目录！"
+
+        lines = [root_path.name + "/"]
+
+        current_ignore = self.ignore_files.copy()
+        if ignore_images:
+            current_ignore.update(self.image_extensions)
+
+        self._walk(root_path, "", lines, show_files, show_hidden, current_ignore)
+        return "\n".join(lines)
+
+    def _walk(self, current: Path, prefix: str, lines: list, show_files: bool, show_hidden: bool, ignore_rules: set):
+        try:
+            entries = list(current.iterdir())
+        except PermissionError:
+            return
+
+        entries.sort(key=lambda _p: (not _p.is_dir(), _p.name.lower()))
+        filtered = []
+
+        for p in entries:
+            name = p.name
+            if not show_hidden and name.startswith("."):
+                continue
+            if p.is_dir() and name in self.ignore_dirs:
+                continue
+            if p.is_file():
+                if any(fnmatch.fnmatch(name, pattern) for pattern in ignore_rules):
+                    continue
+                if not show_files:
+                    continue
+            filtered.append(p)
+
+        count = len(filtered)
+        for idx, path in enumerate(filtered):
+            is_last = (idx == count - 1)
+            connector = "└── " if is_last else "├── "
+            name = path.name
+            if path.is_dir():
+                name += "/"
+            lines.append(prefix + connector + name)
+
+            if path.is_dir():
+                new_prefix = prefix + ("    " if is_last else "│   ")
+                self._walk(path, new_prefix, lines, show_files, show_hidden, ignore_rules)
+
+
+# ==========================================
+# 🛠️ 项目构建器 (Node -> Disk)
 # ==========================================
 class ProjectBuilder:
     def build(self, roots: list[Node], target: Path):
@@ -129,24 +202,22 @@ class ProjectBuilder:
         target = Path(target).resolve()
 
         current_dir_name = target.name
-        nodes_to_walk = []
         real_root = target
 
-        # ✅ 核心逻辑 1：智能防套娃
+        # ✅ 智能防套娃
         if len(roots) == 1 and roots[0].is_dir:
             if roots[0].name == current_dir_name:
-                print(f"🔍 检测到当前目录名与根节点名一致 ('{current_dir_name}')，跳过根目录创建，直接生成子结构。")
+                print("🔍 检测到根节点名与当前目录一致，跳过根目录创建。")
                 nodes_to_walk = roots[0].children
             else:
-                print(f"🔍 根节点名 ('{roots[0].name}') 与当前目录 ('{current_dir_name}') 不一致，将创建新根节点。")
+                print("🔍 根节点名不一致，将创建新根节点: {roots[0].name}")
                 real_root = target / roots[0].name
                 real_root.mkdir(parents=True, exist_ok=True)
                 nodes_to_walk = roots[0].children
         else:
-            print(f"🔍 检测到多个顶级节点或散落文件，直接在当前目录生成。")
+            print("🔍 检测到多个顶级节点或散落文件，直接生成。")
             nodes_to_walk = roots
 
-        # 1. 递归生成节点
         for node in nodes_to_walk:
             self._create_node(node, real_root, result)
 
@@ -162,7 +233,7 @@ class ProjectBuilder:
             else:
                 result.skipped.append(path)
 
-            # 自动补全 __init__.py (如果是 Python 包且有子节点)
+            # 自动补全 __init__.py
             if node.children and not any(c.name == "__init__.py" for c in node.children):
                 init_file = path / "__init__.py"
                 self._write_file(init_file, "", result)
@@ -184,49 +255,44 @@ class ProjectBuilder:
         try:
             path.write_text(content, encoding="utf-8")
             result.created_files.append(path)
-        except Exception as e:
+        except Exception as e:# noqa: BLE001
             result.failed.append((path, str(e)))
 
     @staticmethod
     def _default_content(path: Path) -> str:
         name = path.name
         suffix = path.suffix.lower()
-
         if name == "__init__.py": return ""
-        if suffix == ".py":
-            return f'# -*- coding: utf-8 -*-\n# {path.stem}.py\n\n'
-        if suffix == ".md":
-            return f"# {path.stem}\n\n> 文档生成中...\n"
-        if suffix == ".qrc":
-            return '<RCC>\n    <qresource prefix="/">\n    </qresource>\n</RCC>\n'
-        if suffix == ".qml":
-            return 'import QtQuick\n\nItem {\n    width: 100\n    height: 100\n}\n'
+        if suffix == ".py": return f'# -*- coding: utf-8 -*-\n# {path.stem}.py\n\n'
+        if suffix == ".md": return f"# {path.stem}\n\n> 文档生成中...\n"
+        if suffix == ".qrc": return '<RCC>\n    <qresource prefix="/">\n    </qresource>\n</RCC>\n'
+        if suffix == ".qml": return 'import QtQuick\n\nItem {\n    width: 100\n    height: 100\n}\n'
         return ""
 
 
 # ==========================================
-# 🚀 主程序入口
+# 🚀 主程序入口 (安全解耦版)
 # ==========================================
-# ==========================================
-# 🚀 主程序入口 (改造为可传参函数)
-# ==========================================
-def run_tree_builder(file_path: Path):
-    # 确保传入的是 Path 对象
+def run_tree_builder(file_path: Path, sync_mode: bool = False):
     file_path = Path(file_path)
+    generator = TreeGenerator()
 
-    # ✅ 核心逻辑 2：空文件与缺失检测
-    if not file_path.exists():
-        print(f"❌ 错误: 找不到 [{file_path.name}] 文件！")
-        print("💡 请先创建该文件并填入目录树。")
+    # 【场景 1】反向同步模式 (仅当用户显式要求 --sync 时)
+    if sync_mode:
+        print("🔄 启动反向同步：扫描当前磁盘结构，覆盖 TXT 文件...")
+        text = generator.generate_tree_text(Path.cwd(), ignore_images=True)
+        file_path.write_text(text, encoding="utf-8")
+        print(f"✅ 磁盘结构已成功写入 [{file_path.name}]！")
+        return
+
+    # 【场景 2】正向生成模式 (默认行为，安全、不碰 TXT)
+    if not file_path.exists() or not file_path.read_text(encoding="utf-8").strip():
+        print(f"❌ 错误: [{file_path.name}] 不存在或内容为空！")
+        print("💡 请先填入目录树，或使用 `nova-forge tree --sync` 从当前磁盘反向生成。")
         return
 
     content = file_path.read_text(encoding="utf-8").strip()
-    if not content:
-        print(f"❌ 错误: [{file_path.name}] 文件内容为空！")
-        print("💡 请写入类似以下的格式：\n项目名/\n├── src/\n│   └── main.py")
-        return
-
-    print("🔥 启动 Nova Tree 终极结构生成器...\n")
+    print("🔥 启动正向生成：根据 TXT 创建缺失的目录和文件...\n")
 
     parser = StructureParser()
     roots = parser.parse(content)
@@ -246,3 +312,5 @@ def run_tree_builder(file_path: Path):
         for path, err in result.failed:
             print(f"  - {path}: {err}")
     print("=" * 40)
+    print("\n💡 提示: 若你想把当前磁盘的最新结构反向保存到 TXT，请运行:")
+    print("    nova-forge tree --sync")
