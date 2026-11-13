@@ -16,7 +16,6 @@ classifiers = [
     "Environment :: Console",
     "Topic :: Software Development :: Code Generators",
 ]
-# ✅ 补全依赖，因为生成的脚本需要 build 和 twine 来发版
 dependencies = [
     "build>=1.0.0",
     "twine>=5.0.0",
