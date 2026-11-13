@@ -1,3 +1,5 @@
+# src/nova_forge/core/templates.py
+
 """
 Nova-Forge 模版库
 集中管理所有的文件生成模版，保持 scaffolder.py 的整洁。
@@ -18,7 +20,8 @@ PYPROJECT_TMPL = """# ==========================================================
 # 🚀 $PROJECT_NAME 企业级打包配置
 # ==========================================================
 [build-system]
-requires = ["setuptools>=68.2", "wheel"]
+# ✅ 升级到 >=77，完美支持 PEP 639 license-files 规范
+requires = ["setuptools>=77", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -174,7 +177,7 @@ try:
     with open(_pyproject_path, "rb") as f:
         _data = tomllib.load(f)
         __version__ = _data["project"]["version"]
-except Exception:
+except Exception:  # noqa: BLE001
     # 如果读不到，再尝试从已安装的包元数据读取（生产模式）
     from importlib.metadata import version, PackageNotFoundError
     try:
@@ -192,6 +195,7 @@ on:
   push:
     tags:
       - 'v*'
+  workflow_dispatch:  # ✅ 支持手动触发发版
 
 jobs:
   build-and-publish:
@@ -200,16 +204,20 @@ jobs:
     permissions:
       id-token: write
     steps:
-    - uses: actions/checkout@v4
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
     - name: Set up Python
       uses: actions/setup-python@v5
       with:
         python-version: '3.10'
+        
     - name: Build package
       run: |
         python -m pip install --upgrade pip
         pip install build
         python -m build
+        
     - name: Publish to PyPI
       uses: pypa/gh-action-pypi-publish@release/v1
 """
@@ -248,7 +256,7 @@ HOW_TO_PUBLISH_TMPL = """# 🚀 How to Publish to PyPI (Trusted Publishing)
    - **Environment name**: `pypi`
 3. 点击保存。
 
-完成上述配置后，在本地打上 Git Tag 并推送，即可触发 GitHub Actions 全自动发版：
+完成上述配置后，在本地打上 Git Tag 并推送，或者直接在 GitHub Actions 页面手动触发，即可全自动发版：
 
 ${CB}bash
 git tag v0.1.0
