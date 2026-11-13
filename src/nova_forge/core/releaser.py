@@ -25,6 +25,8 @@ def run_publish(commit_msg: str | None = None):
 
     run(["git", "add", "."])
     run(["git", "commit", "-m", commit_msg], ignore_error=True)
+    print("🔄 正在同步远程仓库最新变更...")
+    run(["git", "pull", "--rebase", "origin", "main"])
     run(["git", "push", "origin", "main"])
 
     tags = run(["git", "tag"]).stdout.split()
