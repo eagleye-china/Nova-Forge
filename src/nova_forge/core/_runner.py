@@ -17,6 +17,12 @@ def run(cmd, ignore_error=False, env=None):
         error_msg = ((result.stdout or "") + "\n" + (result.stderr or "")).strip()
         print(f"❌ 错误: {error_msg}")
         raise RuntimeError(error_msg)
+
     if result.stdout and result.stdout.strip():
         print(result.stdout.strip())
+    else:
+        # 如果没有输出，但返回码是 0，说明执行成功且静默
+        if result.returncode == 0:
+            print("✅ 指令执行成功 (无输出)")
+
     return result

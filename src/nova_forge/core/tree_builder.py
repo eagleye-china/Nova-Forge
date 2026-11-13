@@ -255,7 +255,7 @@ class ProjectBuilder:
         try:
             path.write_text(content, encoding="utf-8")
             result.created_files.append(path)
-        except Exception as e:# noqa: BLE001
+        except Exception as e:  # noqa: BLE001
             result.failed.append((path, str(e)))
 
     @staticmethod
