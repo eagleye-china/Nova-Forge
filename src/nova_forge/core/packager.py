@@ -1,3 +1,5 @@
+# src/nova_forge/core/packager.py
+
 import glob
 import os
 import shutil
