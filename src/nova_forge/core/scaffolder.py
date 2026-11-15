@@ -1,7 +1,6 @@
 # src/nova_forge/core/scaffolder.py
 
 import datetime
-import os
 from pathlib import Path
 from string import Template
 
@@ -35,19 +34,22 @@ def run_scaffolder():
     print("\n🔥 欢迎使用 Nova-Forge 终极项目锻造炉")
     print("=" * 60)
 
-    # 1. 交互式收集信息
-    app_type = ask("🖥️ 应用类型 (1: 桌面端, 2: 移动端)", "1")
-    is_mobile = (app_type == "2")
-
-    target_dir_str = ask("📂 项目完整绝对路径 (如 D:\\Projects\\MyApp)", "")
+    # 1. 先问路径 (符合直觉)
+    target_dir_str = ask("📂 项目完整绝对路径 (如 D:\\Projects\\AluBrain-Copilot)", "")
     if not target_dir_str:
         print("❌ 错误: 必须提供项目根目录路径！")
         return
 
     target_root = Path(target_dir_str).resolve()
-    force_overwrite = False
 
-    # 🚨 安全校验升级版：发现非空目录时，让用户决定如何处理
+    # 自动从路径提取项目名
+    folder_name = target_root.name
+    if not folder_name:
+        print("❌ 错误: 无效的项目路径！")
+        return
+
+    force_overwrite = False
+    # 🚨 安全校验：发现非空目录时，让用户决定如何处理
     if target_root.exists() and any(target_root.iterdir()):
         print(f"\n⚠️  警告: 目录 {target_root} 已存在且非空！")
         print("请选择如何处理已存在的同名文件：")
@@ -65,23 +67,27 @@ def run_scaffolder():
         else:
             print("✅ 已启用【跳过模式】，同名文件将被安全保留。")
 
-    # ✅ 核心修复：模块名严格等于目录名；包名和仓库名提供智能默认值
-    module_name = target_root.name.lower().replace(" ", "_").replace("-", "_")
+    # 2. 再问应用类型
+    app_type = ask("🖥️ 应用类型 (1: 桌面端, 2: 移动端)", "1")
+    is_mobile = (app_type == "2")
+
+    # ✅ 智能默认值：全部由 folder_name 派生
+    default_project_name = folder_name.lower().replace(" ", "-").replace("_", "-")
+    default_repo_name = folder_name.replace(" ", "")
+    module_name = folder_name.lower().replace("-", "_").replace(" ", "_")
 
     if is_mobile:
-        default_project_name = "nova-mobile"
-        default_repo_name = "Nova-Mobile"
         default_desc_en = "A stunning, GPU-accelerated mobile application for PySide6."
         default_desc_zh = "基于 PySide6 和 QML 打造的炫酷移动端应用框架。"
     else:
-        default_project_name = target_root.name.lower().replace(" ", "-")
-        default_repo_name = target_root.name.replace(" ", "")
         default_desc_en = DEFAULT_DESC_EN
         default_desc_zh = DEFAULT_DESC_ZH
 
-    project_name = ask("📦 项目名 (PyPI包名, 如 nova-chat)", default_project_name)
-    repo_name = ask("📁 GitHub仓库名 (如 Nova-Agent)", default_repo_name)
-    github_user = ask("👤 GitHub用户名", DEFAULT_GITHUB_USER)
+    print(f"\n✨ 识别到项目名: {folder_name} (包名将自动设为: {default_project_name})")
+
+    project_name = ask("📦 PyPI 包名 (如 alubrain-copilot)", default_project_name)
+    repo_name = ask("📁 GitHub 仓库名 (如 AluBrain-Copilot)", default_repo_name)
+    github_user = ask("👤 GitHub 用户名", DEFAULT_GITHUB_USER)
     real_name = ask("✍️ 真实姓名 (用于 LICENSE)", DEFAULT_REAL_NAME)
     desc_en = ask("🇬🇧 英文描述", default_desc_en)
     desc_zh = ask("🇨🇳 中文描述", default_desc_zh)
@@ -101,7 +107,7 @@ def run_scaffolder():
         "YEAR": year,
         "MONTH": month,
         "DAY": day,
-        "MODULE_NAME": module_name,  # 这里的 module_name 现在等于 safety_monitor
+        "MODULE_NAME": module_name,
         "DEPS": DEFAULT_DEPS,
         "CB": CB
     }
@@ -144,7 +150,7 @@ def run_scaffolder():
 
     print("\n🚀 开始锻造企业级项目骨架...\n")
 
-    # 2. 生成公共配置与文档
+    # 3. 生成公共配置与文档
     write_file("pyproject.toml", PYPROJECT_TMPL)
     write_file("LICENSE", LICENSE_TMPL)
     write_file(".gitignore", GITIGNORE_TMPL)
@@ -154,7 +160,7 @@ def run_scaffolder():
     write_file("HOW_TO_PUBLISH.md", HOW_TO_PUBLISH_TMPL)
     write_file(".github/workflows/publish.yml", WORKFLOW_TMPL)
 
-    # 3. 差异化生成骨架结构
+    # 4. 差异化生成骨架结构
     if not is_mobile:
         # === 桌面端布局 ===
         write_file("src/$MODULE_NAME/__init__.py", INIT_PY_TMPL)
@@ -171,7 +177,7 @@ def run_scaffolder():
         write_file("src/$MODULE_NAME/qml/main.qml", MOBILE_MAIN_QML_TMPL)
         print("📱 已生成【移动端】专属 src 布局。")
 
-    # 默认生成空的 project_structure.txt
+    # 默认生成空的 project_structure.txt 便于后续 tree 指令
     if not (target_root / "project_structure.txt").exists():
         (target_root / "project_structure.txt").touch()
         print("📄 已生成: project_structure.txt (空文件)")
