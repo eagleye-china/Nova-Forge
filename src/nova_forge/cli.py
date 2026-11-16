@@ -5,9 +5,10 @@ from pathlib import Path
 
 from .core.packager import run_package
 from .core.releaser import run_publish, run_git_only
-from .core.scaffolder import run_scaffolder  # 交互式脚手架
-from .core.renamer import run_renamer  # ✅ 新增：重命名引擎
+from .core.scaffolder import run_scaffolder
+from .core.renamer import run_renamer
 from .core.tree_builder import run_tree_builder
+from .core.apk_builder import run_apk_build_interactive  # ✅ 导入无感打包模块
 
 
 def main():
@@ -17,7 +18,7 @@ def main():
     # 命令 1: 交互式脚手架
     subparsers.add_parser("scaffold", help="🏗️ 交互式创建全新的桌面端/移动端项目")
 
-    # ✅ 命令 2: 项目重命名
+    # 命令 2: 项目重命名
     subparsers.add_parser("rename", help="🔄 一键重命名项目文件夹、包名与全局依赖引用")
 
     # 命令 3: 根据 txt 生成目录树
@@ -35,12 +36,15 @@ def main():
     # 命令 6: 纯本地传 PyPI
     subparsers.add_parser("pypi", help="纯本地发版：一键清理、打包、校验并直传 PyPI")
 
+    # ✅ 命令 7: 一键 APK 打包 (无参数，直接交互)
+    subparsers.add_parser("apk", help="📱 自动化打包：将项目移交 WSL 2 一键编译生成 Android APK")
+
     args = parser.parse_args()
 
     if args.command == "scaffold":
         run_scaffolder()
     elif args.command == "rename":
-        run_renamer()  # ✅ 路由分发
+        run_renamer()
     elif args.command == "tree":
         run_tree_builder(Path(args.file))
     elif args.command == "publish":
@@ -49,6 +53,8 @@ def main():
         run_git_only(args.message)
     elif args.command == "pypi":
         run_package()
+    elif args.command == "apk":
+        run_apk_build_interactive()
     else:
         parser.print_help()
 
