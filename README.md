@@ -1,6 +1,6 @@
 # Nova-Forge 🛠️
 
-> **The ultimate project forging tool for PySide6 ecosystems. Scaffold enterprise-grade architectures in seconds.**
+> **The ultimate project forging tool for PySide6 ecosystems. Scaffold, deploy, and publish enterprise-grade applications in seconds.**
 
 **English** | [简体中文](https://github.com/eagleye-china/Nova-Forge/blob/main/README_zh.md)
 
@@ -8,17 +8,20 @@
 [![Python Version](https://img.shields.io/pypi/pyversions/nova-forge)](https://pypi.org/project/nova-forge/)
 [![License](https://img.shields.io/badge/license-MIT-green)](https://github.com/eagleye-china/Nova-Forge/blob/main/LICENSE)
 [![GitHub Stars](https://img.shields.io/github/stars/eagleye-china/Nova-Forge?style=social)](https://github.com/eagleye-china/Nova-Forge)
+
 📖 **[Read the Full User Guide (USAGE.md)](https://github.com/eagleye-china/Nova-Forge/blob/main/docs/USAGE.md)**
 
-**Nova-Forge** is a blazing-fast CLI scaffolding tool designed to eliminate the boilerplate of modern Python desktop applications. 
+**Nova-Forge** is a blazing-fast CLI tool designed to eliminate the boilerplate of modern Python desktop and mobile applications. 
 
-Stop copying and pasting `pyproject.toml`, fumbling with MIT licenses, or manually creating hundreds of folders. With a single command, Nova-Forge generates a complete, production-ready `src-layout` project equipped with CI/CD, bilingual docs, and PyPI packaging scripts.
+Stop copying and pasting `pyproject.toml`, fumbling with MIT licenses, or manually configuring WSL2 for Android deployment. With a single command, Nova-Forge generates complete architectures, automates Git/PyPI publishing, and cross-compiles Android APKs seamlessly on Windows.
 
-## ✨ Features
+## ✨ Core Features
 
-- 🚀 **`nova-forge init`**: Generates `pyproject.toml`, bilingual `README.md`, `LICENSE`, and a GitHub Actions workflow for automatic PyPI publishing.
+- 🏗️ **`nova-forge scaffold`**: Interactively creates a complete, production-ready desktop or mobile project equipped with CI/CD and bilingual docs.
+- 📱 **`nova-forge apk`**: **(Windows Only)** Zero-config Android APK builder. Automatically bridges Windows and WSL2, injecting NDK, Python environments, and dependencies to compile `.apk` files in one click.
 - 🌲 **`nova-forge tree`**: Builds an entire directory structure instantly from a simple text-based tree diagram.
-- 🤖 **AI-Ready**: Perfect for pairing with AI coding assistants (like DeepSeek or ChatGPT) to instantly materialize AI-generated architectures.
+- 🔄 **`nova-forge rename`**: Safely rename project folders, package names, and global references in one go.
+- 🚀 **`nova-forge publish` / `git` / `pypi`**: Enterprise-grade release pipelines. Automatically commit, push, tag, trigger GitHub Actions, or publish directly to PyPI.
 
 ## 📦 Installation
 
@@ -26,34 +29,27 @@ Stop copying and pasting `pyproject.toml`, fumbling with MIT licenses, or manual
 pip install nova-forge
 ```
 
-## 🛠️ Usage
+## 🛠️ Quick Start
 
-### 1. Initialize Project Configuration
-Run this in your empty project folder. It will interactively ask for your project details and generate all necessary metadata.
+### 1. Scaffold a New Project
+```bash
+nova-forge scaffold
+```
+Follow the interactive prompts. It will generate `pyproject.toml`, bilingual READMEs, a robust `.gitignore`, and GitHub Actions workflows.
+
+### 2. The Magic: One-Click Android APK
+If you are on Windows and developing a mobile app with PySide6, forget the nightmare of configuring WSL2, NDK, and Gradle manually. Just run:
 
 ```bash
-nova-forge init
+nova-forge apk
 ```
+*Enter your Windows project path, and Nova-Forge will automatically spin up WSL2, build the APK using the isolated Linux toolchain, copy the `.apk` back to your Windows folder, and gracefully shut down WSL to save memory.*
 
-### 2. Build Directory Structure
-Got a project layout from your AI architect? Paste it into `project_structure.txt`:
-
-```text
-my-awesome-app/
-├── src/
-│   └── my_awesome_app/
-│       ├── __init__.py
-│       └── main.py
-└── examples/
-```
-
-Then run:
-
+### 3. Generate Directory Structure
+Paste your layout into `project_structure.txt` and run:
 ```bash
 nova-forge tree
 ```
-
-*Boom! Your entire folder structure is created with auto-generated `__init__.py` and boilerplate code.*
 
 ## 📜 License
 
