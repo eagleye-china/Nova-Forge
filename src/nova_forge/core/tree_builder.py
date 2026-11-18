@@ -279,7 +279,7 @@ def run_tree_builder(file_path: Path, sync_mode: bool = False):
 
     # 【场景 1】反向同步模式 (仅当用户显式要求 --sync 时)
     if sync_mode:
-        print("🔄 启动反向同步：扫描当前磁盘结构，覆盖 TXT 文件...")
+        print("🔄 启动反向同步:扫描当前磁盘结构，覆盖 TXT 文件...")
         text = generator.generate_tree_text(Path.cwd(), ignore_images=True)
         file_path.write_text(text, encoding="utf-8")
         print(f"✅ 磁盘结构已成功写入 [{file_path.name}]！")
@@ -292,7 +292,7 @@ def run_tree_builder(file_path: Path, sync_mode: bool = False):
         return
 
     content = file_path.read_text(encoding="utf-8").strip()
-    print("🔥 启动正向生成：根据 TXT 创建缺失的目录和文件...\n")
+    print("🔥 启动正向生成:根据 TXT 创建缺失的目录和文件...\n")
 
     parser = StructureParser()
     roots = parser.parse(content)

@@ -69,7 +69,7 @@ def run_apk_build_interactive():
     is_ready, msg = check_wsl_prerequisites()
     if not is_ready:
         print(f"❌ [环境异常] {msg}")
-        print("💡 提示：请按照《Nova 安卓打包指南》确认基础环境。")
+        print("💡 提示:请按照《Nova 安卓打包指南》确认基础环境。")
         print("=" * 60 + "\n")
         return
 
@@ -84,7 +84,7 @@ def run_apk_build_interactive():
 
     win_path = os.path.abspath(win_path)
     if not os.path.exists(win_path):
-        print(f"❌ [Nova-Forge] 错误：指定的 Windows 路径不存在 -> {win_path}")
+        print(f"❌ [Nova-Forge] 错误:指定的 Windows 路径不存在 -> {win_path}")
         return
 
     print(f"\n🔄 [Nova-Forge] Windows 路径已锁定: {win_path}")
@@ -110,7 +110,7 @@ def run_apk_build_interactive():
             print("❌ [Nova-Forge] 打包过程中出现错误，请检查上方 WSL 日志。")
 
     except FileNotFoundError:
-        print("❌ [Nova-Forge] 错误：未找到 wsl 命令。请确保您的系统已安装并配置好 WSL2。")
+        print("❌ [Nova-Forge] 错误:未找到 wsl 命令。请确保您的系统已安装并配置好 WSL2。")
     except Exception as e:
         print(f"❌ [Nova-Forge] 发生未知异常: {e}")
     finally:

@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "nova-forge"
-version = "0.4.1"
+version = "0.4.2"
 description = "The ultimate project forging tool for PySide6 ecosystems. Scaffold enterprise-grade architectures in seconds."
 readme = "README.md"
 requires-python = ">=3.10"
@@ -31,6 +31,10 @@ Issues = "https://github.com/eagleye-china/Nova-Forge/issues"
 where = ["src"]
 include = ["nova_forge*"]
 
-# ✅ 核心：注册全局命令
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "N", "UP", "B", "C4", "SIM", "RUF"]
+ignore = ["E501", "E701", "RUF001", "RUF003", "RUF002"]
+
+# ✅ 核心:注册全局命令
 [project.scripts]
 nova-forge = "nova_forge.cli:main"

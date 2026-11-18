@@ -15,7 +15,7 @@ from nova_forge.core.tree_builder import run_tree_builder
 def main():
     print("🚀 这是一个编程式调用的示例。")
 
-    # 示例 1: 调用脚手架（注意：这会触发交互式提问）
+    # 示例 1: 调用脚手架（注意:这会触发交互式提问）
     # run_scaffolder()
 
     # 示例 2: 通过代码直接生成目录树
@@ -25,7 +25,7 @@ def main():
         print(f"发现 {tree_file.name}，开始生成目录...")
         run_tree_builder(tree_file)
     else:
-        print("💡 提示：请先创建一个 my_tree.txt 填入树形结构，然后再运行此脚本。")
+        print("💡 提示:请先创建一个 my_tree.txt 填入树形结构，然后再运行此脚本。")
 
 
 if __name__ == "__main__":

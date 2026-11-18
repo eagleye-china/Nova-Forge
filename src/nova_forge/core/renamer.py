@@ -49,7 +49,7 @@ def run_renamer():
     # 推导新路径（在同一个父目录下）
     new_root = old_root.parent / new_name
 
-    print(f"\n⚠️  即将执行以下操作：")
+    print(f"\n⚠️  即将执行以下操作:")
     print(f"  1. 根文件夹: {old_root.name} -> {new_name}")
     print(f"  2. PyPI 包名: {old_pypi_name} -> {new_pypi_name}")
     print(f"  3. Python 模块: src/{old_module} -> src/{new_module}")
@@ -69,7 +69,7 @@ def run_renamer():
         print(f"✅ 根文件夹已重命名为: {new_name}")
     except Exception as e:
         print(f"❌ 根文件夹重命名失败: {e}")
-        print("💡 提示：如果你的终端当前正处于该目录，请先 cd 退出去再执行！")
+        print("💡 提示:如果你的终端当前正处于该目录，请先 cd 退出去再执行！")
         return
 
     # 更新路径引用，后面都在新文件夹里操作
@@ -117,7 +117,7 @@ def run_renamer():
 
     print("\n" + "=" * 60)
     print(f"🎉 重命名大功告成！共修改了 {count} 个文件。")
-    print(f"👉 请执行以下命令继续开发：")
+    print(f"👉 请执行以下命令继续开发:")
     print(f"   cd {new_root}")
     print(f"   pip install -e .")
     print("=" * 60 + "\n")

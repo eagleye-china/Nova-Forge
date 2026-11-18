@@ -2,7 +2,7 @@ import subprocess
 
 
 def run(cmd, ignore_error=False, env=None):
-    """统一的子进程执行封装：强制 UTF-8，失败时打印 stdout+stderr。"""
+    """统一的子进程执行封装:强制 UTF-8，失败时打印 stdout+stderr。"""
     print(f"👉 正在执行: {' '.join(cmd)}")
     result = subprocess.run(
         cmd,

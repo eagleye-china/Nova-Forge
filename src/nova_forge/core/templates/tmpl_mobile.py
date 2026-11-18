@@ -11,7 +11,7 @@ from PySide6.QtCore import QUrl
 def main() -> int:
     app = QGuiApplication(sys.argv)
 
-    # ✅ 移动端特有设置：锁定屏幕方向（如竖屏）
+    # ✅ 移动端特有设置:锁定屏幕方向（如竖屏）
     # from PySide6.QtCore import Qt
     # app.setAttribute(Qt.ApplicationAttribute.AA_Use96Dpi) # 可选
 

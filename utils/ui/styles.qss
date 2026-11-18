@@ -1,0 +1,236 @@
+/* =======================================================
+   企业级开发工具箱 - 全局极客暗黑主题
+   ======================================================= */
+
+QMainWindow {
+    background-color: #1E272E;
+}
+
+QWidget {
+    color: #ECEFF1;
+    font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+    font-size: 13px;
+}
+
+QLabel {
+    color: #B0BEC5;
+    background: transparent;
+}
+
+QLineEdit {
+    padding: 6px 10px;
+    border: 1px solid #37474F;
+    border-radius: 6px;
+    background-color: #263238;
+    color: #ECEFF1;
+    selection-background-color: #0277BD;
+    selection-color: #FFFFFF;
+}
+QLineEdit:focus {
+    border: 1px solid #0277BD;
+}
+QLineEdit:disabled {
+    background-color: #1E272E;
+    color: #78909C;
+}
+
+QTextEdit {
+    padding: 8px;
+    border: 1px solid #37474F;
+    border-radius: 6px;
+    background-color: #263238;
+    color: #ECEFF1;
+    selection-background-color: #0277BD;
+    selection-color: #FFFFFF;
+}
+QTextEdit:focus {
+    border: 1px solid #0277BD;
+}
+
+QPushButton {
+    padding: 6px 14px;
+    border-radius: 6px;
+    background-color: #0277BD;
+    color: #FFFFFF;
+    font-weight: 600;
+    border: 1px solid transparent;
+}
+QPushButton:hover {
+    background-color: #0288D1;
+}
+QPushButton:pressed {
+    background-color: #01579B;
+}
+QPushButton:disabled {
+    background-color: #37474F;
+    color: #90A4AE;
+}
+
+QComboBox {
+    padding: 4px 8px;
+    border: 1px solid #37474F;
+    border-radius: 6px;
+    background-color: #263238;
+    color: #ECEFF1;
+}
+QComboBox:hover {
+    border: 1px solid #0277BD;
+}
+QComboBox::drop-down {
+    border: none;
+    width: 20px;
+}
+QComboBox QAbstractItemView {
+    border: 1px solid #37474F;
+    background-color: #263238;
+    selection-background-color: #0277BD;
+    selection-color: #FFFFFF;
+    outline: none;
+    border-radius: 4px;
+}
+
+QListWidget {
+    border: none;
+    background-color: transparent;
+    outline: none;
+}
+QListWidget::item {
+    padding: 4px;
+    border-radius: 6px;
+}
+QListWidget::item:hover {
+    background-color: #37474F;
+}
+QListWidget::item:selected {
+    background-color: #0277BD;
+    color: #FFFFFF;
+}
+
+QMenu {
+    background-color: #263238;
+    border: 1px solid #37474F;
+    border-radius: 6px;
+    padding: 4px;
+}
+QMenu::item {
+    padding: 6px 24px;
+    color: #ECEFF1;
+    border-radius: 4px;
+}
+QMenu::item:selected {
+    background-color: #0277BD;
+    color: #FFFFFF;
+}
+QMenu::separator {
+    height: 1px;
+    background: #37474F;
+    margin: 4px 0;
+}
+
+/* =======================================================
+   QMessageBox 弹窗暗黑终极适配
+   ======================================================= */
+QMessageBox {
+    background-color: #1E272E;
+}
+
+/* 针对普通短文本 */
+QMessageBox QLabel {
+    color: #ECEFF1;
+    font-size: 14px;
+    background-color: transparent;
+}
+
+/* 👇 核心修复:针对长文本或富文本(这两行直接干掉了那个黑色方块) */
+QMessageBox QTextEdit,
+QMessageBox QTextBrowser {
+    background-color: transparent;
+    color: #ECEFF1;
+    border: none;
+}
+
+/* 按钮样式 */
+QMessageBox QPushButton {
+    min-width: 80px;
+    min-height: 32px;
+    padding: 6px 16px;
+    background-color: #37474F;
+    color: #FFFFFF;
+    border: 1px solid #455A64;
+    border-radius: 4px;
+    font-weight: bold;
+}
+QMessageBox QPushButton:hover {
+    background-color: #0277BD;
+    border: 1px solid #0288D1;
+}
+QMessageBox QPushButton:pressed {
+    background-color: #01579B;
+}
+
+/* --- 滚动条 --- */
+QScrollBar:vertical {
+    border: none;
+    background: transparent;
+    width: 8px;
+}
+QScrollBar::handle:vertical {
+    background: #455A64;
+    min-height: 20px;
+    border-radius: 4px;
+}
+QScrollBar::handle:vertical:hover {
+    background: #546E7A;
+}
+QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
+    height: 0px;
+}
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+    background: none;
+}
+
+QSplitter::handle {
+    background-color: #37474F;
+}
+QSplitter::handle:hover {
+    background-color: #0277BD;
+}
+
+QGroupBox {
+    border: 1px solid #37474F; border-radius: 6px;
+    margin-top: 10px; padding-top: 15px; font-weight: bold; color: #B0BEC5;
+}
+QGroupBox::title { subcontrol-origin: margin; left: 10px; padding: 0 5px; }
+
+QProgressBar {
+    background-color: #37474F; border-radius: 4px;
+    text-align: center; color: #ECEFF1; border: none;
+}
+QProgressBar::chunk { background-color: #0277BD; border-radius: 4px; }
+
+QHeaderView::section {
+    background-color: #37474F; color: #ECEFF1; padding: 6px; border: none;
+}
+
+/* --- 提示框 (QToolTip) - 黑客绿 (Matrix Green) --- */
+QToolTip {
+    background-color: #24292F; /* 深灰背景 */
+    color: #3FB950;            /* 亮绿色文字 */
+    border: 1px solid #2EA043; /* 绿色细边框,呼应文字 */
+    border-radius: 4px;
+    padding: 6px 10px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+/* --- 提示框 (QToolTip) - 极客蓝 (Tech Blue) ---
+QToolTip {
+    background-color: #24292F;
+    color: #58A6FF;
+    border: 1px solid #0969DA;
+    border-radius: 4px;
+    padding: 6px 10px;
+    font-size: 12px;
+    font-weight: 500;
+}
+*/

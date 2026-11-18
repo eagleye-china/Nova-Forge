@@ -11,7 +11,7 @@ def get_project_info():
 
 
 def run_publish(commit_msg: str | None = None):
-    """⭐ 高手专属：一键提交、同步、推 GitHub、打 Tag 触发 Actions"""
+    """⭐ 高手专属:一键提交、同步、推 GitHub、打 Tag 触发 Actions"""
     github_user, repo_name, project_name, version = get_project_info()
     tag_name = f"v{version}"
 
@@ -40,7 +40,7 @@ def run_publish(commit_msg: str | None = None):
 
 
 def run_git_only(commit_msg: str | None = None):
-    """纯 Git 推送：仅提交代码并推 Tag，不处理复杂的联动和 rebase"""
+    """纯 Git 推送:仅提交代码并推 Tag，不处理复杂的联动和 rebase"""
     github_user, repo_name, project_name, version = get_project_info()
     tag_name = f"v{version}"
 

@@ -5,36 +5,36 @@
 ## 🛠️ 环境要求
 
 - Python 3.10 或更高版本
-- 操作系统：Windows / macOS / Linux
+- 操作系统:Windows / macOS / Linux
 
-## 📦 1. `init` 命令：一键生成项目基建
+## 📦 1. `init` 命令:一键生成项目基建
 
-在你的**空文件夹**中运行以下命令：
+在你的**空文件夹**中运行以下命令:
 
 ```bash
 nova-forge init
 ```
 
 ### 交互流程
-运行后，终端会引导你输入：
+运行后，终端会引导你输入:
 1. **项目名**（如 `nova-chat`，会作为 PyPI 包名）。
 2. **GitHub 仓库名**（默认与项目名相同，可自定义大小写）。
 3. **你的大名**（自动填入 MIT 协议的版权人）。
 4. **中英文描述**（用于自动生成 README 和项目元数据）。
 
 ### 它为你变出了什么？
-敲下回车后，你的空文件夹会瞬间出现：
-- `pyproject.toml`：完美符合 PEP 639 标准的打包配置。
-- `README.md` & `README_zh.md`：带全套徽章（Badges）和 10 行代码示例的双语门面。
-- `LICENSE`：自动填入当前年份和你大名的 MIT 协议。
-- `CHANGELOG.md`：带日期时间戳的版本更新记录。
-- `.github/workflows/publish.yml`：GitHub Actions 自动化发版流水线。
-- `src/项目名/__init__.py`：自动读取 `pyproject.toml` 版本的动态挂载文件。
-- `init_git.py` & `build_prod.bat`：一键推 GitHub 和一键推 PyPI 的终极脚本。
+敲下回车后，你的空文件夹会瞬间出现:
+- `pyproject.toml`:完美符合 PEP 639 标准的打包配置。
+- `README.md` & `README_zh.md`:带全套徽章（Badges）和 10 行代码示例的双语门面。
+- `LICENSE`:自动填入当前年份和你大名的 MIT 协议。
+- `CHANGELOG.md`:带日期时间戳的版本更新记录。
+- `.github/workflows/publish.yml`:GitHub Actions 自动化发版流水线。
+- `src/项目名/__init__.py`:自动读取 `pyproject.toml` 版本的动态挂载文件。
+- `init_git.py` & `build_prod.bat`:一键推 GitHub 和一键推 PyPI 的终极脚本。
 
 ---
 
-## 🌲 2. `tree` 命令：极速生成目录骨架
+## 🌲 2. `tree` 命令:极速生成目录骨架
 
 你可以在 AI（如 ChatGPT / DeepSeek）那里让它帮你设计一个架构，然后把生成的文本保存为 `project_structure.txt`。
 
@@ -57,16 +57,16 @@ nova-forge tree
 ```
 
 ### 智能防呆机制（防套娃）
-- **情况 A**：如果 `txt` 的第一行 `my-awesome-app/` 与当前文件夹名称**完全一致**，它会跳过根目录创建，直接在里面铺开 `src` 和 `examples`。
-- **情况 B**：如果名字**不一致**，它会安全地在里面新建一个 `my-awesome-app/` 文件夹，绝不污染当前目录。
+- **情况 A**:如果 `txt` 的第一行 `my-awesome-app/` 与当前文件夹名称**完全一致**，它会跳过根目录创建，直接在里面铺开 `src` 和 `examples`。
+- **情况 B**:如果名字**不一致**，它会安全地在里面新建一个 `my-awesome-app/` 文件夹，绝不污染当前目录。
 
 ---
 
-## 🚀 3. 发布项目：一键推 GitHub 和 PyPI
+## 🚀 3. 发布项目:一键推 GitHub 和 PyPI
 
 ### 推送到 GitHub
 在生成的项目中，双击运行 `init_git.py`。
-它会自动：
+它会自动:
 1. 初始化 Git 仓库，提交代码。
 2. 关联你的远程 GitHub 仓库。
 3. 推送到 `main` 分支。

@@ -49,13 +49,13 @@ def run_scaffolder():
         return
 
     force_overwrite = False
-    # 🚨 安全校验：发现非空目录时，让用户决定如何处理
+    # 🚨 安全校验:发现非空目录时，让用户决定如何处理
     if target_root.exists() and any(target_root.iterdir()):
         print(f"\n⚠️  警告: 目录 {target_root} 已存在且非空！")
-        print("请选择如何处理已存在的同名文件：")
-        print("  [Y] 跳过：保留原文件，仅补充生成缺失的文件")
-        print("  [N] 覆盖：强制覆盖所有同名文件（请谨慎）")
-        print("  [C] 取消：退出当前操作")
+        print("请选择如何处理已存在的同名文件:")
+        print("  [Y] 跳过:保留原文件，仅补充生成缺失的文件")
+        print("  [N] 覆盖:强制覆盖所有同名文件（请谨慎）")
+        print("  [C] 取消:退出当前操作")
         action = ask("你的选择 (Y/N/C)", "Y").upper()
 
         if action == "C":
@@ -71,7 +71,7 @@ def run_scaffolder():
     app_type = ask("🖥️ 应用类型 (1: 桌面端, 2: 移动端)", "1")
     is_mobile = (app_type == "2")
 
-    # ✅ 智能默认值：全部由 folder_name 派生
+    # ✅ 智能默认值:全部由 folder_name 派生
     default_project_name = folder_name.lower().replace(" ", "-").replace("_", "-")
     default_repo_name = folder_name.replace(" ", "")
     module_name = folder_name.lower().replace("-", "_").replace(" ", "_")
@@ -113,14 +113,14 @@ def run_scaffolder():
     }
 
     def write_file(rel_path, tmpl_string, custom_context=None):
-        """通用写文件函数：解析路径变量，写入目标根目录"""
+        """通用写文件函数:解析路径变量，写入目标根目录"""
         ctx = {**context, **(custom_context or {})}
 
         # 替换路径中的变量
         parsed_path = Template(rel_path).safe_substitute(ctx)
         full_path = target_root / parsed_path
 
-        # 🚨 核心修复：如果传入的 tmpl_string 是空字符串 ""，代表要创建的是目录！
+        # 🚨 核心修复:如果传入的 tmpl_string 是空字符串 ""，代表要创建的是目录！
         if tmpl_string == "":
             try:
                 full_path.mkdir(parents=True, exist_ok=True)
@@ -184,10 +184,10 @@ def run_scaffolder():
 
     print("\n" + "=" * 60)
     print(f"🎉 项目【{project_name}】锻造完毕！")
-    print(f"👉 请执行以下命令开始开发：")
+    print(f"👉 请执行以下命令开始开发:")
     print(f"   cd {target_root}")
     print(f"   pip install -e .")
-    print("\n⚠️  [重要提醒] 为了让自动发版流水线生效，请前往 PyPI 绑定项目：")
+    print("\n⚠️  [重要提醒] 为了让自动发版流水线生效，请前往 PyPI 绑定项目:")
     print(f"   Project Name: {project_name}")
     print(f"   Owner:        {github_user}")
     print(f"   Repository:   {repo_name}")

@@ -48,8 +48,8 @@ README_ZH_TMPL = """# $PROJECT_NAME 🌟
 
 ## 🤔 为什么选择 $PROJECT_NAME？
 
-- 🚀 **极致性能**：基于原生 PySide6 和 QML，拒绝笨重的 WebView。
-- 🎨 **顶级颜值**：原生暗黑模式，丝滑动画，像素级布局。
+- 🚀 **极致性能**:基于原生 PySide6 和 QML，拒绝笨重的 WebView。
+- 🎨 **顶级颜值**:原生暗黑模式，丝滑动画，像素级布局。
 
 ## 📦 安装
 

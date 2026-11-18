@@ -9,6 +9,7 @@ from .core.scaffolder import run_scaffolder
 from .core.renamer import run_renamer
 from .core.tree_builder import run_tree_builder
 from .core.apk_builder import run_apk_build_interactive  # ✅ 导入无感打包模块
+from .core.clip_saver import run_clip_saver  # ✅ 导入多文件保存工具
 
 
 def main():
@@ -26,18 +27,21 @@ def main():
     tree_parser.add_argument("-f", "--file", default="project_structure.txt", help="指定结构树文件")
 
     # 命令 4: 联动发版
-    pub_parser = subparsers.add_parser("publish", help="⭐ 高手专属：一键提交、推 GitHub、打 Tag 并触发 Actions 自动发版")
+    pub_parser = subparsers.add_parser("publish", help="⭐ 高手专属:一键提交、推 GitHub、打 Tag 并触发 Actions 自动发版")
     pub_parser.add_argument("-m", "--message", default=None, help="Git commit 信息")
 
     # 命令 5: 纯 Git 推送
-    git_parser = subparsers.add_parser("git", help="纯 Git 推送：仅提交代码并打 Tag 推送 GitHub")
+    git_parser = subparsers.add_parser("git", help="纯 Git 推送:仅提交代码并打 Tag 推送 GitHub")
     git_parser.add_argument("-m", "--message", default=None, help="Git commit 信息")
 
     # 命令 6: 纯本地传 PyPI
-    subparsers.add_parser("pypi", help="纯本地发版：一键清理、打包、校验并直传 PyPI")
+    subparsers.add_parser("pypi", help="纯本地发版:一键清理、打包、校验并直传 PyPI")
 
     # ✅ 命令 7: 一键 APK 打包 (无参数，直接交互)
-    subparsers.add_parser("apk", help="📱 自动化打包：将项目移交 WSL 2 一键编译生成 Android APK")
+    subparsers.add_parser("apk", help="📱 自动化打包:将项目移交 WSL 2 一键编译生成 Android APK")
+
+    # ✅ 命令 8: 多文件剪贴板保存工具
+    subparsers.add_parser("saver", help="📋 启动多文件剪贴板保存工具 (GUI)")
 
     args = parser.parse_args()
 
@@ -55,6 +59,8 @@ def main():
         run_package()
     elif args.command == "apk":
         run_apk_build_interactive()
+    elif args.command == "saver":
+        run_clip_saver()
     else:
         parser.print_help()
 
