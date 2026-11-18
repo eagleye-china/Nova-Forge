@@ -14,10 +14,10 @@ except ImportError:
         from ..utils.window_utils import enable_dark_title_bar
     except ImportError:
         try:
-            from ...utils.window_utils import enable_dark_title_bar
+            from nova_forge.utils.window_utils import enable_dark_title_bar
         except ImportError:
             try:
-                from utils.window_utils import enable_dark_title_bar
+                from nova_forge.utils import enable_dark_title_bar
             except ImportError:
 
                 def enable_dark_title_bar(window):
@@ -371,7 +371,7 @@ def run_clip_saver():
         app = QApplication(sys.argv)
     app.setWindowIcon(QIcon(":/icons/date.svg"))
 
-    qss_path = Path(__file__).resolve().parents[3] / "utils/ui" / "styles.qss"
+    qss_path = Path(__file__).resolve().parents[1] / "utils/ui" / "styles.qss"
     if qss_path.exists():
         app.setStyleSheet(qss_path.read_text(encoding="utf-8"))
 

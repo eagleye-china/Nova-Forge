@@ -1,8 +1,7 @@
 # src/nova_forge/core/cmd_publish.py
 
 from ._runner import run
-from utils.project_meta import get_project_info
-
+from ..utils.project_meta import get_project_info
 
 def run_publish(commit_msg: str | None = None):
     """⭐ 高手专属:一键提交、同步、推 GitHub、打 Tag 触发 Actions"""

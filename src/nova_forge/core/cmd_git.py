@@ -1,7 +1,7 @@
 # src/nova_forge/core/cmd_git.py
 
 from ._runner import run
-from utils.project_meta import get_project_info
+from ..utils.project_meta import get_project_info
 
 
 def run_git_only(commit_msg: str | None = None):

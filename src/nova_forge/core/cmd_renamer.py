@@ -3,7 +3,7 @@
 import os
 import re
 from pathlib import Path
-from utils.project_meta import read_project_meta
+from ..utils.project_meta import read_project_meta
 
 
 def ask(prompt, default):
@@ -16,7 +16,9 @@ def run_renamer():
     print("=" * 60)
 
     # 1. 输入旧路径
-    old_path_str = ask("📂 原项目完整绝对路径 (如 D:\\Projects\\Nova-Mobile)", str(Path.cwd()))
+    old_path_str = ask(
+        "📂 原项目完整绝对路径 (如 D:\\Projects\\Nova-Mobile)", str(Path.cwd())
+    )
     old_root = Path(old_path_str).resolve()
 
     if not (old_root / "pyproject.toml").exists():
@@ -88,8 +90,28 @@ def run_renamer():
     # 6. 全局文本替换
     print("\n🚀 [3/3] 正在全局扫描并替换文件内容...")
 
-    ignore_dirs = {".git", "__pycache__", "venv", ".venv", "dist", "build", ".idea", ".vscode", ".pytest_cache"}
-    text_exts = {".py", ".toml", ".md", ".txt", ".yml", ".yaml", ".qml", ".json", ".xml"}
+    ignore_dirs = {
+        ".git",
+        "__pycache__",
+        "venv",
+        ".venv",
+        "dist",
+        "build",
+        ".idea",
+        ".vscode",
+        ".pytest_cache",
+    }
+    text_exts = {
+        ".py",
+        ".toml",
+        ".md",
+        ".txt",
+        ".yml",
+        ".yaml",
+        ".qml",
+        ".json",
+        ".xml",
+    }
 
     count = 0
     for root, dirs, files in os.walk(new_root):
@@ -97,16 +119,19 @@ def run_renamer():
 
         for file in files:
             file_path = Path(root) / file
-            if file_path.suffix.lower() not in text_exts and file_path.name not in {"LICENSE", ".gitignore"}:
+            if file_path.suffix.lower() not in text_exts and file_path.name not in {
+                "LICENSE",
+                ".gitignore",
+            }:
                 continue
 
             try:
                 content = file_path.read_text(encoding="utf-8")
                 # 使用正则边界确保精准替换
-                new_content = re.sub(rf'\b{old_module}\b', new_module, content)
-                new_content = re.sub(rf'\b{old_pypi_name}\b', new_pypi_name, content)
+                new_content = re.sub(rf"\b{old_module}\b", new_module, content)
+                new_content = re.sub(rf"\b{old_pypi_name}\b", new_pypi_name, content)
                 # 顺便把大驼峰/中划线的名字也替换掉 (比如 README 里的标题)
-                new_content = re.sub(rf'\b{old_root.name}\b', new_name, new_content)
+                new_content = re.sub(rf"\b{old_root.name}\b", new_name, new_content)
 
                 if new_content != content:
                     file_path.write_text(new_content, encoding="utf-8")
