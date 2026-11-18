@@ -19,15 +19,29 @@ except ImportError:
             try:
                 from utils.window_utils import enable_dark_title_bar
             except ImportError:
+
                 def enable_dark_title_bar(window):
                     pass
+
 
 from PySide6.QtCore import QTimer
 from PySide6.QtGui import QBrush, QColor, QIcon, Qt
 from PySide6.QtWidgets import (
-    QApplication, QCheckBox, QFileDialog, QHBoxLayout, QLabel, QLineEdit,
-    QListWidget, QListWidgetItem, QMainWindow, QMessageBox, QPushButton,
-    QSplitter, QTextEdit, QVBoxLayout, QWidget,
+    QApplication,
+    QCheckBox,
+    QFileDialog,
+    QHBoxLayout,
+    QLabel,
+    QLineEdit,
+    QListWidget,
+    QListWidgetItem,
+    QMainWindow,
+    QMessageBox,
+    QPushButton,
+    QSplitter,
+    QTextEdit,
+    QVBoxLayout,
+    QWidget,
 )
 
 try:
@@ -36,7 +50,11 @@ except ImportError:
     print("[WARN] 未找到 resources_rc, 图标可能无法显示。")
 
 EXTENSION_LANG_MAP = {
-    ".py": "Python", ".qml": "QML", ".md": "Markdown", ".json": "JSON", ".txt": "Text",
+    ".py": "Python",
+    ".qml": "QML",
+    ".md": "Markdown",
+    ".json": "JSON",
+    ".txt": "Text",
 }
 
 PATH_PATTERN = re.compile(
@@ -63,7 +81,7 @@ class MultiBlockSaverWindow(QMainWindow):
         self.clipboard = QApplication.clipboard()
         self.clip_timer = QTimer(self)
         self.clip_timer.setSingleShot(True)
-        self.clip_timer.setInterval(400) # 防抖时间
+        self.clip_timer.setInterval(400)  # 防抖时间
         self.clip_timer.timeout.connect(self.auto_load_from_clipboard)
 
         self.init_ui()
@@ -97,7 +115,7 @@ class MultiBlockSaverWindow(QMainWindow):
         btn_clip.clicked.connect(self.manual_load_from_clipboard)
         row_top.addWidget(btn_clip)
 
-        btn_save = QPushButton("💾 扫描并写入")
+        btn_save = QPushButton("💾 写入文件")
         btn_save.clicked.connect(lambda: self.scan_and_save(is_auto=False))
         row_top.addWidget(btn_save)
 
@@ -109,7 +127,9 @@ class MultiBlockSaverWindow(QMainWindow):
         left_layout = QVBoxLayout(left_widget)
         left_layout.setContentsMargins(0, 8, 0, 0)
         self.text_edit = QTextEdit()
-        self.text_edit.setStyleSheet("QTextEdit { color: #a9b7c6; background-color: #1e1e1e; font-family: Consolas, monospace; font-size: 14px; }")
+        self.text_edit.setStyleSheet(
+            "QTextEdit { color: #a9b7c6; background-color: #1e1e1e; font-family: Consolas, monospace; font-size: 14px; }"
+        )
         left_layout.addWidget(self.text_edit)
 
         right_widget = QWidget()
@@ -121,7 +141,9 @@ class MultiBlockSaverWindow(QMainWindow):
         right_layout.addWidget(lbl_log)
 
         self.list_result = QListWidget()
-        self.list_result.setStyleSheet("QListWidget { background-color: #0d0d0d; color: #d4d4d4; border: 1px solid #333; font-family: Consolas, 'Courier New', monospace; font-size: 13px; }")
+        self.list_result.setStyleSheet(
+            "QListWidget { background-color: #0d0d0d; color: #d4d4d4; border: 1px solid #333; font-family: Consolas, 'Courier New', monospace; font-size: 13px; }"
+        )
         right_layout.addWidget(self.list_result)
 
         splitter.addWidget(left_widget)
@@ -143,16 +165,19 @@ class MultiBlockSaverWindow(QMainWindow):
             self.clip_timer.start()
 
     def auto_load_from_clipboard(self):
-        if not self.chk_auto_monitor.isChecked(): return
+        if not self.chk_auto_monitor.isChecked():
+            return
         try:
             mime = self.clipboard.mimeData()
-            if not mime.hasText(): return
+            if not mime.hasText():
+                return
             text = mime.text()
         except Exception:
             return
 
-        if not text: return
-        
+        if not text:
+            return
+
         # 每次均响应，不再拦截相同内容
         self.text_edit.setText(text)
         self.add_log("⚡ --- 触发剪贴板监听 ---", COLOR_INFO)
@@ -177,7 +202,8 @@ class MultiBlockSaverWindow(QMainWindow):
     def extract_blocks(self, text: str):
         blocks = []
         matches = list(PATH_PATTERN.finditer(text))
-        if not matches: return blocks
+        if not matches:
+            return blocks
 
         for i, match in enumerate(matches):
             rel_path = match.group(1).strip()
@@ -186,20 +212,25 @@ class MultiBlockSaverWindow(QMainWindow):
             raw_code = text[start_pos:end_pos]
 
             raw_code = raw_code.strip()
-            if raw_code.endswith("```"): raw_code = raw_code[:-3].strip()
+            if raw_code.endswith("```"):
+                raw_code = raw_code[:-3].strip()
             if raw_code.startswith("```"):
                 lines = raw_code.splitlines()
                 raw_code = "\n".join(lines[1:]).strip()
 
             file_name = Path(rel_path).name
             ext = Path(rel_path).suffix.lower()
-            
+
             lang = None
-            if file_name == "qmldir": lang = "QML-Dir"
-            elif ext in EXTENSION_LANG_MAP: lang = EXTENSION_LANG_MAP[ext]
+            if file_name == "qmldir":
+                lang = "QML-Dir"
+            elif ext in EXTENSION_LANG_MAP:
+                lang = EXTENSION_LANG_MAP[ext]
 
             if lang:
-                blocks.append({"lang": lang, "path": rel_path, "raw_code": raw_code + "\n"})
+                blocks.append(
+                    {"lang": lang, "path": rel_path, "raw_code": raw_code + "\n"}
+                )
         return blocks
 
     def select_root(self):
@@ -219,7 +250,9 @@ class MultiBlockSaverWindow(QMainWindow):
             if is_auto:
                 # 后台监听模式下，解析失败也弹窗告诉用户
                 msg_box = QMessageBox()
-                msg_box.setWindowFlags(Qt.WindowType.WindowStaysOnTopHint | Qt.WindowType.Tool)
+                msg_box.setWindowFlags(
+                    Qt.WindowType.WindowStaysOnTopHint | Qt.WindowType.Tool
+                )
                 msg_box.setWindowTitle("解析失败")
                 msg_box.setText(msg)
                 msg_box.setIcon(QMessageBox.Icon.Warning)
@@ -250,7 +283,9 @@ class MultiBlockSaverWindow(QMainWindow):
                 is_safe = False
 
             if not is_safe:
-                self.add_log(f"❌ 安全拦截: {rel_path} (试图跳出项目根目录)", COLOR_ERROR)
+                self.add_log(
+                    f"❌ 安全拦截: {rel_path} (试图跳出项目根目录)", COLOR_ERROR
+                )
                 continue
 
             is_new = not full_path.exists()
@@ -274,7 +309,7 @@ class MultiBlockSaverWindow(QMainWindow):
         msg_box = QMessageBox()
         # 设置为顶级窗口、强制置顶、并在任务栏隐藏
         msg_box.setWindowFlags(Qt.WindowType.WindowStaysOnTopHint | Qt.WindowType.Tool)
-        
+
         msg_box.setWindowTitle(f"{trigger_mode} - 确认写入")
         msg_text = (
             f"检测到 {len(valid_blocks)} 个可写入文件。\n"
@@ -286,8 +321,10 @@ class MultiBlockSaverWindow(QMainWindow):
         msg_box.setText(msg_text)
         msg_box.setIcon(QMessageBox.Icon.Question)
 
-        btn_yes: QPushButton = msg_box.addButton("Yes (写入)", QMessageBox.ButtonRole.YesRole)
         msg_box.addButton("No (取消)", QMessageBox.ButtonRole.NoRole)
+        btn_yes: QPushButton = msg_box.addButton(
+            "Yes (写入)", QMessageBox.ButtonRole.NoRole
+        )
         msg_box.setDefaultButton(btn_yes)
 
         msg_box.raise_()
@@ -312,20 +349,26 @@ class MultiBlockSaverWindow(QMainWindow):
             full_path.parent.mkdir(parents=True, exist_ok=True)
             try:
                 full_path.write_text(clean_code, encoding="utf-8")
-                self.add_log(f"{icon} [{b['lang']}] {action_desc}成功: {rel_path}", log_color)
+                self.add_log(
+                    f"{icon} [{b['lang']}] {action_desc}成功: {rel_path}", log_color
+                )
                 success_count += 1
             except Exception as e:
                 self.add_log(f"❌ 写入失败: {rel_path} ({e!s})", COLOR_ERROR)
 
         if success_count > 0:
-            self.add_log(f"🎉 共成功写入 {success_count}/{len(valid_blocks)} 个文件", COLOR_SUCCESS)
+            self.add_log(
+                f"🎉 共成功写入 {success_count}/{len(valid_blocks)} 个文件",
+                COLOR_SUCCESS,
+            )
         else:
             self.add_log("⚠️ 没有任何文件被写入。", COLOR_WARN)
 
 
 def run_clip_saver():
     app = QApplication.instance()
-    if not app: app = QApplication(sys.argv)
+    if not app:
+        app = QApplication(sys.argv)
     app.setWindowIcon(QIcon(":/icons/date.svg"))
 
     qss_path = Path(__file__).resolve().parents[3] / "utils/ui" / "styles.qss"

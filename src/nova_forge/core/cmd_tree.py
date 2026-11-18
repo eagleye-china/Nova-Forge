@@ -1,4 +1,4 @@
-# src/nova_forge/core/tree_builder.py
+# src/nova_forge/core/cmd_tree.py
 """
 Nova Tree 🌲 (双向同步终极版)
 ============================

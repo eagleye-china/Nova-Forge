@@ -9,7 +9,7 @@ Nova-Forge 编程式调用示例。
 """
 from pathlib import Path
 
-from nova_forge.core.tree_builder import run_tree_builder
+from nova_forge.core.cmd_tree import run_tree_builder
 
 
 def main():

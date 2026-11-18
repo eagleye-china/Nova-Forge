@@ -1,4 +1,4 @@
-# src/nova_forge/core/scaffolder.py
+# src/nova_forge/core/cmd_scaffolder.py
 
 import datetime
 from pathlib import Path

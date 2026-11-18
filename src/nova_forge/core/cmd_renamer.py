@@ -1,9 +1,9 @@
-# src/nova_forge/core/renamer.py
+# src/nova_forge/core/cmd_renamer.py
 
 import os
 import re
 from pathlib import Path
-from .project_meta import read_project_meta
+from utils.project_meta import read_project_meta
 
 
 def ask(prompt, default):

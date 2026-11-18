@@ -1,3 +1,5 @@
+# src/nova_forge/utils/project_meta.py
+
 import subprocess
 from pathlib import Path
 
@@ -46,6 +48,15 @@ def read_github_owner(root: Path | None = None) -> tuple[str, str]:
             parts = remote_url.split(":")[1].split("/")
         else:
             parts = remote_url.split("/")
-        return parts[0] if remote_url.startswith("git@") else parts[-2], parts[-1].replace(".git", "")
+        return parts[0] if remote_url.startswith("git@") else parts[-2], parts[
+            -1
+        ].replace(".git", "")
     except Exception:  # noqa: BLE001
         return fallback
+
+
+def get_project_info(root: Path | None = None) -> tuple[str, str, str, str]:
+    """统一获取当前项目的基本信息 (GitHub用户, 仓库名, 项目名, 版本号)"""
+    github_user, repo_name = read_github_owner(root)
+    project_name, version = read_project_meta(root)
+    return github_user, repo_name, project_name, version

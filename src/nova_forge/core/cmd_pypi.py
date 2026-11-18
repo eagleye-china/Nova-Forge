@@ -1,4 +1,4 @@
-# src/nova_forge/core/packager.py
+# src/nova_forge/core/cmd_pypi.py
 
 import glob
 import os
