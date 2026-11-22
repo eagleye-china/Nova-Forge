@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "nova-forge"
-version = "0.4.8"
+version = "0.4.10"
 description = "The ultimate project forging tool for PySide6 ecosystems. Scaffold enterprise-grade architectures in seconds."
 readme = "README.md"
 requires-python = ">=3.10"
@@ -22,6 +22,9 @@ dependencies = [
     "tomli>=2.0.0; python_version < '3.11'", # ✅ 加这行，完美适配 3.10
 ]
 
+[project.optional-dependencies]
+gui = ["PySide6>=6.6"]
+
 [project.urls]
 Homepage = "https://github.com/eagleye-china/Nova-Forge"
 Repository = "https://github.com/eagleye-china/Nova-Forge"
@@ -30,6 +33,9 @@ Issues = "https://github.com/eagleye-china/Nova-Forge/issues"
 [tool.setuptools.packages.find]
 where = ["src"]
 include = ["nova_forge*"]
+
+[tool.setuptools.package-data]
+nova_forge = ["assets/*.txt", "utils/ui/*.qss"]
 
 [tool.ruff.lint]
 select = ["E", "F", "W", "I", "N", "UP", "B", "C4", "SIM", "RUF"]

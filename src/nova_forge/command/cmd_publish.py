@@ -1,0 +1,33 @@
+# src/nova_forge/command/cmd_publish.py
+
+from ..utils.project_meta import get_project_info
+from ._runner import run
+
+
+def run_publish(commit_msg: str | None = None):
+    """⭐ 高手专属:一键提交、同步、推 GitHub、打 Tag 触发 Actions"""
+    github_user, repo_name, project_name, version = get_project_info()
+    tag_name = f"v{version}"
+
+    if not commit_msg:
+        commit_msg = f"chore(release): {tag_name}"
+
+    print(f"🚀 开始自动提交流水线【{project_name}】 (v{version})...")
+    print(f"📦 关联仓库: {github_user}/{repo_name}")
+    print(f"💬 提交信息: {commit_msg}")
+
+    run(["git", "add", "."])
+    run(["git", "commit", "-m", commit_msg], ignore_error=True)
+    print("🔄 正在同步远程仓库最新变更...")
+    run(["git", "pull", "--rebase", "origin", "main"])
+    run(["git", "push", "origin", "main"])
+
+    tags = run(["git", "tag"]).stdout.split()
+    if tag_name not in tags:
+        run(["git", "tag", tag_name])
+        print(f"✅ 标签 {tag_name} 创建成功。")
+    else:
+        print(f"⚠️ 标签 {tag_name} 已存在，将直接推送。")
+
+    run(["git", "push", "origin", tag_name])
+    print("\n🎉 推送成功！请前往 GitHub Actions 查看自动发版流水线！")

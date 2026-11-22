@@ -2,6 +2,20 @@
 
 所有版本变更记录，遵循 [Semantic Versioning](https://semver.org/) 规范。
 
+## [0.4.10] - 2026-11-23
+
+### 🐛 Bug Fixes
+- 修复 `pypi` 命令重复上传同名版本导致的 PyPI 400 Bad Request：上传前新增版本查重，已存在则给出明确提示并终止。
+- 修复 CLI 顶层强制导入 PySide6/tkinter 导致无 GUI 依赖环境下 `--help` 崩溃的问题；GUI 命令改为按需加载。
+- 修复 `tree` 命令读写编码不一致（BOM 残留）与字符串格式化缺 `f` 前缀的问题。
+- 修复 `saver_window.py` 在 Python 3.10/3.11 下导入 `typing.override` 崩溃的兼容性问题。
+- 修复 QRC 更新依赖不存在的外部私有包的问题，改为自包含实现并保留已有 alias。
+- 修复图标清洗工具硬编码绝对路径、导入即执行副作用的问题。
+
+### ✨ Features & Refactoring
+- 新增零外部依赖冒烟测试套件（7 项），接入 CI 与发版前置卡口。
+- 打包配置补充 package-data，确保 `styles.qss` 与 `example_structure.txt` 进入 wheel。
+
 ## [0.2.0c] - 2026-11-13
 
 ### ✨ Features & Refactoring

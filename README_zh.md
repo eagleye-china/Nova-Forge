@@ -9,7 +9,7 @@
 [![License](https://img.shields.io/badge/license-MIT-green)](https://github.com/eagleye-china/Nova-Forge/blob/main/LICENSE)
 [![GitHub Stars](https://img.shields.io/github/stars/eagleye-china/Nova-Forge?style=social)](https://github.com/eagleye-china/Nova-Forge)
 
-📖 **[阅读完整使用手册 (USAGE.md)](https://github.com/eagleye-china/Nova-Forge/blob/main/docs/USAGE.md)**
+📖 **[阅读完整使用手册 (USAGE_zh.md)](https://github.com/eagleye-china/Nova-Forge/blob/main/docs/USAGE_zh.md)**
 
 **Nova-Forge** 是一款专为现代 Python 应用打造的极速 CLI 锻造工具。
 

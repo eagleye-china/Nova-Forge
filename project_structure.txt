@@ -1,19 +1,147 @@
-Nova-Forge/
-├── src/
-│   └── nova_forge/
-│       ├── __init__.py          # 暴露包版本
-│       ├── cli.py               # 🚀 CLI 总入口（命令行调度中心）
-│       ├── core/
-│       │   ├── __init__.py
-│       │   ├── scaffolder.py    # 🛠️ 生成 pyproject, README, License, git 脚本等
-│       │   ├── tree_builder.py  # 🌲 解析 project_structure.txt 并建目录
-│       │   └── templates.py     # 📄 集中存放所有的字符串模版（防截断）
-│       └── assets/
-│           └── example_structure.txt # 给用户的示例结构树文件
-├── examples/
-│   └── basic_usage.py
-├── .gitignore
-├── LICENSE
-├── README.md
-├── README_zh.md
-└── pyproject.toml               # 打包与 CLI 脚本绑定配置
+﻿Nova-Forge/
+├─ assets/
+|   └─ symbols/
+|       └─ 100/
+|           ├─ rounded/
+|           |   └─ 0/
+|           └─ sharp/
+|               ├─ 0/
+|               └─ 1/
+├─ docs/
+|   ├─ session-snapshots/
+|   |   ├─ ready_prompt.md
+|   |   └─ snapshot_2026112006.md
+|   └─ material-symbols-integration-guide.md
+├─ examples/
+|   ├─ __init__.py
+|   └─ basic_usage.py
+├─ node_modules/
+|   ├─ @material-design-icons/
+|   |   └─ svg/
+|   |       ├─ filled/
+|   |       ├─ outlined/
+|   |       ├─ round/
+|   |       ├─ sharp/
+|   |       ├─ two-tone/
+|   |       ├─ LICENSE
+|   |       ├─ package.json
+|   |       └─ README.md
+|   └─ @material-symbols/
+|       ├─ svg-100/
+|       |   ├─ outlined/
+|       |   ├─ rounded/
+|       |   ├─ sharp/
+|       |   ├─ LICENSE
+|       |   ├─ package.json
+|       |   └─ README.md
+|       ├─ svg-200/
+|       |   ├─ outlined/
+|       |   ├─ rounded/
+|       |   ├─ sharp/
+|       |   ├─ LICENSE
+|       |   ├─ package.json
+|       |   └─ README.md
+|       ├─ svg-300/
+|       |   ├─ outlined/
+|       |   ├─ rounded/
+|       |   ├─ sharp/
+|       |   ├─ LICENSE
+|       |   ├─ package.json
+|       |   └─ README.md
+|       ├─ svg-400/
+|       |   ├─ outlined/
+|       |   ├─ rounded/
+|       |   ├─ sharp/
+|       |   ├─ LICENSE
+|       |   ├─ package.json
+|       |   └─ README.md
+|       ├─ svg-500/
+|       |   ├─ outlined/
+|       |   ├─ rounded/
+|       |   ├─ sharp/
+|       |   ├─ LICENSE
+|       |   ├─ package.json
+|       |   └─ README.md
+|       ├─ svg-600/
+|       |   ├─ outlined/
+|       |   ├─ rounded/
+|       |   ├─ sharp/
+|       |   ├─ LICENSE
+|       |   ├─ package.json
+|       |   └─ README.md
+|       └─ svg-700/
+|           ├─ outlined/
+|           ├─ rounded/
+|           ├─ sharp/
+|           ├─ LICENSE
+|           ├─ package.json
+|           └─ README.md
+├─ resources/
+|   ├─ icons/
+|   |   └─ icons.manifest.json
+|   ├─ resources.qrc
+|   └─ resources_rc.py
+├─ src/
+|   ├─ nova_forge/
+|   |   ├─ assets/
+|   |   |   ├─ __init__.py
+|   |   |   └─ example_structure.txt
+|   |   ├─ command/
+|   |   |   ├─ templates/
+|   |   |   |   ├─ __init__.py
+|   |   |   |   ├─ tmpl_config.py
+|   |   |   |   ├─ tmpl_how_to_publish.py
+|   |   |   |   ├─ tmpl_license.py
+|   |   |   |   ├─ tmpl_mobile.py
+|   |   |   |   ├─ tmpl_prompt.py
+|   |   |   |   ├─ tmpl_pyproject.py
+|   |   |   |   ├─ tmpl_python_files.py
+|   |   |   |   ├─ tmpl_readme.py
+|   |   |   |   ├─ tmpl_workflow.py
+|   |   |   |   └─ tmpl_wsl_build.py
+|   |   |   ├─ __init__.py
+|   |   |   ├─ _runner.py
+|   |   |   ├─ cmd_apk.py
+|   |   |   ├─ cmd_git.py
+|   |   |   ├─ cmd_icons.py
+|   |   |   ├─ cmd_prompt.py
+|   |   |   ├─ cmd_publish.py
+|   |   |   ├─ cmd_pypi.py
+|   |   |   ├─ cmd_renamer.py
+|   |   |   ├─ cmd_saver.py
+|   |   |   ├─ cmd_scaffolder.py
+|   |   |   ├─ cmd_snapshot.py
+|   |   |   └─ cmd_tree.py
+|   |   ├─ core/
+|   |   |   ├─ __init__.py
+|   |   |   ├─ icons_logic.py
+|   |   |   └─ saver_logic.py
+|   |   ├─ tools/
+|   |   |   └─ clean_material_symbols.py
+|   |   ├─ ui/
+|   |   |   ├─ icons_window.py
+|   |   |   └─ saver_window.py
+|   |   ├─ utils/
+|   |   |   ├─ ui/
+|   |   |   |   ├─ __init__.py
+|   |   |   |   └─ styles.qss
+|   |   |   ├─ __init__.py
+|   |   |   ├─ project_meta.py
+|   |   |   └─ window_utils.py
+|   |   ├─ __init__.py
+|   |   └─ cli.py
+|   └─ nova_forge.egg-info/
+|       ├─ dependency_links.txt
+|       ├─ entry_points.txt
+|       ├─ PKG-INFO
+|       ├─ requires.txt
+|       ├─ SOURCES.txt
+|       └─ top_level.txt
+├─ CHANGELOG.md
+├─ HOW_TO_PUBLISH.md
+├─ LICENSE
+├─ package-lock.json
+├─ package.json
+├─ pyproject.toml
+├─ README.md
+└─ README_zh.md

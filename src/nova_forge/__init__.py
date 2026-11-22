@@ -13,7 +13,7 @@ try:
     with open(_pyproject_path, "rb") as f:
         _data = tomllib.load(f)
         __version__ = _data["project"]["version"]
-except Exception:  # noqa
+except Exception:
     from importlib.metadata import PackageNotFoundError, version
 
     try:

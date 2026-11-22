@@ -1,5 +1,6 @@
 # src/nova_forge/utils/project_meta.py
 
+import re
 import subprocess
 from pathlib import Path
 
@@ -7,6 +8,33 @@ try:
     import tomllib  # Python 3.11+
 except ModuleNotFoundError:  # pragma: no cover
     import tomli as tomllib
+
+
+_VERSION_RE = re.compile(r'^__version__\s*=\s*["\']([^"\']+)["\']', re.MULTILINE)
+
+
+def _resolve_dynamic_version(root: Path, data: dict) -> str | None:
+    """解析 PEP 621 dynamic version（当前支持 hatchling 的 path 模式）。"""
+    project = data.get("project") or {}
+    if "version" not in (project.get("dynamic") or []):
+        return None
+
+    version_conf = data.get("tool", {}).get("hatch", {}).get("version", {})
+    rel_path = version_conf.get("path")
+    if not rel_path:
+        raise ValueError(
+            "pyproject.toml 声明 version 为 dynamic，"
+            "但缺少 [tool.hatch.version].path，无法确定版本号。"
+        )
+
+    version_file = root / rel_path
+    if not version_file.exists():
+        raise FileNotFoundError(f"动态版本文件不存在：{version_file}")
+
+    match = _VERSION_RE.search(version_file.read_text(encoding="utf-8"))
+    if not match:
+        raise ValueError(f"未能从 {version_file} 中解析 __version__。")
+    return match.group(1)
 
 
 def read_project_meta(root: Path | None = None) -> tuple[str, str]:
@@ -21,7 +49,8 @@ def read_project_meta(root: Path | None = None) -> tuple[str, str]:
 
     # 兼容 PEP 621 [project] 与 Poetry [tool.poetry]
     section = data.get("project") or data.get("tool", {}).get("poetry", {})
-    name, version = section.get("name"), section.get("version")
+    name = section.get("name")
+    version = section.get("version") or _resolve_dynamic_version(root, data)
     if not name or not version:
         raise ValueError("pyproject.toml 中缺少 name 或 version，拒绝继续发版。")
     return name, version
@@ -51,7 +80,7 @@ def read_github_owner(root: Path | None = None) -> tuple[str, str]:
         return parts[0] if remote_url.startswith("git@") else parts[-2], parts[
             -1
         ].replace(".git", "")
-    except Exception:  # noqa: BLE001
+    except Exception:
         return fallback
 
 
