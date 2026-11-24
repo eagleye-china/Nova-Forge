@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <!-- 拉丝金属渐变 -->
+    <linearGradient id="brushedMetal" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6B7280"/>
+      <stop offset="25%" stop-color="#D1D5DB"/>
+      <stop offset="50%" stop-color="#9CA3AF"/>
+      <stop offset="75%" stop-color="#F3F4F6"/>
+      <stop offset="100%" stop-color="#4B5563"/>
+    </linearGradient>
+
+    <!-- 鎏金渐变 -->
+    <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFD700"/>
+      <stop offset="50%" stop-color="#B8860B"/>
+      <stop offset="100%" stop-color="#FFF8DC"/>
+    </linearGradient>
+
+    <!-- 离子青发光 -->
+    <radialGradient id="auroraGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#35E0C8" stop-opacity="1"/>
+      <stop offset="60%" stop-color="#1DD6C3" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#0A0E17" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- 星核切面渐变 -->
+    <linearGradient id="starFace1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E0F2FE"/>
+      <stop offset="100%" stop-color="#38BDF8"/>
+    </linearGradient>
+    <linearGradient id="starFace2" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FFD700"/>
+      <stop offset="100%" stop-color="#B8860B"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 背景 -->
+  <rect width="512" height="512" fill="#0A0E17" rx="40"/>
+
+  <!-- 六边形拉丝铝底座 -->
+  <polygon points="256,36 448,128 448,384 256,476 64,384 64,128"
+           fill="url(#brushedMetal)" stroke="#1F2937" stroke-width="4"/>
+  <polygon points="256,56 428,140 428,372 256,456 84,372 84,140"
+           fill="#0A0E17" stroke="#9CA3AF" stroke-width="2"/>
+
+  <!-- 轨道系统 -->
+  <g transform="translate(256, 240) rotate(-25)">
+    <ellipse cx="0" cy="0" rx="170" ry="65" fill="none" stroke="url(#goldGradient)" stroke-width="10" opacity="0.85"/>
+    <ellipse cx="0" cy="0" rx="170" ry="65" fill="none" stroke="#0A0E17" stroke-width="5"/>
+    <circle cx="170" cy="0" r="6" fill="#35E0C8" filter="url(#auroraGlow)"/>
+  </g>
+
+  <g transform="translate(256, 240) rotate(55)">
+    <ellipse cx="0" cy="0" rx="65" ry="170" fill="none" stroke="#1DD6C3" stroke-width="3" opacity="0.6" stroke-dasharray="15 8"/>
+    <circle cx="0" cy="-170" r="5" fill="#FFFFFF"/>
+  </g>
+
+  <!-- 旗舰3D星核 -->
+  <g transform="translate(256, 240)">
+    <circle cx="0" cy="0" r="70" fill="url(#auroraGlow)"/>
+
+    <polygon points="0,-75 -45,0 0,20" fill="url(#starFace1)" stroke="#FFFFFF" stroke-width="1" opacity="0.9"/>
+    <polygon points="0,-75 45,0 0,20" fill="url(#starFace2)" stroke="#FFFFFF" stroke-width="1" opacity="0.9"/>
+    <polygon points="-45,0 0,20 45,0 0,75" fill="#1E3A8A" stroke="#FFFFFF" stroke-width="1"/>
+
+    <polygon points="0,-35 -18,0 0,10 18,0" fill="#35E0C8" filter="url(#auroraGlow)"/>
+
+    <!-- 电路射线 -->
+    <g stroke="#1DD6C3" stroke-width="2" fill="none" opacity="0.8">
+      <path d="M 0,-85 L 0,-105 L 15,-120"/>
+      <path d="M 85,0 L 105,0 L 120,-15"/>
+      <path d="M 0,85 L 0,105 L -15,120"/>
+      <path d="M -85,0 L -105,0 L -120,15"/>
+      <path d="M 55,-55 L 70,-70 L 70,-85"/>
+      <path d="M 55,55 L 70,70 L 85,70"/>
+      <path d="M -55,55 L -70,70 L -70,85"/>
+      <path d="M -55,-55 L -70,-70 L -85,-70"/>
+    </g>
+
+    <!-- 射线节点 -->
+    <g fill="#35E0C8" filter="url(#auroraGlow)">
+      <circle cx="15" cy="-120" r="3"/>
+      <circle cx="120" cy="-15" r="3"/>
+      <circle cx="-15" cy="120" r="3"/>
+      <circle cx="-120" cy="15" r="3"/>
+      <circle cx="70" cy="-85" r="3"/>
+      <circle cx="85" cy="70" r="3"/>
+      <circle cx="-70" cy="85" r="3"/>
+      <circle cx="-85" cy="-70" r="3"/>
+    </g>
+  </g>
+
+  <!-- 底部圆形外环标识（外边框已收细） -->
+  <g transform="translate(256, 390)">
+    <!-- 细鎏金外环 -->
+    <circle cx="0" cy="0" r="46" fill="none" stroke="url(#goldGradient)" stroke-width="2" opacity="0.9"/>
+    <circle cx="0" cy="0" r="42" fill="none" stroke="#FFF8DC" stroke-width="0.6" opacity="0.6"/>
+
+    <!-- 内圈刻度与节点 -->
+    <circle cx="0" cy="0" r="36" fill="none" stroke="#1DD6C3" stroke-width="0.8" opacity="0.5" stroke-dasharray="2 4"/>
+    <circle cx="0" cy="0" r="6" fill="#35E0C8" filter="url(#auroraGlow)"/>
+
+    <!-- 外环小节点 -->
+    <g fill="#35E0C8" filter="url(#auroraGlow)">
+      <circle cx="46" cy="0" r="2"/>
+      <circle cx="-46" cy="0" r="2"/>
+      <circle cx="0" cy="46" r="2"/>
+      <circle cx="0" cy="-46" r="2"/>
+    </g>
+  </g>
+</svg>

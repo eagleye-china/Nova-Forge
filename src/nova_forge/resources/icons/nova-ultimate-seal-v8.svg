@@ -1,0 +1,172 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <!-- 背景纹理 -->
+    <radialGradient id="bgRadial" cx="50%" cy="45%" r="70%">
+      <stop offset="0%" stop-color="#1c2435"/>
+      <stop offset="65%" stop-color="#121826"/>
+      <stop offset="100%" stop-color="#0b0f18"/>
+    </radialGradient>
+
+    <!-- 六边形金属外框渐变：强倒角 -->
+    <linearGradient id="hexBevel" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="20%" stop-color="#e6e9ef"/>
+      <stop offset="45%" stop-color="#b7bcc6"/>
+      <stop offset="75%" stop-color="#6f7684"/>
+      <stop offset="100%" stop-color="#2c323d"/>
+    </linearGradient>
+
+    <!-- 内圈暗金属边 -->
+    <linearGradient id="hexInnerEdge" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7d8491"/>
+      <stop offset="100%" stop-color="#2c323d"/>
+    </linearGradient>
+
+    <!-- 蓝色星芒渐变 -->
+    <linearGradient id="starBlue" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="18%" stop-color="#b9f0ff"/>
+      <stop offset="45%" stop-color="#45c7ee"/>
+      <stop offset="78%" stop-color="#1551b1"/>
+      <stop offset="100%" stop-color="#07255c"/>
+    </linearGradient>
+
+    <!-- 金色三角渐变 -->
+    <linearGradient id="starGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fff3a8"/>
+      <stop offset="35%" stop-color="#ffd24d"/>
+      <stop offset="75%" stop-color="#c79214"/>
+      <stop offset="100%" stop-color="#7a5700"/>
+    </linearGradient>
+
+    <!-- 中心青光核 -->
+    <radialGradient id="coreGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="30%" stop-color="#5ffcf6"/>
+      <stop offset="70%" stop-color="#0aa9d4" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#0aa9d4" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- 金色轨道渐变 -->
+    <linearGradient id="goldOrbit" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffe27a"/>
+      <stop offset="50%" stop-color="#f2b134"/>
+      <stop offset="100%" stop-color="#a57400"/>
+    </linearGradient>
+
+    <!-- 滤镜：外圈泛光 -->
+    <filter id="outerGlow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- 滤镜：青色中光 -->
+    <filter id="cyanGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="3.4" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- 滤镜：金色弱光 -->
+    <filter id="goldGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="2.2" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- 金属边框高光 -->
+    <filter id="edgeShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="5" stdDeviation="5" flood-color="#000000" flood-opacity="0.55"/>
+    </filter>
+  </defs>
+
+  <!-- 背景 -->
+  <rect width="512" height="512" fill="url(#bgRadial)"/>
+
+  <!-- 暗角 -->
+  <rect width="512" height="512" fill="radial-gradient(circle at 50% 45%, transparent 40%, rgba(0,0,0,0.35) 100%)"/>
+
+  <!-- 六边形金属外框 -->
+  <polygon points="256,24 448,120 448,392 256,488 64,392 64,120"
+           fill="none" stroke="url(#hexBevel)" stroke-width="16" stroke-linejoin="round" filter="url(#edgeShadow)"/>
+  <polygon points="256,44 428,130 428,382 256,470 84,382 84,130"
+           fill="none" stroke="url(#hexInnerEdge)" stroke-width="3"/>
+  <polygon points="256,54 418,136 418,376 256,460 94,376 94,136"
+           fill="#111726"/>
+
+  <!-- 外层光晕容器：星核背后 -->
+  <g transform="translate(256,224)">
+    <circle cx="0" cy="0" r="110" fill="url(#coreGlow)" opacity="0.35"/>
+  </g>
+
+  <!-- 轨道系统 -->
+  <g transform="translate(256,224)">
+    <!-- 金色实线轨道 -->
+    <ellipse cx="0" cy="0" rx="134" ry="58" fill="none" stroke="url(#goldOrbit)" stroke-width="2.4" opacity="0.85" filter="url(#goldGlow)"/>
+
+    <!-- 青色虚线轨道 1 -->
+    <ellipse cx="0" cy="0" rx="134" ry="58" fill="none" stroke="#5ffcf6" stroke-width="2"
+             stroke-dasharray="3 7" opacity="0.9" filter="url(#cyanGlow)" transform="rotate(62)"/>
+
+    <!-- 青色虚线轨道 2 -->
+    <ellipse cx="0" cy="0" rx="134" ry="58" fill="none" stroke="#5ffcf6" stroke-width="2"
+             stroke-dasharray="3 7" opacity="0.9" filter="url(#cyanGlow)" transform="rotate(-62)"/>
+
+    <!-- 轨道光点 -->
+    <circle cx="134" cy="0" r="3.4" fill="#9ffef6" filter="url(#cyanGlow)"/>
+    <circle cx="-134" cy="0" r="3.4" fill="#9ffef6" filter="url(#cyanGlow)"/>
+  </g>
+
+  <!-- 北极星主体 -->
+  <g transform="translate(256,224)">
+    <!-- 蓝色长尖：上 -->
+    <polygon points="0,-96 21,-24 0,2 -21,-24" fill="url(#starBlue)" stroke="#ffffff" stroke-width="1"/>
+    <!-- 蓝色长尖：下 -->
+    <polygon points="0,96 21,24 0,-2 -21,24" fill="url(#starBlue)" stroke="#ffffff" stroke-width="1"/>
+    <!-- 蓝色长尖：左 -->
+    <polygon points="-96,0 -24,-21 -2,0 -24,21" fill="url(#starBlue)" stroke="#ffffff" stroke-width="1"/>
+    <!-- 蓝色长尖：右 -->
+    <polygon points="96,0 24,21 2,0 24,-21" fill="url(#starBlue)" stroke="#ffffff" stroke-width="1"/>
+
+    <!-- 金色三角：右上 -->
+    <polygon points="21,-24 64,-64 24,-21" fill="url(#starGold)" stroke="#ffffff" stroke-width="0.9"/>
+    <!-- 金色三角：右下 -->
+    <polygon points="21,24 64,64 24,21" fill="url(#starGold)" stroke="#ffffff" stroke-width="0.9"/>
+    <!-- 金色三角：左下 -->
+    <polygon points="-21,24 -64,64 -24,21" fill="url(#starGold)" stroke="#ffffff" stroke-width="0.9"/>
+    <!-- 金色三角：左上 -->
+    <polygon points="-21,-24 -64,-64 -24,-21" fill="url(#starGold)" stroke="#ffffff" stroke-width="0.9"/>
+
+    <!-- 星芒外发光 -->
+    <g filter="url(#cyanGlow)" opacity="0.55">
+      <polygon points="0,-96 21,-24 0,2 -21,-24" fill="#5ffcf6"/>
+      <polygon points="0,96 21,24 0,-2 -21,24" fill="#5ffcf6"/>
+      <polygon points="-96,0 -24,-21 -2,0 -24,21" fill="#5ffcf6"/>
+      <polygon points="96,0 24,21 2,0 24,-21" fill="#5ffcf6"/>
+    </g>
+
+    <!-- 中心青光核 -->
+    <circle cx="0" cy="0" r="28" fill="url(#coreGlow)"/>
+    <circle cx="0" cy="0" r="11" fill="#ffffff"/>
+  </g>
+
+  <!-- 底部 HUD 小圆环 -->
+  <g transform="translate(256,372)">
+    <circle cx="0" cy="0" r="36" fill="none" stroke="url(#goldOrbit)" stroke-width="1.8" opacity="0.75"/>
+    <circle cx="0" cy="0" r="28" fill="none" stroke="#5ffcf6" stroke-width="1.5" opacity="0.9" filter="url(#cyanGlow)"/>
+    <circle cx="0" cy="0" r="20" fill="none" stroke="#5ffcf6" stroke-width="0.6" opacity="0.5"/>
+
+    <!-- 四个金色刻度点 -->
+    <circle cx="0" cy="-36" r="2.2" fill="#fff3a8"/>
+    <circle cx="36" cy="0" r="2.2" fill="#fff3a8"/>
+    <circle cx="0" cy="36" r="2.2" fill="#fff3a8"/>
+    <circle cx="-36" cy="0" r="2.2" fill="#fff3a8"/>
+  </g>
+</svg>

@@ -1,0 +1,136 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <radialGradient id="bgRadial" cx="50%" cy="45%" r="70%">
+      <stop offset="0%" stop-color="#1c2435"/>
+      <stop offset="65%" stop-color="#121826"/>
+      <stop offset="100%" stop-color="#0b0f18"/>
+    </radialGradient>
+
+    <linearGradient id="ringBevel" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="20%" stop-color="#e6e9ef"/>
+      <stop offset="45%" stop-color="#b7bcc6"/>
+      <stop offset="75%" stop-color="#6f7684"/>
+      <stop offset="100%" stop-color="#2c323d"/>
+    </linearGradient>
+
+    <linearGradient id="starBlue" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="18%" stop-color="#b9f0ff"/>
+      <stop offset="45%" stop-color="#45c7ee"/>
+      <stop offset="78%" stop-color="#1551b1"/>
+      <stop offset="100%" stop-color="#07255c"/>
+    </linearGradient>
+
+    <linearGradient id="starGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fff3a8"/>
+      <stop offset="35%" stop-color="#ffd24d"/>
+      <stop offset="75%" stop-color="#c79214"/>
+      <stop offset="100%" stop-color="#7a5700"/>
+    </linearGradient>
+
+    <radialGradient id="coreGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="30%" stop-color="#5ffcf6"/>
+      <stop offset="70%" stop-color="#0aa9d4" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#0aa9d4" stop-opacity="0"/>
+    </radialGradient>
+
+    <filter id="outerGlow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <filter id="cyanGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="3.4" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <filter id="goldGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="2.2" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <filter id="edgeShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="5" stdDeviation="5" flood-color="#000000" flood-opacity="0.55"/>
+    </filter>
+  </defs>
+
+  <rect width="512" height="512" fill="url(#bgRadial)"/>
+  <rect width="512" height="512" fill="radial-gradient(circle at 50% 45%, transparent 40%, rgba(0,0,0,0.35) 100%)"/>
+
+  <circle cx="256" cy="256" r="228" fill="none" stroke="url(#ringBevel)" stroke-width="16" filter="url(#edgeShadow)"/>
+  <circle cx="256" cy="256" r="210" fill="none" stroke="#6f7684" stroke-width="2"/>
+  <circle cx="256" cy="256" r="200" fill="#111726"/>
+
+  <!-- 8个身份刻度节点 -->
+  <g fill="#ffd24d">
+    <circle cx="256" cy="48" r="3.2"/>
+    <circle cx="382" cy="112" r="3.2"/>
+    <circle cx="464" cy="256" r="3.2"/>
+    <circle cx="382" cy="400" r="3.2"/>
+    <circle cx="256" cy="464" r="3.2"/>
+    <circle cx="130" cy="400" r="3.2"/>
+    <circle cx="48" cy="256" r="3.2"/>
+    <circle cx="130" cy="112" r="3.2"/>
+  </g>
+
+  <g transform="translate(256,224)">
+    <circle cx="0" cy="0" r="110" fill="url(#coreGlow)" opacity="0.35"/>
+  </g>
+
+  <g transform="translate(256,224)">
+    <ellipse cx="0" cy="0" rx="134" ry="58" fill="none" stroke="url(#starGold)" stroke-width="2.4" opacity="0.85" filter="url(#goldGlow)"/>
+    <ellipse cx="0" cy="0" rx="134" ry="58" fill="none" stroke="#5ffcf6" stroke-width="2"
+             stroke-dasharray="3 7" opacity="0.9" filter="url(#cyanGlow)" transform="rotate(62)"/>
+    <ellipse cx="0" cy="0" rx="134" ry="58" fill="none" stroke="#5ffcf6" stroke-width="2"
+             stroke-dasharray="3 7" opacity="0.9" filter="url(#cyanGlow)" transform="rotate(-62)"/>
+    <circle cx="134" cy="0" r="3.4" fill="#9ffef6" filter="url(#cyanGlow)"/>
+    <circle cx="-134" cy="0" r="3.4" fill="#9ffef6" filter="url(#cyanGlow)"/>
+  </g>
+
+  <g transform="translate(256,224)">
+    <polygon points="0,-96 21,-24 0,2 -21,-24" fill="url(#starBlue)" stroke="#ffffff" stroke-width="1"/>
+    <polygon points="0,96 21,24 0,-2 -21,24" fill="url(#starBlue)" stroke="#ffffff" stroke-width="1"/>
+    <polygon points="-96,0 -24,-21 -2,0 -24,21" fill="url(#starBlue)" stroke="#ffffff" stroke-width="1"/>
+    <polygon points="96,0 24,21 2,0 24,-21" fill="url(#starBlue)" stroke="#ffffff" stroke-width="1"/>
+
+    <polygon points="21,-24 64,-64 24,-21" fill="url(#starGold)" stroke="#ffffff" stroke-width="0.9"/>
+    <polygon points="21,24 64,64 24,21" fill="url(#starGold)" stroke="#ffffff" stroke-width="0.9"/>
+    <polygon points="-21,24 -64,64 -24,21" fill="url(#starGold)" stroke="#ffffff" stroke-width="0.9"/>
+    <polygon points="-21,-24 -64,-64 -24,-21" fill="url(#starGold)" stroke="#ffffff" stroke-width="0.9"/>
+
+    <!-- 执行触点 -->
+    <circle cx="96" cy="0" r="5" fill="#5ffcf6" filter="url(#cyanGlow)"/>
+    <circle cx="-96" cy="0" r="5" fill="#5ffcf6" filter="url(#cyanGlow)"/>
+
+    <g filter="url(#cyanGlow)" opacity="0.55">
+      <polygon points="0,-96 21,-24 0,2 -21,-24" fill="#5ffcf6"/>
+      <polygon points="0,96 21,24 0,-2 -21,24" fill="#5ffcf6"/>
+      <polygon points="-96,0 -24,-21 -2,0 -24,21" fill="#5ffcf6"/>
+      <polygon points="96,0 24,21 2,0 24,-21" fill="#5ffcf6"/>
+    </g>
+
+    <circle cx="0" cy="0" r="28" fill="url(#coreGlow)"/>
+    <circle cx="0" cy="0" r="11" fill="#ffffff"/>
+  </g>
+
+  <g transform="translate(256,372)">
+    <circle cx="0" cy="0" r="36" fill="none" stroke="url(#starGold)" stroke-width="1.8" opacity="0.75"/>
+    <circle cx="0" cy="0" r="28" fill="none" stroke="#5ffcf6" stroke-width="1.5" opacity="0.9" filter="url(#cyanGlow)"/>
+    <circle cx="0" cy="0" r="20" fill="none" stroke="#5ffcf6" stroke-width="0.6" opacity="0.5"/>
+    <circle cx="0" cy="-36" r="2.2" fill="#fff3a8"/>
+    <circle cx="36" cy="0" r="2.2" fill="#fff3a8"/>
+    <circle cx="0" cy="36" r="2.2" fill="#fff3a8"/>
+    <circle cx="-36" cy="0" r="2.2" fill="#fff3a8"/>
+  </g>
+</svg>

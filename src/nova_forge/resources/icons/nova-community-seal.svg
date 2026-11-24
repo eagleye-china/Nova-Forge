@@ -1,0 +1,113 @@
+<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" font-family="Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif">
+  <defs>
+    <!-- 铂银渐变（外环） -->
+    <linearGradient id="silverRing" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%"  stop-color="#5f7288"/>
+      <stop offset="18%" stop-color="#e8f1fa"/>
+      <stop offset="42%" stop-color="#9fb4cc"/>
+      <stop offset="62%" stop-color="#ffffff"/>
+      <stop offset="85%" stop-color="#7a8ba3"/>
+      <stop offset="100%" stop-color="#c3d3e6"/>
+    </linearGradient>
+    <!-- 星蓝缎带 -->
+    <linearGradient id="blueRibbon" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%"  stop-color="#6fc7ff"/>
+      <stop offset="45%" stop-color="#2f8fd6"/>
+      <stop offset="100%" stop-color="#1c6aa8"/>
+    </linearGradient>
+    <linearGradient id="blueDark" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%"  stop-color="#2f8fd6"/>
+      <stop offset="100%" stop-color="#164a75"/>
+    </linearGradient>
+    <!-- 深空底盘（偏青，较旗舰版更明快） -->
+    <radialGradient id="navyOpen" cx="50%" cy="38%" r="75%">
+      <stop offset="0%"  stop-color="#1f4d78"/>
+      <stop offset="55%" stop-color="#102a52"/>
+      <stop offset="100%" stop-color="#061126"/>
+    </radialGradient>
+    <!-- Nova 星体（青蓝爆发） -->
+    <linearGradient id="starCyan" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%"  stop-color="#ffffff"/>
+      <stop offset="45%" stop-color="#a8e6ff"/>
+      <stop offset="100%" stop-color="#38b6ff"/>
+    </linearGradient>
+    <radialGradient id="haloCyan" cx="50%" cy="50%" r="50%">
+      <stop offset="0%"  stop-color="#a8e6ff" stop-opacity="0.35"/>
+      <stop offset="60%" stop-color="#38b6ff" stop-opacity="0.10"/>
+      <stop offset="100%" stop-color="#38b6ff" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="5" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="soft" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#000000" flood-opacity="0.55"/>
+    </filter>
+    <path id="arcTop" d="M 66 256 A 190 190 0 0 1 446 256" fill="none"/>
+    <path id="arcBottom" d="M 84 256 A 172 172 0 0 0 428 256" fill="none"/>
+  </defs>
+
+  <!-- ══ 外环与底盘 ══ -->
+  <circle cx="256" cy="256" r="236" fill="none" stroke="url(#silverRing)" stroke-width="16" filter="url(#soft)"/>
+  <circle cx="256" cy="256" r="214" fill="url(#navyOpen)"/>
+  <circle cx="256" cy="256" r="206" fill="none" stroke="#a8dcf5" stroke-width="1.5" stroke-dasharray="3 7" opacity="0.4"/>
+
+  <!-- 左右装饰菱形 -->
+  <path d="M 52 246 L 60 256 L 52 266 L 44 256 Z" fill="url(#blueRibbon)"/>
+  <path d="M 460 246 L 468 256 L 460 266 L 452 256 Z" fill="url(#blueRibbon)"/>
+
+  <!-- ══ N 字水印 ══ -->
+  <text x="256" y="272" text-anchor="middle" font-size="190" font-weight="800"
+        fill="url(#starCyan)" opacity="0.14">N</text>
+
+  <!-- ══ Nova 星芒 ══ -->
+  <g transform="translate(256,210)">
+    <circle r="130" fill="url(#haloCyan)"/>
+    <!-- 放射线 -->
+    <g stroke="#ffffff" stroke-width="5" stroke-linecap="round" opacity="0.14">
+      <line x1="0" y1="-62" x2="0" y2="-148"/>
+      <line x1="0" y1="62"  x2="0" y2="148"/>
+      <line x1="-62" y1="0" x2="-148" y2="0"/>
+      <line x1="62"  y1="0" x2="148" y2="0"/>
+      <line x1="-44" y1="-44" x2="-104" y2="-104"/>
+      <line x1="44"  y1="-44" x2="104" y2="-104"/>
+      <line x1="-44" y1="44"  x2="-104" y2="104"/>
+      <line x1="44"  y1="44"  x2="104" y2="104"/>
+    </g>
+    <!-- 轨道（致敬 Quasar） -->
+    <ellipse rx="136" ry="46" fill="none" stroke="#a8dcf5" stroke-width="2.5" opacity="0.8" transform="rotate(-22)"/>
+    <!-- 副星（斜向 45°） -->
+    <path d="M 0 -58 L 16 -16 L 58 0 L 16 16 L 0 58 L -16 16 L -58 0 L -16 -16 Z"
+          fill="#5fc4f2" opacity="0.85" transform="rotate(45)"/>
+    <!-- 主星（四长芒新星） -->
+    <path d="M 0 -95 L 24 -24 L 95 0 L 24 24 L 0 95 L -24 24 L -95 0 L -24 -24 Z"
+          fill="url(#starCyan)" stroke="#e0f6ff" stroke-width="1" filter="url(#glow)"/>
+    <!-- 星核 -->
+    <circle r="15" fill="#ffffff" filter="url(#glow)"/>
+    <!-- 轨道电子 -->
+    <circle cx="-117.9" cy="22.9" r="6.5" fill="#ffffff" filter="url(#glow)"/>
+  </g>
+
+  <!-- ══ 环形铭文 ══ -->
+  <text font-size="20" font-weight="bold" fill="#a8dcf5" letter-spacing="4">
+    <textPath href="#arcTop" startOffset="50%" text-anchor="middle">PYSIDE · NOVA COMPONENT LIBRARY</textPath>
+  </text>
+  <text font-size="17" font-weight="bold" fill="#7fb8d9" letter-spacing="4">
+    <textPath href="#arcBottom" startOffset="50%" text-anchor="middle">OPEN COMMUNITY EDITION</textPath>
+  </text>
+
+  <!-- ══ Nova 缎带 ══ -->
+  <g filter="url(#soft)">
+    <!-- 折角衬片 -->
+    <path d="M 146 318 L 112 318 L 124 340 L 112 362 L 146 362 Z" fill="url(#blueDark)"/>
+    <path d="M 366 318 L 400 318 L 388 340 L 400 362 L 366 362 Z" fill="url(#blueDark)"/>
+    <!-- 折影 -->
+    <path d="M 146 362 L 146 372 L 158 362 Z" fill="#10395c"/>
+    <path d="M 366 362 L 366 372 L 354 362 Z" fill="#10395c"/>
+    <!-- 主缎带 -->
+    <rect x="146" y="318" width="220" height="44" fill="url(#blueRibbon)"/>
+    <rect x="146" y="318" width="220" height="44" fill="none" stroke="#164a75" stroke-width="1"/>
+  </g>
+  <text x="256" y="351" text-anchor="middle" font-size="32" font-weight="800"
+        fill="#ffffff" letter-spacing="6">Nova</text>
+</svg>

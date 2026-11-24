@@ -1,0 +1,19 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource prefix="/icons">
+        <file alias="nova1.svg">icons/nova-al-industry-seal.svg</file>
+        <file alias="nova7">icons/nova-al-industry-seal.svg</file>
+        <file alias="nova2.svg">icons/nova-community-seal.svg</file>
+        <file alias="nova6">icons/nova-community-seal.svg</file>
+        <file alias="nova8">icons/nova-de.svg</file>
+        <file alias="nova.svg">icons/nova-flagship-seal.svg</file>
+        <file alias="nova9">icons/nova-flagship-seal.svg</file>
+        <file alias="nova4.svg">icons/nova-industry-seal.svg</file>
+        <file alias="nova10">icons/nova-industry-seal.svg</file>
+        <file alias="nova11">icons/nova-ultimate-seal-2.svg</file>
+        <file alias="nova12">icons/nova-ultimate-seal-v4.svg</file>
+        <file alias="nova13">icons/nova-ultimate-seal-v8.svg</file>
+        <file alias="nova5.svg">icons/nova-unified-seal.svg</file>
+        <file alias="nova14">icons/nova-unified-seal.svg</file>
+    </qresource>
+</RCC>

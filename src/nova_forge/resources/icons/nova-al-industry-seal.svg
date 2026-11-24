@@ -1,0 +1,137 @@
+<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" font-family="Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif">
+  <defs>
+    <!-- 拉丝铝质感外环 -->
+    <linearGradient id="aluRing" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%"  stop-color="#6d7d92"/>
+      <stop offset="15%" stop-color="#eef4fb"/>
+      <stop offset="38%" stop-color="#a9bccf"/>
+      <stop offset="55%" stop-color="#f6fafd"/>
+      <stop offset="72%" stop-color="#8ea1b6"/>
+      <stop offset="88%" stop-color="#d5e1ec"/>
+      <stop offset="100%" stop-color="#78899d"/>
+    </linearGradient>
+    <linearGradient id="aluCell" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%"  stop-color="#f2f7fc"/>
+      <stop offset="50%" stop-color="#c2d2e2"/>
+      <stop offset="100%" stop-color="#93a8bd"/>
+    </linearGradient>
+    <!-- 星蓝缎带 -->
+    <linearGradient id="blueRibbon" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%"  stop-color="#6fc7ff"/>
+      <stop offset="45%" stop-color="#2f8fd6"/>
+      <stop offset="100%" stop-color="#1c6aa8"/>
+    </linearGradient>
+    <linearGradient id="blueDark" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%"  stop-color="#2f8fd6"/>
+      <stop offset="100%" stop-color="#164a75"/>
+    </linearGradient>
+    <!-- 深空底盘 -->
+    <radialGradient id="navyOpen" cx="50%" cy="38%" r="75%">
+      <stop offset="0%"  stop-color="#1f4d78"/>
+      <stop offset="55%" stop-color="#102a52"/>
+      <stop offset="100%" stop-color="#061126"/>
+    </radialGradient>
+    <!-- Nova 青蓝星体 -->
+    <linearGradient id="starCyan" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%"  stop-color="#ffffff"/>
+      <stop offset="45%" stop-color="#a8e6ff"/>
+      <stop offset="100%" stop-color="#38b6ff"/>
+    </linearGradient>
+    <radialGradient id="haloCyan" cx="50%" cy="50%" r="50%">
+      <stop offset="0%"  stop-color="#a8e6ff" stop-opacity="0.35"/>
+      <stop offset="60%" stop-color="#38b6ff" stop-opacity="0.10"/>
+      <stop offset="100%" stop-color="#38b6ff" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="5" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="soft" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#000000" flood-opacity="0.55"/>
+    </filter>
+    <!-- 环形铭文路径（上弧分为左右两段，中置铝元素铭牌） -->
+    <path id="arcTop" d="M 66 256 A 190 190 0 0 1 446 256" fill="none"/>
+    <path id="arcBottom" d="M 84 256 A 172 172 0 0 0 428 256" fill="none"/>
+  </defs>
+
+  <!-- ══ 拉丝铝外环（铝行业基因）══ -->
+  <circle cx="256" cy="256" r="236" fill="none" stroke="url(#aluRing)" stroke-width="16" filter="url(#soft)"/>
+  <!-- 拉丝纹理细线 -->
+  <circle cx="256" cy="256" r="231" fill="none" stroke="#ffffff" stroke-width="1" opacity="0.35"/>
+  <circle cx="256" cy="256" r="241" fill="none" stroke="#ffffff" stroke-width="1" opacity="0.3"/>
+  <circle cx="256" cy="256" r="214" fill="url(#navyOpen)"/>
+  <circle cx="256" cy="256" r="206" fill="none" stroke="#a8dcf5" stroke-width="1.5" stroke-dasharray="3 7" opacity="0.4"/>
+
+  <!-- 左右装饰菱形 -->
+  <path d="M 52 246 L 60 256 L 52 266 L 44 256 Z" fill="url(#blueRibbon)"/>
+  <path d="M 460 246 L 468 256 L 460 266 L 452 256 Z" fill="url(#blueRibbon)"/>
+
+  <!-- ══ 元素周期表 · 铝铭牌（Al · 13 · 26.982）══ -->
+  <g filter="url(#soft)">
+    <rect x="222" y="12" width="68" height="68" rx="8" fill="url(#aluCell)" stroke="#5f7288" stroke-width="2"/>
+  </g>
+  <text x="256" y="30" text-anchor="middle" font-size="13" font-weight="bold" fill="#2a3c55">13</text>
+  <text x="256" y="58" text-anchor="middle" font-size="28" font-weight="800" fill="#1c2e52">Al</text>
+  <text x="256" y="72" text-anchor="middle" font-size="10" font-weight="bold" fill="#2a3c55">26.982</text>
+
+  <!-- ══ 铝晶体六方晶格水印（面心立方晶格意象）══ -->
+  <g transform="translate(256,210)" fill="none" stroke="#9fb4cc">
+    <path d="M 90 0 L 45 77.9 L -45 77.9 L -90 0 L -45 -77.9 L 45 -77.9 Z" stroke-width="2" opacity="0.14"/>
+    <path d="M 140 0 L 70 121.2 L -70 121.2 L -140 0 L -70 -121.2 L 70 -121.2 Z" stroke-width="1.5" opacity="0.08"/>
+  </g>
+
+  <!-- ══ N 字水印 ══ -->
+  <text x="256" y="272" text-anchor="middle" font-size="170" font-weight="800"
+        fill="url(#starCyan)" opacity="0.13">N</text>
+
+  <!-- ══ Nova 星芒（轨道即电解电流回路）══ -->
+  <g transform="translate(256,210)">
+    <circle r="130" fill="url(#haloCyan)"/>
+    <!-- 放射线 -->
+    <g stroke="#ffffff" stroke-width="5" stroke-linecap="round" opacity="0.14">
+      <line x1="0" y1="-62" x2="0" y2="-148"/>
+      <line x1="0" y1="62"  x2="0" y2="148"/>
+      <line x1="-62" y1="0" x2="-148" y2="0"/>
+      <line x1="62"  y1="0" x2="148" y2="0"/>
+      <line x1="-44" y1="-44" x2="-104" y2="-104"/>
+      <line x1="44"  y1="-44" x2="104" y2="-104"/>
+      <line x1="-44" y1="44"  x2="-104" y2="104"/>
+      <line x1="44"  y1="44"  x2="104" y2="104"/>
+    </g>
+    <!-- 电流轨道（致敬 Quasar，亦是电解电流回路） -->
+    <ellipse rx="136" ry="46" fill="none" stroke="#a8dcf5" stroke-width="2.5" opacity="0.8" transform="rotate(-22)"/>
+    <!-- 副星 -->
+    <path d="M 0 -58 L 16 -16 L 58 0 L 16 16 L 0 58 L -16 16 L -58 0 L -16 -16 Z"
+          fill="#5fc4f2" opacity="0.85" transform="rotate(45)"/>
+    <!-- 主星 -->
+    <path d="M 0 -95 L 24 -24 L 95 0 L 24 24 L 0 95 L -24 24 L -95 0 L -24 -24 Z"
+          fill="url(#starCyan)" stroke="#e0f6ff" stroke-width="1" filter="url(#glow)"/>
+    <!-- 星核：熔融铝液滴 -->
+    <circle r="15" fill="#ffffff" filter="url(#glow)"/>
+    <!-- 电子：电解电流 / 代码流 -->
+    <circle cx="-117.9" cy="22.9" r="6.5" fill="#ffffff" filter="url(#glow)"/>
+  </g>
+
+  <!-- ══ 环形铭文（上弧左右分段，避让铝铭牌）══ -->
+  <text font-size="19" font-weight="bold" fill="#a8dcf5" letter-spacing="4">
+    <textPath href="#arcTop" startOffset="26%" text-anchor="middle">PYSIDE · NOVA</textPath>
+  </text>
+  <text font-size="19" font-weight="bold" fill="#a8dcf5" letter-spacing="4">
+    <textPath href="#arcTop" startOffset="74%" text-anchor="middle">COMPONENT LIBRARY</textPath>
+  </text>
+  <text font-size="16" font-weight="bold" fill="#7fb8d9" letter-spacing="3">
+    <textPath href="#arcBottom" startOffset="50%" text-anchor="middle">ALUMINUM × COMPUTING × MOBILE</textPath>
+  </text>
+
+  <!-- ══ Nova 缎带 ══ -->
+  <g filter="url(#soft)">
+    <path d="M 146 318 L 112 318 L 124 340 L 112 362 L 146 362 Z" fill="url(#blueDark)"/>
+    <path d="M 366 318 L 400 318 L 388 340 L 400 362 L 366 362 Z" fill="url(#blueDark)"/>
+    <path d="M 146 362 L 146 372 L 158 362 Z" fill="#10395c"/>
+    <path d="M 366 362 L 366 372 L 354 362 Z" fill="#10395c"/>
+    <rect x="146" y="318" width="220" height="44" fill="url(#blueRibbon)"/>
+    <rect x="146" y="318" width="220" height="44" fill="none" stroke="#164a75" stroke-width="1"/>
+  </g>
+  <text x="256" y="351" text-anchor="middle" font-size="32" font-weight="800"
+        fill="#ffffff" letter-spacing="6">Nova</text>
+</svg>

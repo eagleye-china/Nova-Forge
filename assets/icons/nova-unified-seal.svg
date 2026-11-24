@@ -1,0 +1,108 @@
+<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" font-family="Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif">
+  <defs>
+    <!-- 拉丝铝质感外环 -->
+    <linearGradient id="aluRing" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%"  stop-color="#6d7d92"/>
+      <stop offset="15%" stop-color="#eef4fb"/>
+      <stop offset="38%" stop-color="#a9bccf"/>
+      <stop offset="55%" stop-color="#f6fafd"/>
+      <stop offset="72%" stop-color="#8ea1b6"/>
+      <stop offset="88%" stop-color="#d5e1ec"/>
+      <stop offset="100%" stop-color="#78899d"/>
+    </linearGradient>
+    <!-- 深海军蓝底盘（借鉴脑图配色） -->
+    <radialGradient id="deepNavy" cx="50%" cy="42%" r="78%">
+      <stop offset="0%"  stop-color="#10306b"/>
+      <stop offset="55%" stop-color="#0a1f4d"/>
+      <stop offset="100%" stop-color="#050f2b"/>
+    </radialGradient>
+    <!-- 新星核光晕 -->
+    <radialGradient id="coreHalo" cx="50%" cy="50%" r="50%">
+      <stop offset="0%"  stop-color="#ffffff" stop-opacity="0.55"/>
+      <stop offset="45%" stop-color="#bfe9ff" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#bfe9ff" stop-opacity="0"/>
+    </radialGradient>
+    <!-- 电路节点辉光（青绿，借鉴脑图） -->
+    <radialGradient id="nodeGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%"  stop-color="#eafffb" stop-opacity="0.95"/>
+      <stop offset="40%" stop-color="#35e0c8" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#35e0c8" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="glow" x="-80%" y="-80%" width="260%" height="260%">
+      <feGaussianBlur stdDeviation="5" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="soft" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#000000" flood-opacity="0.55"/>
+    </filter>
+    <path id="arcTop" d="M 66 256 A 190 190 0 0 1 446 256" fill="none"/>
+    <path id="arcBottom" d="M 84 256 A 172 172 0 0 0 428 256" fill="none"/>
+  </defs>
+
+  <!-- ══ 拉丝铝外环 ══ -->
+  <circle cx="256" cy="256" r="236" fill="none" stroke="url(#aluRing)" stroke-width="16" filter="url(#soft)"/>
+  <circle cx="256" cy="256" r="231" fill="none" stroke="#ffffff" stroke-width="1" opacity="0.35"/>
+  <circle cx="256" cy="256" r="241" fill="none" stroke="#ffffff" stroke-width="1" opacity="0.3"/>
+  <circle cx="256" cy="256" r="214" fill="url(#deepNavy)"/>
+  <circle cx="256" cy="256" r="206" fill="none" stroke="#a8dcf5" stroke-width="1.5" stroke-dasharray="3 7" opacity="0.35"/>
+
+  <!-- 左右装饰菱形 -->
+  <path d="M 52 246 L 60 256 L 52 266 L 44 256 Z" fill="#2f8fd6"/>
+  <path d="M 460 246 L 468 256 L 460 266 L 452 256 Z" fill="#2f8fd6"/>
+
+  <!-- ══ 铝晶体六方晶格水印 ══ -->
+  <g transform="translate(256,256)" fill="none" stroke="#9fb4cc">
+    <path d="M 90 0 L 45 77.9 L -45 77.9 L -90 0 L -45 -77.9 L 45 -77.9 Z" stroke-width="2" opacity="0.10"/>
+    <path d="M 140 0 L 70 121.2 L -70 121.2 L -140 0 L -70 -121.2 L 70 -121.2 Z" stroke-width="1.5" opacity="0.06"/>
+  </g>
+
+  <!-- ══ N 字水印 ══ -->
+  <text x="256" y="310" text-anchor="middle" font-size="170" font-weight="800"
+        fill="#7fb8ff" opacity="0.09">N</text>
+
+  <!-- ══ Nova 冲击波（新星爆发的能量波）══ -->
+  <circle cx="256" cy="256" r="60"  fill="none" stroke="#35d8e0" stroke-width="2"   opacity="0.5"/>
+  <circle cx="256" cy="256" r="92"  fill="none" stroke="#35d8e0" stroke-width="1.5" opacity="0.32"/>
+  <circle cx="256" cy="256" r="124" fill="none" stroke="#35d8e0" stroke-width="1.2" opacity="0.18"/>
+
+  <!-- ══ 电路射线：能量从新星核沿电路扩散（借脑图电路语言）══ -->
+  <!-- 8 条射线，蓝/青交替，末端发光节点 -->
+  <g fill="none" stroke-linecap="round" stroke-width="2.5" opacity="0.9">
+    <g transform="rotate(0 256 256)"><path d="M 256 206 L 256 152 L 233 129" stroke="#1dd6c3"/></g>
+    <g transform="rotate(45 256 256)"><path d="M 256 206 L 256 152 L 279 129" stroke="#1a63ff"/></g>
+    <g transform="rotate(90 256 256)"><path d="M 256 206 L 256 152 L 233 129" stroke="#1a63ff"/></g>
+    <g transform="rotate(135 256 256)"><path d="M 256 206 L 256 152 L 279 129" stroke="#1dd6c3"/></g>
+    <g transform="rotate(180 256 256)"><path d="M 256 206 L 256 152 L 233 129" stroke="#1dd6c3"/></g>
+    <g transform="rotate(225 256 256)"><path d="M 256 206 L 256 152 L 279 129" stroke="#1a63ff"/></g>
+    <g transform="rotate(270 256 256)"><path d="M 256 206 L 256 152 L 233 129" stroke="#1a63ff"/></g>
+    <g transform="rotate(315 256 256)"><path d="M 256 206 L 256 152 L 279 129" stroke="#1dd6c3"/></g>
+  </g>
+  <!-- 发光节点 -->
+  <g>
+    <g transform="rotate(0 256 256)"><circle cx="233" cy="129" r="14" fill="url(#nodeGlow)"/><circle cx="233" cy="129" r="4.5" fill="#dffff7"/></g>
+    <g transform="rotate(45 256 256)"><circle cx="279" cy="129" r="14" fill="url(#nodeGlow)"/><circle cx="279" cy="129" r="4.5" fill="#dffff7"/></g>
+    <g transform="rotate(90 256 256)"><circle cx="233" cy="129" r="14" fill="url(#nodeGlow)"/><circle cx="233" cy="129" r="4.5" fill="#dffff7"/></g>
+    <g transform="rotate(135 256 256)"><circle cx="279" cy="129" r="14" fill="url(#nodeGlow)"/><circle cx="279" cy="129" r="4.5" fill="#dffff7"/></g>
+    <g transform="rotate(180 256 256)"><circle cx="233" cy="129" r="14" fill="url(#nodeGlow)"/><circle cx="233" cy="129" r="4.5" fill="#dffff7"/></g>
+    <g transform="rotate(225 256 256)"><circle cx="279" cy="129" r="14" fill="url(#nodeGlow)"/><circle cx="279" cy="129" r="4.5" fill="#dffff7"/></g>
+    <g transform="rotate(270 256 256)"><circle cx="233" cy="129" r="14" fill="url(#nodeGlow)"/><circle cx="233" cy="129" r="4.5" fill="#dffff7"/></g>
+    <g transform="rotate(315 256 256)"><circle cx="279" cy="129" r="14" fill="url(#nodeGlow)"/><circle cx="279" cy="129" r="4.5" fill="#dffff7"/></g>
+  </g>
+
+  <!-- ══ 类星体轨道（Quasar 致敬 + 电解电流回路）══ -->
+  <ellipse cx="256" cy="256" rx="172" ry="62" fill="none" stroke="#9fc0ff"
+           stroke-width="2" opacity="0.5" transform="rotate(-18 256 256)"/>
+  <circle cx="143" cy="335" r="5.5" fill="#ffffff" filter="url(#glow)"/>
+
+  <!-- ══ 新星核心 ══ -->
+  <circle cx="256" cy="256" r="95" fill="url(#coreHalo)"/>
+  <circle cx="256" cy="256" r="22" fill="#ffffff" filter="url(#glow)"/>
+
+  <!-- ══ 环形铭文 ══ -->
+  <text font-size="20" font-weight="bold" fill="#a8dcf5" letter-spacing="4">
+    <textPath href="#arcTop" startOffset="50%" text-anchor="middle">PYSIDE · NOVA COMPONENT LIBRARY</textPath>
+  </text>
+  <text font-size="16" font-weight="bold" fill="#7fb8d9" letter-spacing="3">
+    <textPath href="#arcBottom" startOffset="50%" text-anchor="middle">ALUMINUM × COMPUTING × MOBILE</textPath>
+  </text>
+</svg>

@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <!-- 金属外框渐变 -->
+    <linearGradient id="hexMetal" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E5E7EB"/>
+      <stop offset="40%" stop-color="#9CA3AF"/>
+      <stop offset="100%" stop-color="#4B5563"/>
+    </linearGradient>
+    <!-- 星尖蓝色渐变 -->
+    <linearGradient id="starBlue" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#BAE6FD"/>
+      <stop offset="50%" stop-color="#38BDF8"/>
+      <stop offset="100%" stop-color="#1E40AF"/>
+    </linearGradient>
+    <!-- 星尖鎏金渐变 -->
+    <linearGradient id="starGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFE873"/>
+      <stop offset="100%" stop-color="#B8860B"/>
+    </linearGradient>
+    <!-- 中心青光发光 -->
+    <radialGradient id="coreGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#35E0C8" stop-opacity="1"/>
+      <stop offset="50%" stop-color="#06B6D4" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#06B6D4" stop-opacity="0"/>
+    </radialGradient>
+    <!-- 轨道虚线发光 -->
+    <filter id="glowCyan" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="glowGold" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- 深色背景 -->
+  <rect width="512" height="512" fill="#111827"/>
+
+  <!-- 六边形金属边框 -->
+  <polygon points="256,32 440,128 440,384 256,480 72,384 72,128"
+           fill="none" stroke="url(#hexMetal)" stroke-width="14" stroke-linejoin="round"/>
+  <polygon points="256,52 420,136 420,376 256,460 92,376 92,136"
+           fill="#111827"/>
+
+  <!-- 原子轨道 金色 -->
+  <g transform="translate(256,220)">
+    <ellipse cx="0" cy="0" rx="130" ry="52" fill="none" stroke="url(#starGold)" stroke-width="2.2" opacity="0.7" filter="url(#glowGold)"/>
+    <!-- 青色虚线轨道 -->
+    <ellipse cx="0" cy="0" rx="130" ry="52" fill="none" stroke="#35E0C8" stroke-width="2" stroke-dasharray="4 6" opacity="0.8" filter="url(#glowCyan)" transform="rotate(60)"/>
+    <ellipse cx="0" cy="0" rx="130" ry="52" fill="none" stroke="#35E0C8" stroke-width="2" stroke-dasharray="4 6" opacity="0.8" filter="url(#glowCyan)" transform="rotate(-60)"/>
+    <!-- 轨道端点亮点 -->
+    <circle cx="130" cy="0" r="3" fill="#35E0C8" filter="url(#glowCyan)"/>
+    <circle cx="-130" cy="0" r="3" fill="#35E0C8" filter="url(#glowCyan)"/>
+  </g>
+
+  <!-- 八芒星主体 -->
+  <g transform="translate(256,220)">
+    <!-- 主长星尖（上下） -->
+    <polygon points="0,-90 22,-22 0,0 -22,-22" fill="url(#starBlue)" stroke="#ffffff" stroke-width="1.2"/>
+    <polygon points="0,90 22,22 0,0 -22,22" fill="url(#starBlue)" stroke="#ffffff" stroke-width="1.2"/>
+    <!-- 斜向蓝色星尖 -->
+    <polygon points="78,-40 22,-22 0,0 40,-78" fill="url(#starBlue)" stroke="#ffffff" stroke-width="1.2"/>
+    <polygon points="-78,40 -22,22 0,0 -40,78" fill="url(#starBlue)" stroke="#ffffff" stroke-width="1.2"/>
+    <!-- 金色短星尖 -->
+    <polygon points="78,40 22,22 0,0 40,78" fill="url(#starGold)" stroke="#ffffff" stroke-width="1.2"/>
+    <polygon points="-78,-40 -22,-22 0,0 -40,-78" fill="url(#starGold)" stroke="#ffffff" stroke-width="1.2"/>
+    <!-- 中心发光核 -->
+    <circle cx="0" cy="0" r="24" fill="url(#coreGlow)"/>
+    <circle cx="0" cy="0" r="10" fill="#ffffff"/>
+  </g>
+
+  <!-- 底部小圆刻度环 -->
+  <g transform="translate(256,368)">
+    <circle cx="0" cy="0" r="32" fill="none" stroke="url(#starGold)" stroke-width="1.8" opacity="0.7"/>
+    <circle cx="0" cy="0" r="24" fill="none" stroke="#35E0C8" stroke-width="1.6" opacity="0.8" filter="url(#glowCyan)"/>
+    <!-- 4个刻度点 -->
+    <circle cx="0" cy="-32" r="2.2" fill="#FFE873"/>
+    <circle cx="32" cy="0" r="2.2" fill="#FFE873"/>
+    <circle cx="0" cy="32" r="2.2" fill="#FFE873"/>
+    <circle cx="-32" cy="0" r="2.2" fill="#FFE873"/>
+  </g>
+</svg>
