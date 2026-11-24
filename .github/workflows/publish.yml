@@ -30,6 +30,85 @@ jobs:
     - name: Run smoke tests before publishing
       run: python -m unittest discover -s tests -v
 
+    # 门禁 1：tag 与 pyproject 版本必须严格一致（防止 tag 打错 / 忘记 bump）。
+    # 版本直接从 pyproject.toml 读取（正则，零依赖，兼容 workflow 的 Python 3.10，
+    # 不依赖 importlib.metadata 的 editable 安装刷新时机）。
+    # workflow_dispatch 手动触发时 GITHUB_REF 为分支而非 tag，此时跳过比对。
+    - name: Verify tag matches pyproject version
+      run: |
+        python - <<'PY'
+        import os
+        import re
+        import sys
+
+        def pyproject_field(key):
+            text = open("pyproject.toml", encoding="utf-8").read()
+            m = re.search(rf'^\[project\].*?^{key}\s*=\s*"([^"]+)"', text, re.M | re.S)
+            if not m:
+                print(f"::error::pyproject.toml 中未找到 [project].{key}")
+                sys.exit(1)
+            return m.group(1)
+
+        pkg_version = pyproject_field("version")
+        ref = os.environ.get("GITHUB_REF", "")
+
+        if ref.startswith("refs/tags/v"):
+            tag_version = ref.removeprefix("refs/tags/v")
+            if tag_version != pkg_version:
+                print(
+                    f"::error::tag 版本 v{tag_version} 与 pyproject 版本 {pkg_version} 不一致。"
+                    "请确认已升版并重新打 tag。"
+                )
+                sys.exit(1)
+            print(f"✅ tag 与版本一致: v{tag_version}")
+        else:
+            print(
+                f"::notice::非 tag 触发（{ref}），跳过 tag 比对；"
+                f"以 pyproject 版本 {pkg_version} 发布。"
+            )
+        PY
+
+    # 门禁 2：上传查重——目标版本已存在于 PyPI 则拒绝发布。
+    # 与本地 cmd_pypi.py 同源逻辑，防止 tag 重推时 400 或误覆盖。
+    - name: Check version not already on PyPI
+      run: |
+        python - <<'PY'
+        import json
+        import re
+        import sys
+        import urllib.error
+        import urllib.request
+
+        text = open("pyproject.toml", encoding="utf-8").read()
+        raw_name = re.search(r'^\[project\].*?^name\s*=\s*"([^"]+)"', text, re.M | re.S).group(1)
+        version = re.search(r'^\[project\].*?^version\s*=\s*"([^"]+)"', text, re.M | re.S).group(1)
+        name = re.sub(r"[-_.]+", "-", raw_name).lower()  # PEP 503
+        url = f"https://pypi.org/pypi/{name}/{version}/json"
+        print(f"🔎 查重目标: {name} {version}")
+        try:
+            with urllib.request.urlopen(url, timeout=10) as resp:
+                data = json.load(resp)
+        except urllib.error.HTTPError as exc:
+            if exc.code == 404:
+                print(f"✅ 版本 {version} 尚未在 PyPI，可发布。")
+                sys.exit(0)
+            print(f"::error::PyPI 查重请求失败: HTTP {exc.code}")
+            sys.exit(1)
+        except (urllib.error.URLError, TimeoutError, OSError, ValueError) as exc:
+            # 网络异常不阻塞发布（与 cmd_pypi.py 一致：跳过查重）
+            print(f"::warning::无法连接 PyPI 校验版本（{exc}），跳过查重。")
+            sys.exit(0)
+
+        files = data.get("urls") or []
+        if files:
+            print(
+                f"::error::版本 {version} 已存在于 PyPI（{len(files)} 个文件），"
+                "无法重复上传。请先升版并打新 tag。"
+            )
+            sys.exit(1)
+        print(f"✅ 版本 {version} 尚未在 PyPI，可发布。")
+        PY
+
     - name: Build package
       run: |
         python -m pip install --upgrade pip
