@@ -9,16 +9,25 @@ import contextlib
 import sys
 from pathlib import Path
 
-from PySide6.QtCore import Qt
-from PySide6.QtGui import QIcon
-from PySide6.QtWidgets import QApplication, QMessageBox, QSystemTrayIcon
+# GUI 依赖延迟降级：CI / 无 PySide6 环境只需 import 本模块（供单测 patch），
+# 不应因缺少 Qt 而崩。真实运行 run_clip_saver() 时若无 PySide6 给出明确提示。
+try:
+    from PySide6.QtCore import Qt
+    from PySide6.QtGui import QIcon
+    from PySide6.QtWidgets import QApplication, QMessageBox, QSystemTrayIcon
 
-with contextlib.suppress(ImportError):
-    pass
+    _HAS_GUI = True
+except ImportError:  # pragma: no cover - CI 无 GUI 依赖路径
+    Qt = QIcon = QApplication = QMessageBox = QSystemTrayIcon = None
+    _HAS_GUI = False
 
 # 导入分层后的模块（注意路径）
 from ..core.saver_logic import extract_blocks
-from ..ui.saver_window import SaverWindow
+
+try:
+    from ..ui.saver_window import SaverWindow
+except ImportError:  # pragma: no cover - saver_window 同样依赖 Qt
+    SaverWindow = None
 
 # resources_rc 位于项目根 resources/（与 src 同级），不可相对导入；
 # 与 cmd_icons 保持一致：绝对导入 + 降级保护（PyPI 包不含该目录时不影响 GUI 启动）。
@@ -181,6 +190,10 @@ class SaverController:
 
 def run_clip_saver():
     """CLI 入口函数"""
+    if QApplication is None:
+        raise SystemExit(
+            "❌ saver 命令需要 PySide6，请先安装：pip install 'nova-forge[gui]'"
+        )
     app = QApplication.instance()
     if not app:
         app = QApplication(sys.argv)

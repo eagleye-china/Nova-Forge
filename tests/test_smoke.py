@@ -18,6 +18,9 @@ def run_cli(*args: str, cwd: Path | None = None) -> subprocess.CompletedProcess:
     """在干净的子进程里调用 CLI，显式注入本地源码路径。"""
     env = dict(os.environ)
     env["PYTHONPATH"] = str(SRC) + os.pathsep + env.get("PYTHONPATH", "")
+    # Windows 控制台默认 GBK，子进程 print emoji 会抛 UnicodeEncodeError；
+    # 显式固定 UTF-8 输出，与下方 encoding="utf-8" 解码对齐。
+    env["PYTHONIOENCODING"] = "utf-8"
     return subprocess.run(
         [sys.executable, "-m", "nova_forge.cli", *args],
         cwd=cwd or ROOT,
