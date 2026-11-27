@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- app-aireport.svg · NovaAIReport（智能报表工作台）· hue 258° · 由 scripts/gen_app_icons.py 生成，禁手改 -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+  <rect x="8" y="8" width="240" height="240" rx="56" fill="#0D1424"/>
+  <rect x="8" y="8" width="240" height="240" rx="56" fill="none"
+        stroke="#612CDD" stroke-width="4" opacity="0.9"/>
+  <circle cx="128" cy="124" r="92" fill="#612CDD" opacity="0.10"/>
+  <circle cx="128" cy="124" r="70" fill="#612CDD" opacity="0.10"/>
+
+  <path d="M46 188 H210" stroke="#9167F4" stroke-width="8" stroke-linecap="round" opacity="0.55"/>
+  <rect x="58"  y="132" width="24" height="46"  rx="4" fill="#9167F4" opacity="0.85"/>
+  <rect x="96"  y="106" width="24" height="72"  rx="4" fill="#9167F4" opacity="0.60"/>
+  <rect x="134" y="120" width="24" height="58"  rx="4" fill="#9167F4" opacity="0.85"/>
+  <rect x="172" y="74"  width="24" height="104" rx="4" fill="#FFFFFF" opacity="0.85"/>
+  <path d="M70 124 L108 94 L146 106 L184 58" fill="none" stroke="#FFFFFF" stroke-width="8"
+        stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="184" cy="58" r="12" fill="#9167F4"/>
+  <rect x="92" y="226" width="72" height="7" rx="3" fill="#9167F4"/>
+</svg>

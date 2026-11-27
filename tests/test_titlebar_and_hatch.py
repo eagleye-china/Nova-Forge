@@ -33,6 +33,7 @@ class TestRecipeIconWiring(unittest.TestCase):
         for k in KINDS:
             self.assertEqual(icon_for(k.code), f"qrc:/icons/{k.icon}")
         self.assertEqual(icon_for("incubator"), "qrc:/icons/app-incubator.svg")
+        self.assertEqual(icon_for("aireport"), "qrc:/icons/app-aireport.svg")
         with self.assertRaises(ValueError):
             icon_for("no-such-kind")
         rows = gui_model.kind_rows()
@@ -169,6 +170,8 @@ class TestPreviewTitleIcon(unittest.TestCase):
         }
         for kind in KINDS:
             self.assertIn(f"app-{kind.code}", aliases, kind.code)
+        self.assertIn("app-incubator", aliases)
+        self.assertIn("app-aireport", aliases)
 
     def test_workbench_qrc_aliases_match_catalog_icon_files(self) -> None:
         """工作台 qrc 以 catalog.Kind.icon 文件名作别名（带 .svg），与 QML/QIcon 引用一致。"""
@@ -183,6 +186,7 @@ class TestPreviewTitleIcon(unittest.TestCase):
         for kind in KINDS:
             self.assertIn(kind.icon, aliases, kind.code)
         self.assertIn("app-incubator.svg", aliases)
+        self.assertIn("app-aireport.svg", aliases)
 
 
 if __name__ == "__main__":

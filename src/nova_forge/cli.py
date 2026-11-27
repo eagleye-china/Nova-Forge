@@ -10,6 +10,7 @@ from . import __version__
 from .command.cmd_apk import run_apk_build_interactive
 from .command.cmd_comment import run_comment
 from .command.cmd_git import run_git_only
+from .command.cmd_migrate import run_migrate
 from .command.cmd_prescript import run_prescript, run_prescript_gui
 from .command.cmd_prompt import run_prompt
 from .command.cmd_publish import run_publish
@@ -216,6 +217,53 @@ def main():
         )
 
     p_prescript.set_defaults(func=lambda a: sys.exit(_dispatch_prescript(a)))
+
+    # 命令 13: T3 迁移助手（CSA 2026-11-28 更名 migrate2nova；旧名保留为隐藏 alias）
+    p_migrate = subparsers.add_parser(
+        "migrate2nova",
+        aliases=["migrate_to_nova"],
+        help="🔄 一键 QtWidgets → pyside-nova 迁移助手（默认 dry-run）",
+    )
+    p_migrate.add_argument(
+        "-p", "--path", default=".", help="目标工程目录 / 单个 .py 文件"
+    )
+    p_migrate.add_argument(
+        "--api", default=None,
+        help="API 冻结面 JSON 路径（默认自动探测同级 pyside-nova/api/ 最新版本）",
+    )
+    p_migrate.add_argument(
+        "--scaffold", action="store_true",
+        help="写新文件（Main.qml / main.py / MIGRATION_TODO.md / JSON 报告）；默认 dry-run",
+    )
+    p_migrate.add_argument(
+        "--out", default=None, help="产物目录（默认 <path>/nova_migration/）"
+    )
+    p_migrate.add_argument(
+        "--force", action="store_true", help="覆盖已存在的产物（写盘前自动备份）"
+    )
+    p_migrate.add_argument(
+        "--json", action="store_true", help="输出机器可读 JSON 报告"
+    )
+    p_migrate.add_argument(
+        "--entry-args", default=None, metavar="JSON",
+        help="降级入口构造参数（JSON 数组，如 '[\".\"]'）",
+    )
+    p_migrate.add_argument(
+        "--qml-root", default=None, help="qmllint 的 QML import 根（可选）"
+    )
+    p_migrate.add_argument(
+        "--list-mapping", action="store_true", help="列出映射规则并校验冻结面零悬空"
+    )
+    p_migrate.add_argument(
+        "--restore", default=None, metavar="ID", help="按备份 id 回滚产物"
+    )
+    p_migrate.add_argument(
+        "--list-backups", action="store_true", help="列出 §9.3 临时备份"
+    )
+    p_migrate.add_argument(
+        "--clean-backups", action="store_true", help="清场全部临时备份（自建自删）"
+    )
+    p_migrate.set_defaults(func=lambda a: sys.exit(run_migrate(a)))
 
     # ==========================================
     # 🎯 极简路由分发

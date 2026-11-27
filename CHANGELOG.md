@@ -2,6 +2,39 @@
 
 所有版本变更记录，遵循 [Semantic Versioning](https://semver.org/) 规范。
 
+## [Unreleased] — 11-28 T3 完现：migrate2nova 子命令（100% 迁移）· 第 11 枚应用图标 / 专属暗色主题
+
+### ✨ Added（T3 · 原名 `migrate_to_nova`，CSA 建议更名便于输入）
+- 新增主命令 **`nova-forge migrate2nova`**（旧名 `migrate_to_nova` 保留为隐藏 alias，史料不圆场 / 交叉引用不断）：一键 QtWidgets → pyside-nova 迁移助手，默认 **dry-run**，`--scaffold` 才写盘。
+- 迁移包 `src/nova_forge/migrate/`：`freeze.py`（冻结面唯一法源，自动探测同级 `pyside-nova/api/nova-api-*.json` 最新版本）· `rules.py`（**72 条** QtWidgets → Nova 处置规则，`AUTO/RUNTIME/NATIVE/MANUAL` 四类 + `UNKNOWN_RULE` 兜底 MANUAL，零静默遗漏）· `scanner.py`（纯 AST 扫描，不导入 PySide6）· `contract.py`（§9.4 五道契约门）· `backup.py`（§9.3 `%TEMP%/nova-scratch/` 自建自删 / `--restore` 回滚）· `scaffold.py`（`Main.qml` + `main.py`，QML 优先、加载失败动态降级回原窗口类）· `report.py`（`MIGRATION_TODO.md` 人读 + `migration-report.json` 机读）· `plan.py`（编排层；契约门 FAIL 抛 `ContractBlockedError`，一个字节都不写）。
+- 参数：`-p/--path` · `--api` · `--scaffold` · `--out` · `--force` · `--json` · `--entry-args` · `--qml-root` · `--list-mapping` · `--restore` · `--list-backups` · `--clean-backups`。双语 README 命令清单与 Quick Start 同步。
+
+### 🎯 100% 口径（T3 验收定义，写实不写虚）
+- 试验田 `src/nova_forge/ui/saver_window.py`：**1** 个 `.py` · **22 个唯一 Qt 名** · **100%（22/22）** 全部进入四类处置（`AUTO 11 / MANUAL 2 / NATIVE 5 / RUNTIME 4`），MANUAL 明确为 `QSplitter` 与 `QSystemTrayIcon`，未知 Qt 名一律兜底 MANUAL，零静默遗漏。
+- 冻结面驱动映射表：`nova-api-1.11.0.json` · API `1.11.0` · **147 类型** · 指纹 `9966483dda5a53c4`；`--list-mapping` 实测 **72 条规则 / AUTO 目标悬空 0 个**，所有 AUTO 目标在冻结面真实存在（法源链零悬空），不手写 Nova 类型清单。
+- 五道契约门 `static-tier` / `coverage` / `qmllint` / `modelValue` / `slot-constitution`：dry-run 下前两门 PASS、后三门 SKIP（未生成骨架）；`--scaffold` 时五门实跑全绿方落盘。
+- 硬约束全守：原 `.py` 零改动 · 默认 dry-run · QML 加载失败降级回原窗口 · 补缺与迁移命令解耦（P2 生态建议只在 `MIGRATION_TODO.md §3.1` 登记，pyside-nova 147 公共面零改动、不重签）。
+
+### ✨ Added（第 11 枚应用图标 + 第 11 套专属主题）
+- `app-aireport.svg`（仪表钢蓝 **258°**）落两工程 `resources/icons/`，qrc 双别名 `:/icons/app-aireport` / `:/icons/app-aireport.svg`，`resources_rc.py` 重编；`catalog.py` / `gen_app_icons.py` 单一事实源 10 → 11。
+- `NovaAIReport` 补齐 `_signatureOn` / `_themeHue`(+0.0694) / `_accent` / `_ink` / `_inkSoft` / `_glow` 与 `NovaIcon` 身份徽记，与其余 10 壳同构；`ai_report` demo `run.py` 自包含 DWM helper（`darkChromeChanged(bool)` → 属性 20/19）同步 Windows 原生暗色标题栏。`GUIDE_COMPONENT_THEMES.md` / `NovaAIReport.md` §6 登记。
+
+### 🐛 Fixed（T3 · 坑位 83）
+- 全量 pytest 暴露真实回归：**4 failed / 201 passed**，根因是 Windows 版 `qmllint.exe` **不支持 `-` stdin**（把 `-` 当文件名、返回 `-1`、stderr 只有 `Failed to open file -`），而 `contract.py` 把「0 error 但 `returncode != 0`」误判为 FAIL；且**导入 PySide6 会把 `site-packages/PySide6/`（内含 `qmllint.exe`）注入 PATH**，令契约门在「专向单跑 / 全量跑」间行为漂移（专向 25 passed、全量 4 failed）。
+- 修法：qmllint 门改**落临时文件实跑、跑完自删**（`tempfile.TemporaryDirectory`），自动探测同级 `pyside-nova/src/pyside_nova/qml` 作 `-I` 令 `import Nova.*` 真解析（实测 RC=0 / 0 warning / 0 error）；判据改为**以 `Error:` 行为准零容忍**，warning 数与 rc 如实登记不掩盖，工具零输出非 0 退出时回退「静态契约 PASS（实跑未完成）」不谎称通过。新增 `test_qmllint_gate_survives_pyside6_import` 固化。
+
+### ✅ 验证（T3 + 图标主题）
+- 新增 `tests/test_migrate2nova.py` **26 passed**（含坑位 83 回归）：冻结面发现 / schema 异常 / 零悬空 / 未知名兜底 / 试验田 22 名 100% / 五门 / JSON·TODO / dry-run 不写盘 / scaffold 原 `.py` 字节不变 / QML 五槽 / 降级 / FAIL 不落盘 / 备份回滚清场 / CLI help 与旧 alias。
+- nova-forge 全量 **206 passed + 32 subtests**（较 T23 的 180 + 32 增 26 项）· `test_titlebar_and_hatch.py` 18 passed · pyside-nova 图标/主题专项 26 passed · ruff 新增/修改文件 `All checks passed!` · qmllint 0 error。
+- 真机：骨架 `Main.qml` 离屏 `ROOTS 1 / TOTAL_MSGS 0 / BAD_MSGS 0`；强制 QML 缺失时动态加载 `SaverWindow` `FALLBACK_RC 0`；`ai_report` demo `TOTAL_MSGS 0`；`check_api_freeze.py` **147 类型零漂移** · 三 `--check` 全绿 · 生成器幂等 · **wheel 干净构建通过（118 项，含 `migrate/` 9 文件 / `cmd_migrate.py` / `app-aireport.svg` / `resources_rc.py`）** · `mkdocs --strict` EXIT=0。
+
+### 📌 如实登记
+- T3 只改 nova-forge 侧与其文档/测试；**pyside-nova 1.11.0 冻结面 / 147 类型 / 指纹 `9966483dda5a53c4` 零改动**，不升版、不重签。
+- ruff 全量 `src tests scripts` 仍 **15 条**，均在 T23 未改动文件（`test_comment.py` 等），为本轮零改动存量挂账，未越界扫荡；本轮新增/修改文件 `All checks passed!`。
+- wheel 首次以 `--no-isolation` 构建因当前解释器 setuptools 后端元数据校验差异失败，改隔离模式 `python -m build --wheel` 即通过 → 工具/环境差异，非本轮代码引入；生成器幂等首次 BEFORE/AFTER 不等系生成物追上本轮新增 `SESSION_HANDOFF.md` 输入，按项目口径连跑两遍后哈希一致（`IDEMPOTENT: PASS`）。
+- §9.4 原方案骨架（根 `PROMPT.md §9`）、`nova-api-1.0.0.json` 史料行、旧名 `migrate_to_nova` 均按「史料不圆场」逐字保留，仅追加现行校准段。
+- `commit / push / tag / PyPI / 站点上线` 全归 CSA；本轮改动全部留本地工作树。
+
 ## [Unreleased] — 11-27 20:12 T23：README 英雄卡改用 NovaMarkdown 渲染 md
 
 ### ✨ Added / 🔧 Changed（T23）

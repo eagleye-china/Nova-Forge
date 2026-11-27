@@ -23,6 +23,7 @@ Stop copying and pasting `pyproject.toml`, fumbling with MIT licenses, or manual
 - 🔄 **`nova-forge rename`**: Safely rename project folders, package names, and global references in one go.
 - 🚀 **`nova-forge publish` / `git` / `pypi`**: Enterprise-grade release pipelines. Automatically commit, push, tag, trigger GitHub Actions, or publish directly to PyPI.
 - 🧬 **`nova-forge prescript`**: **Hatch an app, not a skeleton.** Generates one of nine production-grade PySide6 applications hosted by pyside-nova's `NovaIncubator` seven-slot workbench — each with a real business stage (agent console, inline copilot, digital-employee fleet, intent orbit, enterprise desktop, chat workbench, touch-first mobile, adaptive workspace, deployment wizard), a prescript manifest, CARF pipeline, three-way validation and a human-only freeze gate.
+- 🔄 **`nova-forge migrate2nova`**: **100% coverage migration, zero silent omissions.** One-shot QtWidgets → pyside-nova assistant. Default **dry-run**; `--scaffold` writes `Main.qml` / `main.py` / `MIGRATION_TODO.md` / `migration-report.json` only after five contract gates pass. The mapping is generated from the pyside-nova API freeze (`nova-api-1.11.0.json`, 147 types) — never hand-written; unknown Qt names fall back to `MANUAL` instead of silently disappearing. Original `.py` files are never modified, and a QML load failure degrades back to the original window. Old name `migrate_to_nova` stays as a hidden alias.
 
 ## 📦 Installation
 
@@ -59,6 +60,15 @@ nova-forge prescript --kind chat --path ./mei-chat  # generate & self-check
 cd mei-chat && python -m mei_chat.app               # run it
 ```
 Requires `pyside-nova>=1.2.0` for the generated apps. The `--gui` workbench extra (which renders component docs with `NovaMarkdown`) requires `pyside-nova>=1.4.0`. See [PRESCRIPT_GALLERY.md](https://github.com/eagleye-china/Nova-Forge/blob/main/docs/PRESCRIPT_GALLERY.md) for screenshots of all nine stages.
+
+### 5. Migrate an Existing QtWidgets App
+```bash
+nova-forge migrate2nova --path ./my_app              # dry-run: 100% disposition report
+nova-forge migrate2nova --path ./my_app --scaffold   # write scaffold after all five gates pass
+nova-forge migrate2nova --list-mapping               # audit the freeze-driven mapping
+nova-forge migrate2nova --restore <backup-id>       # roll back artifacts
+```
+Dry-run by default, original `.py` files untouched, QML load failure degrades back to the original window, and `migrate_to_nova` remains a hidden alias. See `MIGRATION_TODO.md` for the human-readable per-control disposition and `migration-report.json` for the machine-readable one.
 
 ## 📜 License
 

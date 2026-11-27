@@ -1,9 +1,10 @@
 # scripts/gen_app_icons.py
 # 创建时间：星期五 2026-11-27 06:55
-"""生成 10 个专属主题组合根的「应用图标」SVG（幂等 · 单一事实源）。
+"""生成 11 个专属主题组合根的「应用图标」SVG（幂等 · 单一事实源）。
 
-十个组件 = 九配方壳（catalog.KINDS）+ NovaIncubator（孵化器工作台自身）。
-色相 ``hue`` 直接取自 ``catalog``，与十主题色相台账一致，禁止在图标里另写死色值。
+十一个组件 = 九配方壳（catalog.KINDS）+ NovaIncubator（孵化器工作台自身）
++ NovaAIReport（T24 第 21 组合根）。
+色相 ``hue`` 直接取自 ``catalog``，与十一主题色相台账一致，禁止在图标里另写死色值。
 
 设计约束（对齐品牌规范「克制矢量派」+ Aurora Core 亮核）：
 - 纯几何 path / 基本形状，**无 text / textPath**（QtSvg 不渲染 textPath）；
@@ -26,16 +27,28 @@ SRC = ROOT / "src"
 if str(SRC) not in sys.path:
     sys.path.insert(0, str(SRC))
 
-from nova_forge.prescript.catalog import KINDS  # noqa: E402
+from nova_forge.prescript.catalog import (  # noqa: E402
+    AI_REPORT_CODE,
+    AI_REPORT_HUE,
+    AI_REPORT_ICON,
+    AI_REPORT_SHELL,
+    AI_REPORT_ZH,
+    INCUBATOR_HUE,
+    INCUBATOR_ICON,
+    INCUBATOR_SHELL,
+    KINDS,
+)
 
 OUT_DIR = SRC / "nova_forge" / "resources" / "icons"
 # 供 prescript 产物内嵌的 SVG 文本常量（产物是独立工程，不能依赖 nova-forge 运行时）
 CONSTANTS_PY = SRC / "nova_forge" / "resources" / "app_icons.py"
 
-# 孵化器工作台自身（第 10 个组件）；色相 283° 取自十主题色相台账
-INCUBATOR = ("incubator", "NovaIncubator", 283, "应用孵化器工作台")
+# 不属九配方、但同属专属主题组合根的两枚附加组件（色相取自 catalog 单一事实源）
+INCUBATOR = ("incubator", INCUBATOR_SHELL, INCUBATOR_HUE, "应用孵化器工作台")
+AI_REPORT = (AI_REPORT_CODE, AI_REPORT_SHELL, AI_REPORT_HUE, AI_REPORT_ZH)
+EXTRA_SPECS = (INCUBATOR, AI_REPORT)
 
-# 十枚图标的语义符号（256×256 坐标系，中心 128,124）。{c} = 专属色相亮色
+# 十一枚图标的语义符号（256×256 坐标系，中心 128,124）。{c} = 专属色相亮色
 GLYPHS: dict[str, str] = {
     # 智能体任务台：任务准入 → 计划 → 执行轨迹 → 独立验证勾
     "agent": """
@@ -122,6 +135,17 @@ GLYPHS: dict[str, str] = {
   </g>
   <circle cx="128" cy="124" r="34" fill="none" stroke="#FFFFFF" stroke-width="9"/>
   <circle cx="128" cy="124" r="12" fill="#FFFFFF"/>""",
+    # 智能报表工作台：四柱报表栅格 + 趋势折线 + 对标游标 + 中性白芯
+    # 抽象几何，不仿表格控件 / 图表控件；与其余十枚同套（深色圆角底 + 色相环 + 底部身份色带）
+    "aireport": """
+  <path d="M46 188 H210" stroke="{c}" stroke-width="8" stroke-linecap="round" opacity="0.55"/>
+  <rect x="58"  y="132" width="24" height="46"  rx="4" fill="{c}" opacity="0.85"/>
+  <rect x="96"  y="106" width="24" height="72"  rx="4" fill="{c}" opacity="0.60"/>
+  <rect x="134" y="120" width="24" height="58"  rx="4" fill="{c}" opacity="0.85"/>
+  <rect x="172" y="74"  width="24" height="104" rx="4" fill="#FFFFFF" opacity="0.85"/>
+  <path d="M70 124 L108 94 L146 106 L184 58" fill="none" stroke="#FFFFFF" stroke-width="8"
+        stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="184" cy="58" r="12" fill="{c}"/>""",
 }
 
 
@@ -136,9 +160,12 @@ def icon_filename(code: str) -> str:
 
 
 def all_specs() -> list[tuple[str, str, int, str]]:
-    """10 个组件 → (code, shell, hue, 中文名)。九配方来自 catalog，第 10 个是孵化器。"""
+    """11 个组件 → (code, shell, hue, 中文名)。九配方来自 catalog，另两枚为附加组合根。"""
     specs = [(k.code, k.shell, k.hue, k.zh) for k in KINDS]
-    specs.append(INCUBATOR)
+    specs.extend(EXTRA_SPECS)
+    # 账实相符：附加两枚的图标文件名必须与 catalog 常量逐字一致
+    assert icon_filename(INCUBATOR[0]) == INCUBATOR_ICON
+    assert icon_filename(AI_REPORT[0]) == AI_REPORT_ICON
     return specs
 
 
@@ -170,7 +197,7 @@ def constants_module(specs: list[tuple[str, str, int, str]]) -> str:
     lines = [
         "# src/nova_forge/resources/app_icons.py",
         "# 由 scripts/gen_app_icons.py 生成，禁手改。",
-        '"""10 个专属主题组合根的应用图标 SVG 文本（供 prescript 产物内嵌）。"""',
+        '"""11 个专属主题组合根的应用图标 SVG 文本（供 prescript 产物内嵌）。"""',
         "from __future__ import annotations",
         "",
         "ICONS: dict[str, str] = {",

@@ -49,6 +49,15 @@ INCUBATOR_SHELL = "NovaIncubator"
 INCUBATOR_HUE = 283
 INCUBATOR_ICON = "app-incubator.svg"
 
+# 第 11 个组件：NovaAIReport（T24 加入的第 21 组合根，同样不属九配方）。
+# 专属色相 258° = 基准 233° + 偏移 0.0694×360 ≈ 25°，与组件私有令牌
+# ``_themeHue: (NovaTheme.primary.hsvHue + 0.0694 + 1) % 1`` 账实相符（仪表钢蓝）。
+AI_REPORT_SHELL = "NovaAIReport"
+AI_REPORT_CODE = "aireport"
+AI_REPORT_HUE = 258
+AI_REPORT_ICON = "app-aireport.svg"
+AI_REPORT_ZH = "智能报表工作台"
+
 
 KINDS: tuple[Kind, ...] = (
     Kind(
@@ -291,15 +300,19 @@ KINDS: tuple[Kind, ...] = (
 KIND_CODES: tuple[str, ...] = tuple(k.code for k in KINDS)
 _BY_CODE = {k.code: k for k in KINDS}
 
-# 十个组件的图标文件名（九配方 + 孵化器），供生成器 / qrc / 测试共用；单一事实源
-APP_ICON_FILES: tuple[str, ...] = (*(k.icon for k in KINDS), INCUBATOR_ICON)
+# 十一个组件的图标文件名（九配方 + 孵化器 + 智能报表），供生成器 / qrc / 测试共用；单一事实源
+APP_ICON_FILES: tuple[str, ...] = (
+    *(k.icon for k in KINDS), INCUBATOR_ICON, AI_REPORT_ICON
+)
 APP_ICON_QRC: tuple[str, ...] = tuple(f"qrc:/icons/{name}" for name in APP_ICON_FILES)
 
 
 def icon_for(code: str) -> str:
-    """按组件代号取应用图标 qrc 路径；``incubator`` 落第 10 枚，未知 code 抛 ValueError。"""
+    """按组件代号取应用图标 qrc 路径；``incubator`` / ``aireport`` 落附加两枚，未知 code 抛 ValueError。"""
     if code == "incubator":
         return f"qrc:/icons/{INCUBATOR_ICON}"
+    if code == AI_REPORT_CODE:
+        return f"qrc:/icons/{AI_REPORT_ICON}"
     return f"qrc:/icons/{get_kind(code).icon}"
 
 

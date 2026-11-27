@@ -1,6 +1,7 @@
 <!DOCTYPE RCC>
 <RCC version="1.0">
     <qresource prefix="/icons">
+        <file alias="app-aireport.svg">icons/app-aireport.svg</file>
         <file alias="app-agent.svg">icons/app-agent.svg</file>
         <file alias="app-chat.svg">icons/app-chat.svg</file>
         <file alias="app-copilot.svg">icons/app-copilot.svg</file>
