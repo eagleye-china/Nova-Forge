@@ -1,5 +1,5 @@
 # src/nova_forge/ui/saver_window.py
-# 星期一 2026-11-23 00:20
+# 创建时间：星期二 2026-11-24 21:39
 """
 Nova Multi-Block 源码保存工具 - 纯 UI 视图层
 （已移除全局快捷键功能）

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- app-wizard.svg · NovaSetupWizard（部署向导）· hue 168° · 由 scripts/gen_app_icons.py 生成，禁手改 -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+  <rect x="8" y="8" width="240" height="240" rx="56" fill="#0D1424"/>
+  <rect x="8" y="8" width="240" height="240" rx="56" fill="none"
+        stroke="#2CDDB9" stroke-width="4" opacity="0.9"/>
+  <circle cx="128" cy="124" r="92" fill="#2CDDB9" opacity="0.10"/>
+  <circle cx="128" cy="124" r="70" fill="#2CDDB9" opacity="0.10"/>
+
+  <path d="M52 124 H204" stroke="#67F4D8" stroke-width="8" stroke-linecap="round" opacity="0.6"/>
+  <circle cx="56" cy="124" r="13" fill="#FFFFFF"/>
+  <circle cx="106" cy="124" r="13" fill="#FFFFFF"/>
+  <circle cx="156" cy="124" r="13" fill="#67F4D8"/>
+  <path d="M186 110 l11 12 l22 -25" fill="none" stroke="#FFFFFF" stroke-width="10"
+        stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="92" y="226" width="72" height="7" rx="3" fill="#67F4D8"/>
+</svg>

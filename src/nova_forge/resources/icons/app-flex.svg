@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- app-flex.svg · NovaFlexLayout（工业大屏）· hue 176° · 由 scripts/gen_app_icons.py 生成，禁手改 -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+  <rect x="8" y="8" width="240" height="240" rx="56" fill="#0D1424"/>
+  <rect x="8" y="8" width="240" height="240" rx="56" fill="none"
+        stroke="#2CDDD1" stroke-width="4" opacity="0.9"/>
+  <circle cx="128" cy="124" r="92" fill="#2CDDD1" opacity="0.10"/>
+  <circle cx="128" cy="124" r="70" fill="#2CDDD1" opacity="0.10"/>
+
+  <rect x="42" y="70" width="46" height="116" rx="7" fill="#67F4EA" opacity="0.9"/>
+  <rect x="96" y="70" width="46" height="54" rx="7" fill="#FFFFFF" opacity="0.85"/>
+  <rect x="96" y="132" width="46" height="54" rx="7" fill="#FFFFFF" opacity="0.5"/>
+  <rect x="150" y="70" width="64" height="78" rx="7" fill="#67F4EA" opacity="0.55"/>
+  <rect x="150" y="156" width="64" height="30" rx="7" fill="#FFFFFF" opacity="0.7"/>
+  <rect x="92" y="226" width="72" height="7" rx="3" fill="#67F4EA"/>
+</svg>

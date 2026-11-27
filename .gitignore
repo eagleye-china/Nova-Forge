@@ -14,3 +14,6 @@ dist/
 .env
 .venv
 venv/
+
+# prescript 本地孵化试验田（生成物由模板复现，不入库）
+.prescript_test/

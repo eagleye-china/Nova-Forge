@@ -1,5 +1,5 @@
 # src/nova_forge/tools/clean_material_symbols.py
-# 星期一 2026-11-23 00:20
+# 创建时间：星期二 2026-11-24 21:39
 """清洗 Material Symbols SVG 并生成预览索引（仅标准库依赖）。"""
 
 import argparse

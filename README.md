@@ -22,6 +22,7 @@ Stop copying and pasting `pyproject.toml`, fumbling with MIT licenses, or manual
 - 🌲 **`nova-forge tree`**: Builds an entire directory structure instantly from a simple text-based tree diagram.
 - 🔄 **`nova-forge rename`**: Safely rename project folders, package names, and global references in one go.
 - 🚀 **`nova-forge publish` / `git` / `pypi`**: Enterprise-grade release pipelines. Automatically commit, push, tag, trigger GitHub Actions, or publish directly to PyPI.
+- 🧬 **`nova-forge prescript`**: **Hatch an app, not a skeleton.** Generates one of nine production-grade PySide6 applications hosted by pyside-nova's `NovaIncubator` seven-slot workbench — each with a real business stage (agent console, inline copilot, digital-employee fleet, intent orbit, enterprise desktop, chat workbench, touch-first mobile, adaptive workspace, deployment wizard), a prescript manifest, CARF pipeline, three-way validation and a human-only freeze gate.
 
 ## 📦 Installation
 
@@ -50,6 +51,14 @@ Paste your layout into `project_structure.txt` and run:
 ```bash
 nova-forge tree
 ```
+
+### 4. Hatch a Prescript Application
+```bash
+nova-forge prescript --list                         # nine recipes P1–P9
+nova-forge prescript --kind chat --path ./mei-chat  # generate & self-check
+cd mei-chat && python -m mei_chat.app               # run it
+```
+Requires `pyside-nova>=1.2.0` for the generated apps. The `--gui` workbench extra (which renders component docs with `NovaMarkdown`) requires `pyside-nova>=1.4.0`. See [PRESCRIPT_GALLERY.md](https://github.com/eagleye-china/Nova-Forge/blob/main/docs/PRESCRIPT_GALLERY.md) for screenshots of all nine stages.
 
 ## 📜 License
 

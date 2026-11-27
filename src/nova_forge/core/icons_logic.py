@@ -1,5 +1,5 @@
 # src/nova_forge/core/icons_logic.py
-# 星期一 2026-11-23 00:20
+# 创建时间：星期二 2026-11-24 21:39
 """QRC 资源更新线程（无外部私有依赖）。"""
 
 from PySide6.QtCore import QThread, Signal

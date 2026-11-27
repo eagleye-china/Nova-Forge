@@ -22,6 +22,7 @@
 - 🌲 **`nova-forge tree`**:根据一段简单的树形文本，瞬间生成完整的工程目录结构。
 - 🔄 **`nova-forge rename`**:一键重命名项目文件夹、包名与全局依赖引用。
 - 🚀 **`nova-forge publish` / `git` / `pypi`**:企业级发版流水线。自动提交、打 Tag、推 GitHub 触发 Actions，或直传 PyPI。
+- 🧬 **`nova-forge prescript`**:**一键孵化的是应用，不是骨架。** 用 pyside-nova 的 `NovaIncubator` 七槽工作台承载九类企业级 PySide6 应用（智能体任务台 / 协作副驾 / 数字员工队伍 / 意图轨道 / 企业桌面 / 对话工作台 / 移动触控 / 自适应工作区 / 部署向导），每类都有真实业务舞台、配方清单、CARF 四阶段、三重校验与「必须人工点击」的封版闸门。
 
 ## 📦 安装
 
@@ -50,6 +51,14 @@ nova-forge apk
 ```bash
 nova-forge tree
 ```
+
+### 4. 一键孵化 Prescript 应用
+```bash
+nova-forge prescript --list                          # 九类配方 P1–P9
+nova-forge prescript --kind chat --path ./mei-chat   # 生成并跑三重校验
+cd mei-chat && python -m mei_chat.app                # 直接运行
+```
+生成的应用需要 `pyside-nova>=1.2.0`；`--gui` 工作台（README 文档由 `NovaMarkdown` 渲染）需要 `pyside-nova>=1.4.0`。九类舞台实拍见 [PRESCRIPT_GALLERY.md](https://github.com/eagleye-china/Nova-Forge/blob/main/docs/PRESCRIPT_GALLERY.md)。
 
 ## 📜 开源协议
 

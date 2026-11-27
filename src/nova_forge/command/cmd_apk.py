@@ -1,4 +1,5 @@
 # src/nova_forge/command/cmd_apk.py
+# 创建时间：星期二 2026-11-24 21:39
 
 import base64
 import os
@@ -7,7 +8,7 @@ import sys
 from pathlib import Path
 
 # ✅ 导入抽离出来的脚本模板
-from .templates.tmpl_wsl_build import WSL_BUILD_SCRIPT_TMPL
+from ..templates.tmpl_wsl_build import WSL_BUILD_SCRIPT_TMPL
 
 
 def _win_to_wsl_path(win_path: str) -> str:

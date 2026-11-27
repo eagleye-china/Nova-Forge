@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- app-incubator.svg · NovaIncubator（应用孵化器工作台）· hue 283° · 由 scripts/gen_app_icons.py 生成，禁手改 -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+  <rect x="8" y="8" width="240" height="240" rx="56" fill="#0D1424"/>
+  <rect x="8" y="8" width="240" height="240" rx="56" fill="none"
+        stroke="#AB2CDD" stroke-width="4" opacity="0.9"/>
+  <circle cx="128" cy="124" r="92" fill="#AB2CDD" opacity="0.10"/>
+  <circle cx="128" cy="124" r="70" fill="#AB2CDD" opacity="0.10"/>
+
+  <g stroke="#CC67F4" stroke-width="9" stroke-linecap="round">
+    <path d="M128 42 V70"/><path d="M128 178 V206"/>
+    <path d="M50 124 H78"/><path d="M178 124 H206"/>
+    <path d="M73 69 L93 89"/><path d="M163 159 L183 179"/>
+    <path d="M183 69 L163 89"/><path d="M93 159 L73 179"/>
+  </g>
+  <circle cx="128" cy="124" r="34" fill="none" stroke="#FFFFFF" stroke-width="9"/>
+  <circle cx="128" cy="124" r="12" fill="#FFFFFF"/>
+  <rect x="92" y="226" width="72" height="7" rx="3" fill="#CC67F4"/>
+</svg>

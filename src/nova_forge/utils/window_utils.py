@@ -1,9 +1,22 @@
-# src/dev_toolbox_pro/utils/window_utils.py
+# src/nova_forge/utils/window_utils.py
+# 创建时间：星期二 2026-11-24 21:39 · 11-27 泛化：QML 窗口 + 主题切换同步
+"""Windows 原生标题栏明暗同步（DWM immersive dark mode）。
+
+背景：Qt 的 ``ApplicationWindow`` 在 Windows 上用系统原生标题栏，其颜色由 DWM
+控制，不随 QML 侧 ``NovaTheme.isDark`` 变化 —— 暗色界面配白色标题栏即由此而来。
+本模块把「按当前主题同步所有顶层窗口标题栏」收敛为一个无窗口引用的函数
+``apply_dark_title_bars(dark)``，QML 侧只需在主题变化时调用桥接 Slot。
+
+兼容性：
+- Win10 1809~1909 用属性 19，Win10 2004+ / Win11 用属性 20（自动回退）；
+- 非 Windows 平台静默 no-op；
+- 窗口句柄在创建后才有效，统一用 ``QTimer.singleShot(10, ...)`` 延迟应用。
+"""
+from __future__ import annotations
+
 import ctypes
 import logging
 import sys
-
-from PySide6.QtWidgets import QWidget
 
 logger = logging.getLogger(__name__)
 
@@ -38,39 +51,62 @@ def _set_dwm_attribute(hwnd: int, attribute: int, value: int) -> bool:
         return False
 
 
-def enable_dark_title_bar(window: QWidget, enable: bool = True):
-    """
-    强制将 Windows 操作系统的原生标题栏变为深色/浅色模式。
-    支持 Windows 10 20H1 及以上,以及 Windows 11。
+def _apply_hwnd(hwnd: int, dark: bool) -> None:
+    """把明暗态写到单个原生窗口句柄（内部函数，不做延迟）。"""
+    if not hwnd:
+        return
+    value = 1 if dark else 0
+    # 尝试 Win10 2004+ / Win11 属性 (20)，失败回退 Win10 1809 - 1909 (19)
+    if not _set_dwm_attribute(hwnd, DWMWA_USE_IMMERSIVE_DARK_MODE_NEW, value):
+        _set_dwm_attribute(hwnd, DWMWA_USE_IMMERSIVE_DARK_MODE_OLD, value)
 
-    :param window: PySide6 窗口对象
-    :param enable: True 为深色,False 为浅色(跟随系统)
+
+def _hwnd_of(window) -> int:
+    """QWidget / QWindow / QQuickWindow 通吃：只依赖 ``winId()``。"""
+    try:
+        return int(window.winId())
+    except Exception as e:
+        logger.debug(f"[WARN] 无法取得窗口句柄: {e}")
+        return 0
+
+
+def enable_dark_title_bar(window, enable: bool = True) -> None:
+    """对**单个**窗口设置原生标题栏明暗（兼容旧 QtWidgets 调用方）。
+
+    :param window: 任何提供 ``winId()`` 的 Qt 窗口对象（QWidget / QWindow / QQuickWindow）
+    :param enable: True 深色，False 浅色（跟随系统）
     """
     if sys.platform != "win32":
         return
-
-    # ✅ 解决时序问题:使用 QTimer 延迟执行,确保窗口底层真正创建完毕
     from PySide6.QtCore import QTimer
 
-    def _apply():
-        try:
-            hwnd = int(window.winId())
-            if not hwnd:
-                return
+    QTimer.singleShot(10, lambda: _apply_hwnd(_hwnd_of(window), enable))
 
-            dark_value = 1 if enable else 0
 
-            # 尝试 Win10 2004+ / Win11 属性 (20)
-            if not _set_dwm_attribute(hwnd, DWMWA_USE_IMMERSIVE_DARK_MODE_NEW, dark_value):
-                # 回退到 Win10 1809 - 1909 属性 (19)
-                _set_dwm_attribute(hwnd, DWMWA_USE_IMMERSIVE_DARK_MODE_OLD, dark_value)
+def apply_dark_title_bars(dark: bool) -> int:
+    """按当前主题同步**所有顶层窗口**的原生标题栏，返回实际处理的窗口数。
 
-            # 可选:如果是 Win11,可以顺便修复最大化时的白边(设置为深色)
-            # if enable:
-            #     _set_dwm_attribute(hwnd, DWMWA_BORDER_COLOR, 0x00000000) # 纯黑边框
+    无需持有具体窗口引用（QML 侧拿不到 Python 窗口对象也能工作）：从
+    ``QGuiApplication.topLevelWindows()`` 取全部 QWindow，逐个写 DWM 属性。
+    由 QML 的主题变化经桥接 Slot 调用，启动时与每次明暗切换都会触发。
+    """
+    if sys.platform != "win32":
+        return 0
+    try:
+        from PySide6.QtGui import QGuiApplication
+    except ImportError:
+        return 0
 
-        except Exception as e:
-            logger.debug(f"[WARN] 无法开启深色标题栏: {e}")
+    app = QGuiApplication.instance()
+    if app is None:
+        return 0
 
-    # 延迟 10 毫秒执行,让窗口完成底层句柄分配
-    QTimer.singleShot(10, _apply)
+    windows = list(app.topLevelWindows())
+    from PySide6.QtCore import QTimer
+
+    def _apply_all() -> None:
+        for window in windows:
+            _apply_hwnd(_hwnd_of(window), dark)
+
+    QTimer.singleShot(10, _apply_all)
+    return len(windows)

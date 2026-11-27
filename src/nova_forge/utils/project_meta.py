@@ -1,5 +1,5 @@
 # src/nova_forge/utils/project_meta.py
-# 星期二 2026-11-24 11:23
+# 创建时间：星期二 2026-11-24 21:39
 
 import os
 import re

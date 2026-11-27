@@ -1,9 +1,17 @@
 # src/nova_forge/core/qrc_builder.py
-# 星期一 2026-11-23 00:20
+# 创建时间：星期二 2026-11-24 21:39
 """纯标准库 QRC 生成逻辑，便于在无 PySide6 环境下测试与复用。"""
 
+import re
 import xml.etree.ElementTree as ET
 from pathlib import Path
+
+_SUFFIX_RE = re.compile(r"_\d+$")
+
+
+def _base_alias(alias: str) -> str:
+    """剥掉重复更新追加的 _2/_3 后缀，得到别名基准。"""
+    return _SUFFIX_RE.sub("", alias)
 
 
 def update_qrc_from_directory(target_dir: str | Path) -> str:
@@ -19,6 +27,9 @@ def update_qrc_from_directory(target_dir: str | Path) -> str:
     qrc_path = folder.parent / "resources.qrc"
     prefix = f"/{folder.name}"
     entries: dict[str, tuple[str, str]] = {}
+    # (rel, 基础别名) 去重：保留语义别名（nova.svg 等）与首个文件名别名，
+    # 只清除重复更新遗留的 name_2/_3 后缀，不误删同文件的多语义入口。
+    seen: set[tuple[str, str]] = set()
 
     if qrc_path.exists():
         try:
@@ -33,11 +44,18 @@ def update_qrc_from_directory(target_dir: str | Path) -> str:
                 if not rel or not (qrc_path.parent / rel).exists():
                     continue
                 alias = file_el.get("alias") or Path(rel).stem
+                base = _base_alias(alias)
+                if (rel, base) in seen:
+                    continue  # 同一物理文件的 _2/_3 重复别名，丢弃
+                seen.add((rel, base))
                 entries[alias] = (alias, rel)
 
     added: list[str] = []
     for svg in sorted(folder.rglob("*.svg")):
         rel = svg.relative_to(qrc_path.parent).as_posix()
+        base = _base_alias(svg.stem)
+        if (rel, base) in seen:
+            continue  # 已登记：保留原 alias，不再追加 _2
         alias = svg.stem
         if alias in entries:
             index = 2
@@ -45,6 +63,7 @@ def update_qrc_from_directory(target_dir: str | Path) -> str:
                 index += 1
             alias = f"{svg.stem}_{index}"
         entries[alias] = (alias, rel)
+        seen.add((rel, base))
         added.append(alias)
 
     root = ET.Element("RCC", {"version": "1.0"})

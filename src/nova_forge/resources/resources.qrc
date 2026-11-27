@@ -1,19 +1,31 @@
 <!DOCTYPE RCC>
 <RCC version="1.0">
     <qresource prefix="/icons">
-        <file alias="nova1.svg">icons/nova-al-industry-seal.svg</file>
-        <file alias="nova7">icons/nova-al-industry-seal.svg</file>
-        <file alias="nova2.svg">icons/nova-community-seal.svg</file>
-        <file alias="nova6">icons/nova-community-seal.svg</file>
-        <file alias="nova8">icons/nova-de.svg</file>
-        <file alias="nova.svg">icons/nova-flagship-seal.svg</file>
-        <file alias="nova9">icons/nova-flagship-seal.svg</file>
-        <file alias="nova4.svg">icons/nova-industry-seal.svg</file>
-        <file alias="nova10">icons/nova-industry-seal.svg</file>
-        <file alias="nova11">icons/nova-ultimate-seal-2.svg</file>
-        <file alias="nova12">icons/nova-ultimate-seal-v4.svg</file>
-        <file alias="nova13">icons/nova-ultimate-seal-v8.svg</file>
-        <file alias="nova5.svg">icons/nova-unified-seal.svg</file>
-        <file alias="nova14">icons/nova-unified-seal.svg</file>
+        <file alias="app-agent.svg">icons/app-agent.svg</file>
+        <file alias="app-chat.svg">icons/app-chat.svg</file>
+        <file alias="app-copilot.svg">icons/app-copilot.svg</file>
+        <file alias="app-de.svg">icons/app-de.svg</file>
+        <file alias="app-desktop.svg">icons/app-desktop.svg</file>
+        <file alias="app-flex.svg">icons/app-flex.svg</file>
+        <file alias="app-incubator.svg">icons/app-incubator.svg</file>
+        <file alias="app-mobile.svg">icons/app-mobile.svg</file>
+        <file alias="app-orbit.svg">icons/app-orbit.svg</file>
+        <file alias="app-wizard.svg">icons/app-wizard.svg</file>
+        <file alias="nova-al-industry-seal">icons/nova-al-industry-seal.svg</file>
+        <file alias="nova-community-seal">icons/nova-community-seal.svg</file>
+        <file alias="nova-de">icons/nova-de.svg</file>
+        <file alias="nova-flagship-seal">icons/nova-flagship-seal.svg</file>
+        <file alias="nova-industry-seal">icons/nova-industry-seal.svg</file>
+        <file alias="nova-ultimate-seal-2">icons/nova-ultimate-seal-2.svg</file>
+        <file alias="nova-ultimate-seal-v4">icons/nova-ultimate-seal-v4.svg</file>
+        <file alias="nova-ultimate-seal-v8">icons/nova-ultimate-seal-v8.svg</file>
+        <file alias="nova-unified-seal">icons/nova-unified-seal.svg</file>
+        <file alias="pyside-nova-logo-sealed-gold">icons/pyside-nova-logo-sealed-gold.svg</file>
+        <file alias="pyside-nova-logo-sealed-mono">icons/pyside-nova-logo-sealed-mono.svg</file>
+        <file alias="pyside-nova-logo-sealed">icons/pyside-nova-logo-sealed.svg</file>
+        <file alias="pyside-nova-logo">icons/pyside-nova-logo.svg</file>
+        <file alias="pyside-nova-logo1">icons/pyside-nova-logo1.svg</file>
+        <file alias="pyside-nova-logo2">icons/pyside-nova-logo2.svg</file>
+        <file alias="pyside-nova-logo3">icons/pyside-nova-logo3.svg</file>
     </qresource>
 </RCC>

@@ -1,5 +1,5 @@
 # src/nova_forge/command/cmd_snapshot.py
-# 星期五 2026-11-20 00:00
+# 创建时间：星期二 2026-11-24 21:39
 """
 快照归档命令实现：终端手动粘贴，自动使用 snapshot_yyyyMMddHH 命名。
 零外部依赖，仅使用标准库。

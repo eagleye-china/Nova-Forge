@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- app-orbit.svg · NovaOrbit（意图轨道工作台）· hue 243° · 由 scripts/gen_app_icons.py 生成，禁手改 -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+  <rect x="8" y="8" width="240" height="240" rx="56" fill="#0D1424"/>
+  <rect x="8" y="8" width="240" height="240" rx="56" fill="none"
+        stroke="#352CDD" stroke-width="4" opacity="0.9"/>
+  <circle cx="128" cy="124" r="92" fill="#352CDD" opacity="0.10"/>
+  <circle cx="128" cy="124" r="70" fill="#352CDD" opacity="0.10"/>
+
+  <ellipse cx="128" cy="124" rx="92" ry="52" fill="none" stroke="#6E67F4" stroke-width="9"
+           transform="rotate(-24 128 124)"/>
+  <ellipse cx="128" cy="124" rx="56" ry="30" fill="none" stroke="#6E67F4" stroke-width="7"
+           opacity="0.55" transform="rotate(-24 128 124)"/>
+  <circle cx="128" cy="124" r="17" fill="#FFFFFF"/>
+  <circle cx="198" cy="92" r="12" fill="#6E67F4"/>
+  <rect x="92" y="226" width="72" height="7" rx="3" fill="#6E67F4"/>
+</svg>

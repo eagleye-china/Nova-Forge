@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- app-desktop.svg · NovaDesktop（企业桌面）· hue 223° · 由 scripts/gen_app_icons.py 生成，禁手改 -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+  <rect x="8" y="8" width="240" height="240" rx="56" fill="#0D1424"/>
+  <rect x="8" y="8" width="240" height="240" rx="56" fill="none"
+        stroke="#2C5EDD" stroke-width="4" opacity="0.9"/>
+  <circle cx="128" cy="124" r="92" fill="#2C5EDD" opacity="0.10"/>
+  <circle cx="128" cy="124" r="70" fill="#2C5EDD" opacity="0.10"/>
+
+  <rect x="42" y="64" width="172" height="128" rx="13" fill="none" stroke="#678FF4" stroke-width="9"/>
+  <path d="M42 94 H214 M94 94 V192" stroke="#678FF4" stroke-width="7" fill="none"/>
+  <rect x="108" y="108" width="90" height="14" rx="4" fill="#FFFFFF" opacity="0.85"/>
+  <rect x="108" y="134" width="62" height="12" rx="4" fill="#FFFFFF" opacity="0.55"/>
+  <rect x="108" y="158" width="78" height="12" rx="4" fill="#FFFFFF" opacity="0.4"/>
+  <rect x="42" y="182" width="172" height="10" fill="#678FF4" opacity="0.7"/>
+  <rect x="92" y="226" width="72" height="7" rx="3" fill="#678FF4"/>
+</svg>

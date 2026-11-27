@@ -1,5 +1,5 @@
 # src/nova_forge/command/cmd_publish.py
-# 星期二 2026-11-24 11:23
+# 创建时间：星期二 2026-11-24 21:39
 
 from ..utils.project_meta import ensure_origin, get_project_info
 from ._runner import run

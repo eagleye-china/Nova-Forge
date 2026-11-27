@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="pyside-nova 旗舰封版鎏金纪念徽标 · Nova Flagship Sealed Edition">
+  <title>pyside-nova · 旗舰封版鎏金纪念徽标</title>
+  <desc>继承 nova-flagship-seal 的鎏金外环、深空蓝底盘、四长芒主星与轨道电子；星芒改用家族青蓝渐变以接「青出于蓝」母题；新增 CARF 四词环形铭文、二十金点对应二十组合根、SEALED 旗舰缎带。</desc>
+  <defs>
+    <linearGradient id="goldRing" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8a5f1d"/><stop offset="18%" stop-color="#f9e08a"/>
+      <stop offset="42%" stop-color="#c9992f"/><stop offset="62%" stop-color="#fff2c0"/>
+      <stop offset="85%" stop-color="#9c7222"/><stop offset="100%" stop-color="#d9b45a"/>
+    </linearGradient>
+    <linearGradient id="goldRibbon" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#f7dd8d"/><stop offset="45%" stop-color="#d9a939"/><stop offset="100%" stop-color="#a5761f"/>
+    </linearGradient>
+    <linearGradient id="goldDark" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#c9982f"/><stop offset="100%" stop-color="#8a5f1d"/>
+    </linearGradient>
+    <radialGradient id="navy" cx="50%" cy="38%" r="75%">
+      <stop offset="0%" stop-color="#24406e"/><stop offset="55%" stop-color="#12224a"/><stop offset="100%" stop-color="#070d22"/>
+    </radialGradient>
+    <linearGradient id="novaStar" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#2EE6D6"/><stop offset="48%" stop-color="#3E9BE8"/><stop offset="100%" stop-color="#1B5FC4"/>
+    </linearGradient>
+    <radialGradient id="halo" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#7FF5E8" stop-opacity="0.42"/><stop offset="55%" stop-color="#2EE6D6" stop-opacity="0.12"/><stop offset="100%" stop-color="#2EE6D6" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="soft" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#000000" flood-opacity="0.55"/>
+    </filter>
+    <path id="arcTopG" d="M 66 256 A 190 190 0 0 1 446 256" fill="none"/>
+    <path id="arcBottomG" d="M 84 256 A 172 172 0 0 0 428 256" fill="none"/>
+  </defs>
+
+  <circle cx="256" cy="256" r="236" fill="none" stroke="url(#goldRing)" stroke-width="16" filter="url(#soft)"/>
+  <circle cx="256" cy="256" r="214" fill="url(#navy)"/>
+  <circle cx="256" cy="256" r="206" fill="none" stroke="#f2cf7e" stroke-width="1.5" stroke-dasharray="3 7" opacity="0.4"/>
+
+  <g transform="translate(256,256)" fill="url(#goldRing)">
+    <circle cx="0" cy="-193" r="3.1"/><circle cx="0" cy="-193" r="3.1" transform="rotate(18)"/>
+    <circle cx="0" cy="-193" r="3.1" transform="rotate(36)"/><circle cx="0" cy="-193" r="3.1" transform="rotate(54)"/>
+    <circle cx="0" cy="-193" r="3.1" transform="rotate(72)"/><circle cx="0" cy="-193" r="3.1" transform="rotate(90)"/>
+    <circle cx="0" cy="-193" r="3.1" transform="rotate(108)"/><circle cx="0" cy="-193" r="3.1" transform="rotate(126)"/>
+    <circle cx="0" cy="-193" r="3.1" transform="rotate(144)"/><circle cx="0" cy="-193" r="3.1" transform="rotate(162)"/>
+    <circle cx="0" cy="-193" r="3.1" transform="rotate(180)"/><circle cx="0" cy="-193" r="3.1" transform="rotate(198)"/>
+    <circle cx="0" cy="-193" r="3.1" transform="rotate(216)"/><circle cx="0" cy="-193" r="3.1" transform="rotate(234)"/>
+    <circle cx="0" cy="-193" r="3.1" transform="rotate(252)"/><circle cx="0" cy="-193" r="3.1" transform="rotate(270)"/>
+    <circle cx="0" cy="-193" r="3.1" transform="rotate(288)"/><circle cx="0" cy="-193" r="3.1" transform="rotate(306)"/>
+    <circle cx="0" cy="-193" r="3.1" transform="rotate(324)"/><circle cx="0" cy="-193" r="3.1" transform="rotate(342)"/>
+  </g>
+
+  <path d="M 52 246 L 60 256 L 52 266 L 44 256 Z" fill="url(#goldRibbon)"/>
+  <path d="M 460 246 L 468 256 L 460 266 L 452 256 Z" fill="url(#goldRibbon)"/>
+
+  <g transform="translate(256,210)">
+    <circle r="130" fill="url(#halo)"/>
+    <g stroke="#ffffff" stroke-width="5" stroke-linecap="round" opacity="0.14">
+      <line x1="0" y1="-62" x2="0" y2="-148"/><line x1="0" y1="62" x2="0" y2="148"/>
+      <line x1="-62" y1="0" x2="-148" y2="0"/><line x1="62" y1="0" x2="148" y2="0"/>
+      <line x1="-44" y1="-44" x2="-104" y2="-104"/><line x1="44" y1="-44" x2="104" y2="-104"/>
+      <line x1="-44" y1="44" x2="-104" y2="104"/><line x1="44" y1="44" x2="104" y2="104"/>
+    </g>
+    <ellipse rx="136" ry="46" fill="none" stroke="#f2cf7e" stroke-width="2.5" opacity="0.8" transform="rotate(-22)"/>
+    <ellipse rx="136" ry="46" fill="none" stroke="#2EE6D6" stroke-width="1.6" stroke-dasharray="4 9" opacity="0.55" transform="rotate(38)"/>
+    <path d="M 0 -58 L 16 -16 L 58 0 L 16 16 L 0 58 L -16 16 L -58 0 L -16 -16 Z" fill="#f5c451" opacity="0.85" transform="rotate(45)"/>
+    <path d="M 0 -95 L 24 -24 L 95 0 L 24 24 L 0 95 L -24 24 L -95 0 L -24 -24 Z" fill="url(#novaStar)" stroke="#b9f0ff" stroke-width="1" filter="url(#glow)"/>
+    <circle r="15" fill="#ffffff" filter="url(#glow)"/>
+    <circle cx="-117.9" cy="22.9" r="6.5" fill="#2EE6D6" filter="url(#glow)"/>
+    <circle cx="104" cy="-54" r="4.2" fill="#f2cf7e" opacity="0.9"/>
+  </g>
+
+  <g font-family="Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="19" font-weight="bold" fill="#f2cf7e" letter-spacing="3.4">
+    <text text-anchor="middle"><textPath href="#arcTopG" startOffset="50%">CONCEIVE · ACHIEVE · REFINE · FREEZE</textPath></text>
+  </g>
+  <g font-family="Arial, 'PingFang SC', sans-serif" font-size="13" font-weight="bold" fill="#d9b45a" letter-spacing="2">
+    <text text-anchor="middle"><textPath href="#arcBottomG" startOffset="16%">PYSIDE-NOVA</textPath></text>
+    <text text-anchor="middle"><textPath href="#arcBottomG" startOffset="84%">SEALED · v1.3.0</textPath></text>
+  </g>
+
+  <g filter="url(#soft)">
+    <path d="M 146 410 L 112 410 L 124 432 L 112 454 L 146 454 Z" fill="url(#goldDark)"/>
+    <path d="M 366 410 L 400 410 L 388 432 L 400 454 L 366 454 Z" fill="url(#goldDark)"/>
+    <path d="M 146 454 L 146 464 L 158 454 Z" fill="#5f4312"/>
+    <path d="M 366 454 L 366 464 L 354 454 Z" fill="#5f4312"/>
+    <rect x="146" y="410" width="220" height="44" fill="url(#goldRibbon)"/>
+    <rect x="146" y="410" width="220" height="44" fill="none" stroke="#8a5f1d" stroke-width="1"/>
+  </g>
+  <text x="256" y="441" text-anchor="middle" font-family="Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="22" font-weight="800" fill="#14203c" letter-spacing="5">旗舰封版</text>
+</svg>

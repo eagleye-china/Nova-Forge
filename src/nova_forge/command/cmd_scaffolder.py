@@ -1,27 +1,13 @@
 # src/nova_forge/command/cmd_scaffolder.py
+# 创建时间：星期二 2026-11-24 21:39
 
-import datetime
 from pathlib import Path
-from string import Template
 
-from .templates import (
-    CB,
-    CHANGELOG_TMPL,
-    DEFAULT_DEPS,
+from ..templates import (
     DEFAULT_DESC_EN,
     DEFAULT_DESC_ZH,
     DEFAULT_GITHUB_USER,
     DEFAULT_REAL_NAME,
-    GITIGNORE_TMPL,
-    HOW_TO_PUBLISH_TMPL,
-    INIT_PY_TMPL,
-    LICENSE_TMPL,
-    MOBILE_MAIN_PY_TMPL,
-    MOBILE_MAIN_QML_TMPL,
-    PYPROJECT_TMPL,
-    README_EN_TMPL,
-    README_ZH_TMPL,
-    WORKFLOW_TMPL,
 )
 
 
@@ -30,17 +16,99 @@ def ask(prompt, default):
     return res if res else default
 
 
-def run_scaffolder():
+def write_plan(plan: dict, target_root: Path, emit, force: bool = False) -> list[str]:
+    """把 scaffold_file_plan 清单逐项落盘；emit 负责单项打印。
+
+    DIR_SENTINEL 代表目录（mkdir），其余（含空串）为文件；存在且非 force
+    时安全跳过。返回实际落盘的相对路径列表（含目录），供调用方汇总。
+    """
+
+    from string import Template
+
+    from ..core.scaffold_logic import DIR_SENTINEL
+
+    written: list[str] = []
+    for rel, text in plan.items():
+        full = target_root / Template(rel).safe_substitute({})
+        if text is DIR_SENTINEL:
+            full.mkdir(parents=True, exist_ok=True)
+            emit(f"📁 已创建目录: {rel}/")
+            written.append(rel)
+            continue
+        if full.exists() and not force:
+            emit(f"⏭️ 已存在，安全跳过: {rel}")
+            continue
+        full.parent.mkdir(parents=True, exist_ok=True)
+        full.write_text(text, encoding="utf-8", newline="\n")
+        emit(f"📄 {'已覆盖生成' if force and full.exists() else '已生成'}: {rel}")
+        written.append(rel)
+    return written
+
+
+def scaffold_project(
+    target_root: str | Path,
+    *,
+    is_mobile: bool = False,
+    force: bool = False,
+    quiet: bool = True,
+    include_entry_py: bool = True,
+    include_entry_qml: bool = True,
+    include_project_structure: bool = True,
+    **overrides,
+) -> dict:
+    """非交互入口：给定项目绝对路径，直接补齐完整工程骨架。
+
+    prescript 确认孵化后调用本函数，把通用工程文件（LICENSE / README_zh /
+    CHANGELOG / HOW_TO_PUBLISH / publish.yml / project_structure.txt）叠加到
+    配方工程；同名文件已存在时安全跳过，绝不覆盖 prescript 的专属产物。
+
+    Returns:
+        ``{"ok", "written", "skipped", "root", "projectName"}`` 结构化结果。
+    """
+    from ..core.scaffold_logic import (
+        DIR_SENTINEL,
+        build_context,
+        scaffold_file_plan,
+    )
+
+    root = Path(target_root).expanduser().resolve()
+    plan = scaffold_file_plan(
+        root, is_mobile=is_mobile, include_entry_py=include_entry_py,
+        include_entry_qml=include_entry_qml,
+        include_project_structure=include_project_structure, **overrides,
+    )
+    ctx = build_context(root, is_mobile=is_mobile, **overrides)
+
+    def emit(msg: str) -> None:
+        if not quiet:
+            print(msg)
+
+    # 目录项不参与 written/skipped 账本（每次 mkdir 都是幂等的，不算"写文件"）
+    file_rel = [rel for rel, text in plan.items() if text is not DIR_SENTINEL]
+    written = write_plan(plan, root, emit, force=force)
+    written_files = [rel for rel in written if plan.get(rel) is not DIR_SENTINEL]
+    return {
+        "ok": True,
+        "written": written_files,
+        "skipped": [rel for rel in file_rel if rel not in written_files],
+        "root": str(root),
+        "projectName": ctx["PROJECT_NAME"],
+    }
+
+
+def run_scaffolder(project_root: str | None = None):
     print("\n🔥 欢迎使用 Nova-Forge 终极项目锻造炉")
     print("=" * 60)
 
-    # 1. 先问路径 (符合直觉)
-    target_dir_str = ask("📂 项目完整绝对路径 (如 D:\\Projects\\AluBrain-Copilot)", "")
-    if not target_dir_str:
-        print("❌ 错误: 必须提供项目根目录路径！")
-        return
-
-    target_root = Path(target_dir_str).resolve()
+    # 1. 路径：CLI --project 显式传入则跳过询问；否则要求用户输入绝对路径
+    if project_root:
+        target_root = Path(project_root).expanduser().resolve()
+    else:
+        target_dir_str = ask("📂 项目完整绝对路径 (如 D:\\Projects\\AluBrain-Copilot)", "")
+        if not target_dir_str:
+            print("❌ 错误: 必须提供项目根目录路径！")
+            return
+        target_root = Path(target_dir_str).expanduser().resolve()
 
     # 自动从路径提取项目名
     folder_name = target_root.name
@@ -74,7 +142,6 @@ def run_scaffolder():
     # ✅ 智能默认值:全部由 folder_name 派生
     default_project_name = folder_name.lower().replace(" ", "-").replace("_", "-")
     default_repo_name = folder_name.replace(" ", "")
-    module_name = folder_name.lower().replace("-", "_").replace(" ", "_")
 
     if is_mobile:
         default_desc_en = "A stunning, GPU-accelerated mobile application for PySide6."
@@ -92,95 +159,23 @@ def run_scaffolder():
     desc_en = ask("🇬🇧 英文描述", default_desc_en)
     desc_zh = ask("🇨🇳 中文描述", default_desc_zh)
 
-    year = datetime.datetime.now().year
-    month = datetime.datetime.now().strftime("%m")
-    day = datetime.datetime.now().strftime("%d")
-
-    # 用于注入的全局字典
-    context = {
-        "PROJECT_NAME": project_name,
-        "REPO_NAME": repo_name,
-        "GITHUB_USER": github_user,
-        "REAL_NAME": real_name,
-        "DESC_EN": desc_en,
-        "DESC_ZH": desc_zh,
-        "YEAR": year,
-        "MONTH": month,
-        "DAY": day,
-        "MODULE_NAME": module_name,
-        "DEPS": DEFAULT_DEPS,
-        "CB": CB
-    }
-
-    def write_file(rel_path, tmpl_string, custom_context=None):
-        """通用写文件函数:解析路径变量，写入目标根目录"""
-        ctx = {**context, **(custom_context or {})}
-
-        # 替换路径中的变量
-        parsed_path = Template(rel_path).safe_substitute(ctx)
-        full_path = target_root / parsed_path
-
-        # 🚨 核心修复:如果传入的 tmpl_string 是空字符串 ""，代表要创建的是目录！
-        if tmpl_string == "":
-            try:
-                full_path.mkdir(parents=True, exist_ok=True)
-                print(f"📁 已创建目录: {full_path.relative_to(target_root)}/")
-            except Exception as e:
-                print(f"❌ 目录创建失败 {full_path}: {e}")
-            return
-
-        # 否则，它绝对是一个文件！
-        if full_path.exists() and not force_overwrite:
-            print(f"⏭️ 已存在，安全跳过: {full_path.relative_to(target_root)}")
-            return
-
-        # 替换文件内容
-        content = Template(tmpl_string).safe_substitute(ctx)
-
-        # 写入文件
-        try:
-            full_path.parent.mkdir(parents=True, exist_ok=True)
-            full_path.write_text(content, encoding="utf-8")
-            if full_path.exists() and force_overwrite:
-                print(f"📄 已覆盖生成: {full_path.relative_to(target_root)}")
-            else:
-                print(f"📄 已生成: {full_path.relative_to(target_root)}")
-        except Exception as e:
-            print(f"❌ 写入失败 {parsed_path}: {e}")
-
     print("\n🚀 开始锻造企业级项目骨架...\n")
 
-    # 3. 生成公共配置与文档
-    write_file("pyproject.toml", PYPROJECT_TMPL)
-    write_file("LICENSE", LICENSE_TMPL)
-    write_file(".gitignore", GITIGNORE_TMPL)
-    write_file("README.md", README_EN_TMPL)
-    write_file("README_zh.md", README_ZH_TMPL)
-    write_file("CHANGELOG.md", CHANGELOG_TMPL)
-    write_file("HOW_TO_PUBLISH.md", HOW_TO_PUBLISH_TMPL)
-    write_file(".github/workflows/publish.yml", WORKFLOW_TMPL)
+    # 单一事实源：core.scaffold_logic 生成完整清单，交互值作为覆盖注入
+    from ..core.scaffold_logic import scaffold_file_plan
 
-    # 4. 差异化生成骨架结构
-    if not is_mobile:
-        # === 桌面端布局 ===
-        write_file("src/$MODULE_NAME/__init__.py", INIT_PY_TMPL)
-        write_file("src/$MODULE_NAME/main.py", '"""Desktop entry point."""\nimport sys\n# 桌面端代码...')
-        write_file("src/$MODULE_NAME/qml/main.qml", '// Desktop QML template...')
-        write_file("src/$MODULE_NAME/ui", "")
-        write_file("src/$MODULE_NAME/utils", "")
-        write_file("tests", "")
-        print("🖥️  已生成【桌面端】专属 src 布局。")
-    else:
-        # === 移动端布局 ===
-        write_file("src/$MODULE_NAME/__init__.py", INIT_PY_TMPL)
-        write_file("src/$MODULE_NAME/main.py", MOBILE_MAIN_PY_TMPL)
-        write_file("src/$MODULE_NAME/qml/main.qml", MOBILE_MAIN_QML_TMPL)
-        print("📱 已生成【移动端】专属 src 布局。")
-
-    # 默认生成空的 project_structure.txt 便于后续 tree 指令
-    if not (target_root / "project_structure.txt").exists():
-        (target_root / "project_structure.txt").touch()
-        print("📄 已生成: project_structure.txt (空文件)")
+    plan = scaffold_file_plan(
+        target_root,
+        is_mobile=is_mobile,
+        project_name=project_name,
+        repo_name=repo_name,
+        github_user=github_user,
+        real_name=real_name,
+        desc_en=desc_en,
+        desc_zh=desc_zh,
+    )
+    written = write_plan(plan, target_root, print, force=force_overwrite)
+    print(f"🖥️  已生成【{'移动端' if is_mobile else '桌面端'}】专属 src 布局（{len(written)} 项）。")
 
     print("\n" + "=" * 60)
     print(f"🎉 项目【{project_name}】锻造完毕！")

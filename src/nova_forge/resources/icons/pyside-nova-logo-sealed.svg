@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="pyside-nova 企业级旗舰封版徽标 · CARF Nova Seal">
+  <title>pyside-nova · 企业级旗舰封版徽标</title>
+  <desc>环形封印：外环二十刻度对应二十组合根，CARF 四词铭文，六枚青点对应六维天花板，中心为经典组件矩阵与青蓝渐变旗舰星芒，星芯为极光白核。</desc>
+  <defs>
+    <linearGradient id="novaStar" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#2EE6D6"/>
+      <stop offset="52%" stop-color="#3E9BE8"/>
+      <stop offset="100%" stop-color="#2E6BE6"/>
+    </linearGradient>
+    <linearGradient id="ribbon" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0E1B39"/>
+      <stop offset="50%" stop-color="#1B3462"/>
+      <stop offset="100%" stop-color="#0E1B39"/>
+    </linearGradient>
+    <radialGradient id="coreGlow">
+      <stop offset="0%" stop-color="#2EE6D6" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#2EE6D6" stop-opacity="0"/>
+    </radialGradient>
+    <path id="arcTop" d="M 76 238 A 180 180 0 0 1 436 238"/>
+    <path id="arcBottom" d="M 76 238 A 180 180 0 0 0 436 238"/>
+  </defs>
+
+  <g transform="translate(0,-6)">
+    <circle cx="256" cy="238" r="212" fill="none" stroke="#0F1E3D" stroke-opacity="0.38" stroke-width="2"/>
+    <circle cx="256" cy="238" r="206" fill="none" stroke="#2EE6D6" stroke-opacity="0.28" stroke-width="1"/>
+
+    <g stroke="#0F1E3D" stroke-opacity="0.45" stroke-width="2" stroke-linecap="round">
+      <g transform="translate(256,238)">
+        <line x1="0" y1="-204" x2="0" y2="-196"/>
+        <line x1="0" y1="-204" x2="0" y2="-196" transform="rotate(18)"/>
+        <line x1="0" y1="-204" x2="0" y2="-196" transform="rotate(36)"/>
+        <line x1="0" y1="-204" x2="0" y2="-196" transform="rotate(54)"/>
+        <line x1="0" y1="-204" x2="0" y2="-196" transform="rotate(72)"/>
+        <line x1="0" y1="-204" x2="0" y2="-196" transform="rotate(90)"/>
+        <line x1="0" y1="-204" x2="0" y2="-196" transform="rotate(108)"/>
+        <line x1="0" y1="-204" x2="0" y2="-196" transform="rotate(126)"/>
+        <line x1="0" y1="-204" x2="0" y2="-196" transform="rotate(144)"/>
+        <line x1="0" y1="-204" x2="0" y2="-196" transform="rotate(162)"/>
+        <line x1="0" y1="-204" x2="0" y2="-196" transform="rotate(180)"/>
+        <line x1="0" y1="-204" x2="0" y2="-196" transform="rotate(198)"/>
+        <line x1="0" y1="-204" x2="0" y2="-196" transform="rotate(216)"/>
+        <line x1="0" y1="-204" x2="0" y2="-196" transform="rotate(234)"/>
+        <line x1="0" y1="-204" x2="0" y2="-196" transform="rotate(252)"/>
+        <line x1="0" y1="-204" x2="0" y2="-196" transform="rotate(270)"/>
+        <line x1="0" y1="-204" x2="0" y2="-196" transform="rotate(288)"/>
+        <line x1="0" y1="-204" x2="0" y2="-196" transform="rotate(306)"/>
+        <line x1="0" y1="-204" x2="0" y2="-196" transform="rotate(324)"/>
+        <line x1="0" y1="-204" x2="0" y2="-196" transform="rotate(342)"/>
+      </g>
+      <g stroke="#2E6BE6" stroke-opacity="0.9" stroke-width="2.5" transform="translate(256,238)">
+        <line x1="0" y1="-204" x2="0" y2="-190"/>
+        <line x1="0" y1="-204" x2="0" y2="-190" transform="rotate(90)"/>
+        <line x1="0" y1="-204" x2="0" y2="-190" transform="rotate(180)"/>
+        <line x1="0" y1="-204" x2="0" y2="-190" transform="rotate(270)"/>
+      </g>
+    </g>
+
+    <g font-family="Inter, 'SF Pro Text', 'Segoe UI', sans-serif" font-size="14" font-weight="700" letter-spacing="3.2" fill="#0F1E3D">
+      <text text-anchor="middle"><textPath href="#arcTop" startOffset="50%">CONCEIVE · ACHIEVE · REFINE · FREEZE</textPath></text>
+      <text text-anchor="middle" fill="#3E5A8C"><textPath href="#arcBottom" startOffset="50%">PYSIDE-NOVA · FLAGSHIP SEAL · v1.3.0</textPath></text>
+    </g>
+
+    <g transform="translate(256,238)" fill="#2EE6D6">
+      <path d="M 0 -158 l 3.4 3.4 L 0 -151.2 l -3.4 -3.4 Z"/>
+      <path d="M 0 -158 l 3.4 3.4 L 0 -151.2 l -3.4 -3.4 Z" transform="rotate(60)"/>
+      <path d="M 0 -158 l 3.4 3.4 L 0 -151.2 l -3.4 -3.4 Z" transform="rotate(120)"/>
+      <path d="M 0 -158 l 3.4 3.4 L 0 -151.2 l -3.4 -3.4 Z" transform="rotate(180)"/>
+      <path d="M 0 -158 l 3.4 3.4 L 0 -151.2 l -3.4 -3.4 Z" transform="rotate(240)"/>
+      <path d="M 0 -158 l 3.4 3.4 L 0 -151.2 l -3.4 -3.4 Z" transform="rotate(300)"/>
+    </g>
+
+    <circle cx="256" cy="238" r="142" fill="#0F1E3D" stroke="#2E6BE6" stroke-width="2.5"/>
+    <circle cx="256" cy="238" r="134" fill="none" stroke="#2EE6D6" stroke-opacity="0.32" stroke-width="1"/>
+
+    <g transform="translate(170.2,154.8) scale(1.3)">
+      <rect x="18" y="18" width="42" height="42" rx="10" fill="#EAF2FF"/>
+      <rect x="18" y="68" width="42" height="42" rx="10" fill="#EAF2FF"/>
+      <rect x="68" y="68" width="42" height="42" rx="10" fill="#EAF2FF"/>
+      <circle cx="89" cy="49" r="20" fill="url(#coreGlow)"/>
+      <path d="M 89 24 L 94.3 43.7 L 114 49 L 94.3 54.3 L 89 74 L 83.7 54.3 L 64 49 L 83.7 43.7 Z" fill="url(#novaStar)"/>
+      <circle cx="89" cy="49" r="9" fill="#FFFFFF" fill-opacity="0.92"/>
+    </g>
+
+    <g fill="url(#novaStar)">
+      <path d="M 256 12 l 3.2 9.8 L 269 25 l -9.8 3.2 L 256 38 l -3.2 -9.8 L 243 25 l 9.8 -3.2 Z"/>
+      <path d="M 226 24 l 2.1 6.4 L 234.5 32.5 l -6.4 2.1 L 226 41 l -2.1 -6.4 L 217.5 32.5 l 6.4 -2.1 Z" fill-opacity="0.78"/>
+      <path d="M 286 24 l 2.1 6.4 L 294.5 32.5 l -6.4 2.1 L 286 41 l -2.1 -6.4 L 277.5 32.5 l 6.4 -2.1 Z" fill-opacity="0.78"/>
+    </g>
+
+    <g transform="translate(0,10)">
+      <path d="M 158 436 L 354 436 L 370 447 L 354 458 L 354 478 L 158 478 L 158 458 L 142 447 Z" fill="url(#ribbon)" stroke="#2EE6D6" stroke-opacity="0.7" stroke-width="1.5"/>
+      <text x="256" y="463" text-anchor="middle" font-family="Inter, 'SF Pro Text', 'Microsoft YaHei', sans-serif" font-size="13" font-weight="700" letter-spacing="2.4" fill="#EAF2FF">SEALED · v1.3.0</text>
+    </g>
+  </g>
+</svg>
