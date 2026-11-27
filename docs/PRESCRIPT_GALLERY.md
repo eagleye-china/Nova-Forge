@@ -2,7 +2,7 @@
 
 > `nova-forge prescript` —— 用 pyside-nova 的 **`NovaIncubator`** 七槽工作台，
 > 把九个 Prescient Layout Shell 孵化成可直接运行的 PySide6 企业级应用。
-> 版本：**nova-forge 0.5.0** · 依赖 **pyside-nova ≥ 1.2.0**（API 契约 1.2.0）。
+> 版本：**nova-forge 0.6.0** · 依赖 **pyside-nova ≥ 1.2.0**（API 契约 1.2.0）。
 
 ## 一眼看懂
 

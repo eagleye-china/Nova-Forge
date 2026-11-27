@@ -2,7 +2,7 @@
 
 所有版本变更记录，遵循 [Semantic Versioning](https://semver.org/) 规范。
 
-## [Unreleased] — 11-28 T3 完现：migrate2nova 子命令（100% 迁移）· 第 11 枚应用图标 / 专属暗色主题
+## [0.6.0] - 2026-11-28 — T3 完现：migrate2nova 子命令（100% 迁移）· 第 11 枚应用图标 / 专属暗色主题 ⭐ 当前版本（待 CSA 发布）
 
 ### ✨ Added（T3 · 原名 `migrate_to_nova`，CSA 建议更名便于输入）
 - 新增主命令 **`nova-forge migrate2nova`**（旧名 `migrate_to_nova` 保留为隐藏 alias，史料不圆场 / 交叉引用不断）：一键 QtWidgets → pyside-nova 迁移助手，默认 **dry-run**，`--scaffold` 才写盘。
@@ -30,10 +30,11 @@
 
 ### 📌 如实登记
 - T3 只改 nova-forge 侧与其文档/测试；**pyside-nova 1.11.0 冻结面 / 147 类型 / 指纹 `9966483dda5a53c4` 零改动**，不升版、不重签。
-- ruff 全量 `src tests scripts` 仍 **15 条**，均在 T23 未改动文件（`test_comment.py` 等），为本轮零改动存量挂账，未越界扫荡；本轮新增/修改文件 `All checks passed!`。
+- **ruff 存量挂账（发布前只读扫描 · 按 CSA 拍板保持不修）**：全量 `src tests scripts` **15 条** = `UP012` 7（`tests/test_comment.py`）· `F401` 3（`cmd_saver.py` ×2 / `test_comment.py` ×1）· `N802` 2（`resources/resources_rc.py`，`pyside6-rcc` 生成物固有）· `RUF005` 1（`core/comment_logic.py:220`）· `SIM105` 1（`cmd_publish.py:28`）· `RUF015` 1（`test_comment.py:243`）；**9 条 `--fix` 可修（3 条 unsafe）/ 6 条需手工或豁免**。逐条归属：全部落在 `v0.5.0` 发布提交 `db76dd5e1` 或更早，T3 新增的 `migrate/` 9 文件 / `cmd_migrate.py` / `cli.py` / `test_migrate2nova.py` 全部 ruff 干净 → **不阻塞发布**。上一轮「均在 T23 未改动文件（`test_comment.py` 等）」口径不准确，此处如实校准（实际涉及 5 个文件，且 `resources_rc.py` 是本轮重编的生成物）。不一把 `--fix --unsafe-fixes` 梭哈：`N802` 属生成器固有、改了下次重编必回潮，`cmd_saver.py` 的 `import resources_rc` 是「导入即注册 qrc」的误报倾向，盲删会破坏资源注册与生成器幂等。
 - wheel 首次以 `--no-isolation` 构建因当前解释器 setuptools 后端元数据校验差异失败，改隔离模式 `python -m build --wheel` 即通过 → 工具/环境差异，非本轮代码引入；生成器幂等首次 BEFORE/AFTER 不等系生成物追上本轮新增 `SESSION_HANDOFF.md` 输入，按项目口径连跑两遍后哈希一致（`IDEMPOTENT: PASS`）。
 - §9.4 原方案骨架（根 `PROMPT.md §9`）、`nova-api-1.0.0.json` 史料行、旧名 `migrate_to_nova` 均按「史料不圆场」逐字保留，仅追加现行校准段。
-- `commit / push / tag / PyPI / 站点上线` 全归 CSA；本轮改动全部留本地工作树。
+- **发布态校准（11-28 04:50）**：`pyside-nova 1.11.0` **已由 CSA 发布**（HEAD `596f304` = tag `v1.11.0` = `origin/main`，工作树干净）；`nova-forge 0.5.0` **已发布**（tag `v0.5.0` → `db76dd5e1`），T3 全套随后以 `eb0bfef9d` 提交并推送 `origin/main`、**尚无新 tag**。按 CSA 拍板升 **0.6.0 minor**（T3 新增子命令 + 第 11 枚图标 / 主题，SemVer 向后兼容新功能），归档 `Unreleased` 为 `[0.6.0]`，`pyproject.toml` / `docs/PRESCRIPT_GALLERY.md` 版本同步。测试夹具中 `plan_project(..., "0.5.0")` 等字符串是入参常量而非版本声明，按最小改动不回改；`[0.5.0]` 段「当前版本（待 CSA 发布）」为当时点史料，按「史料不圆场」不回改。
+- `commit / push / tag / PyPI / 站点上线` 全归 CSA；本轮升版与账本校准改动全部留本地工作树，等待 CSA 发版。
 
 ## [Unreleased] — 11-27 20:12 T23：README 英雄卡改用 NovaMarkdown 渲染 md
 
